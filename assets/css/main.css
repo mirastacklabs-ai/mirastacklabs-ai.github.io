@@ -199,13 +199,14 @@ p {
 }
 
 .nav__wordmark {
-  font-size: 0.85rem;
+  font-size: 1.625rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text);
+  line-height: 1;
 }
 
-.nav__wordmark-labs {
+.nav__wordmark-LABS {
   color: var(--text-muted);
   font-weight: 400;
 }
@@ -1197,7 +1198,9 @@ p {
   }
 
   .devops-loop__step:nth-child(2),
-  .devops-loop__step:nth-child(4) {
+  .devops-loop__step:nth-child(4),
+  .devops-loop__step:nth-child(6),
+  .devops-loop__step:nth-child(8) {
     border-right: none;
   }
 

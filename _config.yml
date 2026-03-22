@@ -2,13 +2,13 @@ title: MIRASTACKLABS
 tagline: The AIR-GAPPED Agentic AI-Native Sovereign Platform of Platforms
 description: Building the Agentic AI-Native Air-Gapped Sovereign Infrastructure of the Future. Purpose-built for regulated, air-gapped, and sovereignty-critical environments.
 baseurl: ""
-url: "https://mirastacklabs.ai"
+url: "https://MIRASTACKLABS.ai"
 markdown: kramdown
 permalink: pretty
 
 contact:
-  email: investors@mirastacklabs.ai
-  linkedin: https://linkedin.com/company/mirastack-labs
+  email: investors@MIRASTACKLABS.ai
+  linkedin: https://linkedin.com/company/MIRASTACK-LABS
 
 plugins:
   - jekyll-seo-tag

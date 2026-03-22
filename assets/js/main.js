@@ -10,7 +10,7 @@
   // --------------------------------------------------------------------------
   const html        = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
-  const STORAGE_KEY = 'mirastack-theme';
+  const STORAGE_KEY = 'MIRASTACK-theme';
 
   function getPreferred() {
     const stored = localStorage.getItem(STORAGE_KEY);
