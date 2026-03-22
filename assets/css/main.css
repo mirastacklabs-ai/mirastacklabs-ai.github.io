@@ -542,6 +542,13 @@ p {
   border-bottom: 1px solid var(--border);
 }
 
+/* Light mode: section uses page bg (#F0F2F5) so white bg-card grid cells
+   read as elevated cards with proper depth — in dark mode bg-alt already
+   contrasts correctly so no override needed. */
+[data-theme="light"] .approach {
+  background: var(--bg);
+}
+
 /* Two-column layout: diagram left, content right */
 .approach__layout {
   display: grid;
