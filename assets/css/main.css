@@ -547,12 +547,18 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: stretch;
+}
+
+.approach__diagram {
+  display: flex;
 }
 
 .approach__diagram img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
@@ -599,9 +605,7 @@ p {
   border-right: 1px solid var(--border);
   position: relative;
   transition: background 0.2s ease;
-  background: rgba(var(--bg-alt-rgb, 15, 19, 24), 0.75);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: var(--bg-card);
 }
 
 .devops-loop__step:last-child {
