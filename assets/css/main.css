@@ -550,6 +550,15 @@ p {
 }
 
 /* Two-column layout: diagram left, content right */
+.approach__header {
+  margin-bottom: 3rem;
+}
+
+.approach__header h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
 .approach__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -571,10 +580,6 @@ p {
 
 .approach__inner {
   text-align: left;
-}
-
-.approach__inner h2 {
-  margin-bottom: 1rem;
 }
 
 .approach__inner .lead {
