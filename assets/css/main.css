@@ -542,10 +542,22 @@ p {
   border-bottom: 1px solid var(--border);
 }
 
+/* Two-column layout: diagram left, content right */
+.approach__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.approach__diagram img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .approach__inner {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
 
 .approach__inner h2 {
@@ -553,8 +565,7 @@ p {
 }
 
 .approach__inner .lead {
-  margin: 0 auto 3rem;
-  text-align: left;
+  margin: 0 0 3rem;
   color: var(--text-muted);
 }
 
@@ -1180,7 +1191,8 @@ p {
 @media (max-width: 900px) {
   .problem__grid,
   .miradorstack__intro,
-  .foundation__grid {
+  .foundation__grid,
+  .approach__layout {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
