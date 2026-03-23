@@ -1,0 +1,223 @@
+---
+layout: default
+title: Telegen | MIRASTACK LABS Products
+description: "Telegen is an open-source, Apache 2.0 licensed telemetry generation and collection agent with OpenTelemetry-native output across metrics, traces, logs, and profiles."
+image: /assets/img/telegen.svg
+keywords: "Telegen, OpenTelemetry, eBPF observability, telemetry agent, Apache 2.0, metrics traces logs profiles, CNCF standards"
+permalink: /products/telegen/
+---
+
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Product / Telegen</div>
+
+    <div class="product-logo reveal reveal--delay-1">
+      <img src="{{ '/assets/img/telegen.svg' | relative_url }}" alt="Telegen logo" loading="lazy" />
+    </div>
+
+    <h1 class="product-hero__title reveal reveal--delay-2">Telegen</h1>
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      Zero-configuration telemetry generation and collection agent for modern infrastructure. Telegen auto-discovers your
+      environment and emits correlated metrics, traces, logs, and continuous profiles in OpenTelemetry-native format.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="https://telegen.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">Read Documentation</a>
+      <a class="btn btn--outline" href="https://github.com/mirastacklabs-ai/telegen" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="Telegen key tags">
+      <span class="product-badge product-badge--accent">Open Source</span>
+      <span class="product-badge product-badge--accent">Apache 2.0</span>
+      <span class="product-badge">eBPF Powered</span>
+      <span class="product-badge">OpenTelemetry Native</span>
+      <span class="product-badge">Agent + Collector Modes</span>
+    </div>
+  </div>
+</section>
+
+<section class="telegen-layout">
+  <div class="container">
+    <span class="label reveal">market.positioning</span>
+    <h2 class="reveal reveal--delay-1">Why Telegen Stands Out</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; margin-bottom: 2rem;">
+      Telegen is built for teams that need one open telemetry plane instead of fragmented observability tooling.
+      It combines broad signal coverage with practical deployment simplicity, while staying aligned with global
+      OpenTelemetry standards from CNCF under the Linux Foundation ecosystem.
+    </p>
+
+    <div class="telegen-note reveal reveal--delay-3">
+      <p>
+        In a market filled with point products, Telegen delivers a unique open-source approach: a single agent architecture
+        that spans telemetry generation, collection, enrichment, and export across diverse workloads and environments.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">key.capabilities</span>
+    <div class="telegen-grid">
+      <article class="telegen-panel reveal reveal--delay-1">
+        <h3>Core Observability</h3>
+        <ul>
+          <li>Auto-discovery for cloud, Kubernetes, runtimes, and services</li>
+          <li>Distributed tracing without application code changes</li>
+          <li>Continuous profiling for CPU, memory, off-CPU, and mutex</li>
+          <li>Log collection with cross-signal enrichment</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-2">
+        <h3>Security and Network Visibility</h3>
+        <ul>
+          <li>Security observability with syscall and file integrity monitoring</li>
+          <li>Network observability for DNS, TCP, and packet-level analytics</li>
+          <li>Kernel-level eBPF instrumentation for deep system insight</li>
+          <li>Support for high-trust and high-compliance environments</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-3">
+        <h3>Deployment and Operations</h3>
+        <ul>
+          <li>Deploy via Kubernetes, Helm, Docker, Linux, OpenShift, and AWS ECS</li>
+          <li>Minimal setup with endpoint-first configuration philosophy</li>
+          <li>Self-telemetry, health checks, troubleshooting, and upgrade guidance</li>
+          <li>Performance tuning for low-resource and high-volume workloads</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-4">
+        <h3>Ecosystem and Interoperability</h3>
+        <ul>
+          <li>OTLP export to OpenTelemetry Collector and OTLP-compatible backends</li>
+          <li>Backend integration path for Grafana, Jaeger, Prometheus, and more</li>
+          <li>Technical references for metrics, signals, semantic conventions, CLI, and API</li>
+          <li>Designed for vendor-neutral observability architectures</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">feature.matrix</span>
+    <h2 class="reveal reveal--delay-1">Feature Matrix by Taxonomy</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; margin-bottom: 2rem; max-width: 68ch;">
+      This matrix follows Telegen documentation taxonomy across Core Observability, Security and Network,
+      Infrastructure, and Specialized capabilities.
+    </p>
+
+    <div class="matrix-wrap reveal reveal--delay-3">
+      <table class="feature-matrix" aria-label="Telegen feature matrix aligned to documentation taxonomy">
+        <thead>
+          <tr>
+            <th scope="col">Capability</th>
+            <th scope="col">Category</th>
+            <th scope="col">Agent Mode</th>
+            <th scope="col">Collector Mode</th>
+            <th scope="col">Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Auto-Discovery</td>
+            <td>Core Observability</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>eBPF + environment detection</td>
+          </tr>
+          <tr>
+            <td>Distributed Tracing</td>
+            <td>Core Observability</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>eBPF</td>
+          </tr>
+          <tr>
+            <td>Log Collection</td>
+            <td>Core Observability</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Filesystem and pipeline ingest</td>
+          </tr>
+          <tr>
+            <td>Continuous Profiling</td>
+            <td>Core Observability</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>eBPF perf events</td>
+          </tr>
+          <tr>
+            <td>Security Monitoring</td>
+            <td>Security and Network</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Syscall and file-integrity observability</td>
+          </tr>
+          <tr>
+            <td>Network Observability</td>
+            <td>Security and Network</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>DNS, TCP, packet tracing, XDP</td>
+          </tr>
+          <tr>
+            <td>Database Tracing</td>
+            <td>Infrastructure</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Protocol-aware eBPF probes</td>
+          </tr>
+          <tr>
+            <td>SNMP Collection</td>
+            <td>Infrastructure</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>SNMP polling and traps</td>
+          </tr>
+          <tr>
+            <td>Storage Monitoring</td>
+            <td>Infrastructure</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Storage array API integrations</td>
+          </tr>
+          <tr>
+            <td>AI and GPU Observability</td>
+            <td>Specialized</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>eBPF + GPU telemetry</td>
+          </tr>
+          <tr>
+            <td>Node Exporter Fusion</td>
+            <td>Specialized</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Node metrics fusion pipeline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">go.to.production</span>
+    <h2 class="reveal reveal--delay-1">Deploy Fast. Scale with Confidence.</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; max-width: 62ch;">
+      Telegen can be up and running in minutes, then extended with architecture-level controls for enterprise operations.
+      Start with minimal configuration, expand by policy, and keep your telemetry stack open and future-ready.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3" style="margin-top: 2rem;">
+      <a class="btn btn--primary" href="https://telegen.readthedocs.io/en/latest/getting-started/quickstart.html" target="_blank" rel="noopener noreferrer">Start Quick Setup</a>
+      <a class="btn btn--outline" href="{{ '/products/' | relative_url }}">Back to Products</a>
+    </div>
+  </div>
+</section>
