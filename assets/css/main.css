@@ -423,16 +423,6 @@ p {
   height: auto;
 }
 
-[data-theme="dark"] .product-logo img,
-[data-theme="dark"] .product-card__logo img {
-  filter: invert(1) brightness(1.1);
-}
-
-[data-theme="light"] .product-logo img,
-[data-theme="light"] .product-card__logo img {
-  filter: none;
-}
-
 .product-hero__title {
   font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1.08;
