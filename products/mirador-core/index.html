@@ -1,0 +1,241 @@
+---
+layout: default
+title: Mirador Core | MIRASTACK LABS Products
+description: "Mirador Core is an open-source, API-first observability intelligence engine for KPI management, failure detection, correlation analysis, and explainable 5-WHY root cause workflows."
+keywords: "Mirador Core, root cause analysis, observability API, KPI management, failure detection, correlation analysis, 5 why RCA"
+image: /favicon.svg
+permalink: /products/mirador-core/
+---
+
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Product / Mirador Core</div>
+
+    <h1 class="product-hero__title reveal reveal--delay-1">Mirador Core</h1>
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      API-first observability intelligence engine that converts telemetry into explainable incident understanding.
+      Mirador Core unifies KPI management, failure detection, statistical correlation, and 5-WHY root cause analysis
+      into one production-grade workflow.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="https://mirador-core.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">Read Documentation</a>
+      <a class="btn btn--outline" href="https://github.com/mirastacklabs-ai/mirador-core" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="Mirador Core key tags">
+      <span class="product-badge product-badge--accent">Open Source</span>
+      <span class="product-badge">API First</span>
+      <span class="product-badge">KPI to RCA Workflow</span>
+      <span class="product-badge">5-WHY Explainability</span>
+      <span class="product-badge">Docker + Helm + Kubernetes</span>
+    </div>
+  </div>
+</section>
+
+<section class="telegen-layout">
+  <div class="container">
+    <span class="label reveal">market.positioning</span>
+    <h2 class="reveal reveal--delay-1">From Telemetry Signals to Explainable Root Cause</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; margin-bottom: 2rem;">
+      Mirador Core is designed for operations teams that need more than dashboards. It links business-impact KPIs and
+      infrastructure-cause KPIs to produce evidence-backed incident narratives that teams can act on quickly.
+    </p>
+
+    <div class="telegen-note reveal reveal--delay-3">
+      <p>
+        The core workflow is connected by design: KPI registry and context feeds failure detection, correlation computes
+        candidate causes, and RCA returns human-readable 5-WHY chains with confidence and timing evidence.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">workflow.components</span>
+    <div class="telegen-grid">
+      <article class="telegen-panel reveal reveal--delay-1">
+        <h3>1) KPI Management</h3>
+        <ul>
+          <li>Define impact and cause KPIs with formulas or query objects</li>
+          <li>Bulk import KPI definitions with JSON or CSV pipelines</li>
+          <li>Use semantic KPI search for faster incident investigation setup</li>
+          <li>Establish a registry-driven foundation for correlation and RCA</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-2">
+        <h3>2) Failure Detection</h3>
+        <ul>
+          <li>Detect failures from metrics, logs, and traces in a selected time window</li>
+          <li>Group by service and component with deterministic identifiers</li>
+          <li>Correlate transaction-level failures across distributed services</li>
+          <li>Store and retrieve incidents for postmortem and trend analysis</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-3">
+        <h3>3) Correlation Analysis</h3>
+        <ul>
+          <li>Identify red-anchor impact KPIs and ranked cause candidates</li>
+          <li>Score relationships with Pearson, Spearman, partial, and lag evidence</li>
+          <li>Apply temporal ring logic for ordering and causal confidence</li>
+          <li>Constrain analysis windows for predictable operational performance</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-4">
+        <h3>4) Root Cause Analysis (RCA)</h3>
+        <ul>
+          <li>Generate structured 5-WHY chains from correlation outputs</li>
+          <li>Return impact summary, chain evidence, and confidence scores</li>
+          <li>Enable explainable narratives for incident reviews and governance</li>
+          <li>Support continuous RCA workflows in proactive operations</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">feature.matrix</span>
+    <h2 class="reveal reveal--delay-1">Mirador Core Capability Matrix</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; margin-bottom: 2rem; max-width: 68ch;">
+      This matrix aligns with Mirador Core documentation flow and deployment references across KPI, failures,
+      correlation, RCA, and production operations.
+    </p>
+
+    <div class="matrix-wrap reveal reveal--delay-3">
+      <table class="feature-matrix" aria-label="Mirador Core capability matrix aligned to documentation taxonomy">
+        <thead>
+          <tr>
+            <th scope="col">Capability</th>
+            <th scope="col">Component</th>
+            <th scope="col">API Surface</th>
+            <th scope="col">Primary Output</th>
+            <th scope="col">Operational Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>KPI Registry and Lifecycle</td>
+            <td>KPI Management</td>
+            <td>/api/v1/kpi/defs</td>
+            <td>Impact and cause KPI definitions</td>
+            <td>Creates a stable monitoring and RCA foundation</td>
+          </tr>
+          <tr>
+            <td>Bulk KPI Import</td>
+            <td>KPI Management</td>
+            <td>/api/v1/kpi/defs/bulk-json, /bulk-csv</td>
+            <td>Batch KPI onboarding</td>
+            <td>Accelerates onboarding for large environments</td>
+          </tr>
+          <tr>
+            <td>Semantic KPI Search</td>
+            <td>KPI Management</td>
+            <td>/api/v1/kpi/search</td>
+            <td>Ranked KPI candidates</td>
+            <td>Speeds triage during incident response</td>
+          </tr>
+          <tr>
+            <td>Multi-Signal Failure Detection</td>
+            <td>Failures</td>
+            <td>/api/v1/unified/failures/detect</td>
+            <td>Incident records with confidence</td>
+            <td>Turns noisy telemetry into actionable failures</td>
+          </tr>
+          <tr>
+            <td>Transaction Failure Correlation</td>
+            <td>Failures</td>
+            <td>/api/v1/unified/failures/correlate</td>
+            <td>Cascade and sequence context</td>
+            <td>Improves blast-radius understanding</td>
+          </tr>
+          <tr>
+            <td>Statistical Cause Ranking</td>
+            <td>Correlation</td>
+            <td>/api/v1/unified/correlation</td>
+            <td>Suspicion-ranked cause candidates</td>
+            <td>Prioritizes root-cause investigation path</td>
+          </tr>
+          <tr>
+            <td>Temporal Ring Analysis</td>
+            <td>Correlation</td>
+            <td>/api/v1/unified/correlation</td>
+            <td>R1 to R4 timing evidence</td>
+            <td>Improves causal ordering and confidence</td>
+          </tr>
+          <tr>
+            <td>5-WHY RCA Chains</td>
+            <td>RCA</td>
+            <td>/api/v1/unified/rca</td>
+            <td>Human-readable root-cause narrative</td>
+            <td>Reduces MTTR with explainable outcomes</td>
+          </tr>
+          <tr>
+            <td>Health and Metrics Endpoints</td>
+            <td>Operations</td>
+            <td>/health, /ready, /metrics</td>
+            <td>Service health and telemetry</td>
+            <td>Supports production reliability and observability</td>
+          </tr>
+          <tr>
+            <td>Deployment and Integration Options</td>
+            <td>Operations</td>
+            <td>Docker, Helm, Kubernetes</td>
+            <td>Environment-specific deployment path</td>
+            <td>Fits both local dev and enterprise clusters</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">deployment.and.integration</span>
+    <h2 class="reveal reveal--delay-1">Built for Real Production Constraints</h2>
+
+    <div class="telegen-grid" style="margin-top: 1.5rem;">
+      <article class="telegen-panel reveal reveal--delay-2">
+        <h3>Deployment and Scale</h3>
+        <ul>
+          <li>Local development with Docker Compose and seeded workflows</li>
+          <li>Helm and Kubernetes deployment for production operations</li>
+          <li>Autoscaling, resource controls, and health-check patterns</li>
+          <li>Monitoring, backup, and rollback procedures in docs</li>
+        </ul>
+      </article>
+
+      <article class="telegen-panel reveal reveal--delay-3">
+        <h3>Integration and Governance</h3>
+        <ul>
+          <li>OpenAPI and Swagger for integration-first implementation</li>
+          <li>CORS, rate limiting, logging, and feature flag controls</li>
+          <li>Authentication options including LDAP and OAuth2</li>
+          <li>Optional tenant-data integration via MariaDB patterns</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">go.to.production</span>
+    <h2 class="reveal reveal--delay-1">Investigate Faster with Explainable Evidence</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; max-width: 64ch;">
+      Mirador Core helps teams move from alert noise to clear, evidence-backed root cause decisions. Start with KPI
+      modeling, operationalize failure and correlation workflows, and embed 5-WHY RCA into everyday incident response.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3" style="margin-top: 2rem;">
+      <a class="btn btn--primary" href="https://mirador-core.readthedocs.io/en/latest/kpi-failures-correlation-rca-user-guide.html" target="_blank" rel="noopener noreferrer">Start with the User Guide</a>
+      <a class="btn btn--outline" href="{{ '/products/' | relative_url }}">Back to Products</a>
+    </div>
+  </div>
+</section>

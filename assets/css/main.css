@@ -231,6 +231,7 @@ p {
   text-decoration: none;
   padding: 0.35rem 0;
   border-bottom: 1px solid transparent;
+  line-height: 1;
 }
 
 .nav__link:hover,
@@ -244,9 +245,17 @@ p {
   position: relative;
 }
 
+.nav__link--dropdown {
+  display: inline-flex;
+  align-items: center;
+}
+
 .nav__link--dropdown::after {
   content: "▾";
   margin-left: 0.4rem;
+  font-size: 0.8em;
+  line-height: 1;
+  transform: translateY(-0.02em);
   color: var(--text-dim);
 }
 
