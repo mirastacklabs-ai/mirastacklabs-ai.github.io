@@ -1,0 +1,22 @@
+# Jekyll build output
+_site/
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
+
+# Ruby/Bundler local artifacts
+.bundle/
+.bundle-arm64/
+vendor/bundle/
+vendor/cache/
+
+# Local development helpers
+Dockerfile.jekyll-local
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
