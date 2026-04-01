@@ -14,9 +14,9 @@ permalink: /blog/chunk-split-caching/
 
 At [MIRASTACK LABS](https://mirastacklabs.ai), we are building Agentic AI DevOps Toolchains starting with observability tools that help engineering teams understand what their systems are doing. Metrics, logs, and traces — the three pillars of observability — billions of data points flowing through 100% open-source observability signal stores all surfaced through a single interaction layers in fully AIR-GAPPED REGULATED DATA CENTER Environments. 
 
-Our engineering team comes from a background of building population-scale systems and platforms. As our telemetry signals grew with scale — some running thousands of microservices generating gigabytes of telemetry per hour — the next bottleneck appeared in our **data fetch layer**, the middleware between our UI, AI Agents and the telemetry stores. The backend foundation remained strong: VictoriaMetrics, VictoriaLogs, and VictoriaTraces continued to handle scale exactly as designed.
+Our engineering team comes from a background of building population-scale systems and platforms. As our telemetry signals grew with scale — some running thousands of microservices generating gigabytes of telemetry per hour — the next bottleneck appeared in our **data fetch layer**, the middleware between our UI, AI Agents and the telemetry stores. The backend foundation remained strong and continued to handle scale exactly as designed for long term purposes.
 
-This is the story of how we redesigned the caching layer, and the engineering decisions behind a  system that now serves most queries in under 50 ms — across metrics, logs, AND traces — even when the underlying data spans a week and billions of raw data points. The same telemetry fabric is consumed by MIRASTACK AI Agents for deep correlation, failure detection, and near-real-time Root Cause Analysis, known internally as **#5YRCA**. For us, it is neither fair nor efficient to push that entire agentic-analysis burden directly onto the Victoria stack query path. 
+This is the story of how we redesigned the caching layer, and the engineering decisions behind a  system that now serves most queries in under 50 ms — across metrics, logs, AND traces — even when the underlying data spans a week and billions of raw data points. The same telemetry fabric is consumed by MIRASTACK AI Agents for deep correlation, failure detection, and near-real-time Root Cause Analysis, known internally as **#5YRCA**. For us, it is neither fair nor efficient to push that entire agentic-analysis burden directly onto the Observability datastores (VictoriaStack, Clickhouse, etc.) query path. 
 
 This solution was implemented to preserve backend efficiency, protect query latency, and let both observability and AI analysis pipelines scale cleanly together.
 
@@ -26,17 +26,17 @@ This solution was implemented to preserve backend efficiency, protect query late
 
 Here's what happens when someone opens our App Performance page for a single service:
 
-**Metrics (VictoriaMetrics):**
+**Metrics:**
 1. **30+ PromQL queries** fire in parallel — throughput, error rate, P50/P95/P99 latency, anomaly scores, dependency graphs
 2. **6 metric probe queries** determine which histogram naming convention the collector uses
 3. **2 service graph probes** detect metric naming variants
 
-**Logs (VictoriaLogs):**
+**Logs:**
 1. **Log volume histograms** (`stats_query_range`) for the service — error distribution over time
 2. **Hit count aggregations** (`hits`) showing log lines per severity level
 3. **Field facets** — what fields exist in the logs for this service
 
-**Traces (VictoriaTraces):**
+**Traces:**
 1. **Trace search** across the entire time window — find all traces touching this service
 2. **RED metrics from traces** — rate, errors, duration computed from span data via LogSQL
 3. **Service dependency graph** — which services call what, derived from trace analytics
@@ -90,9 +90,9 @@ flowchart TB
   end
 
   U --> V[Valkey]
-  V --> VM[VictoriaMetrics]
-  V --> VL[VictoriaLogs]
-  V --> VT[VictoriaTraces]
+  V --> M[MetricStore]
+  V --> L[LogStore]
+  V --> T[TraceStore]
 ```
 
 ---
@@ -144,7 +144,7 @@ The answer is yes — but with critical differences in **merge semantics** and *
 
 #### LogSQL stats_query_range — The Well-Behaved Sibling
 
-VictoriaLogs exposes a `stats_query_range` endpoint that returns time-series aggregations over log data — "how many ERROR logs per minute over the last 24 hours." The response shape is nearly identical to PromQL range queries. We reuse the exact same 9-step algorithm with the same chunk tier table.
+LogStore exposes a `stats_query_range` endpoint that returns time-series aggregations over log data — "how many ERROR logs per minute over the last 24 hours." The response shape is nearly identical to PromQL range queries. We reuse the exact same 9-step algorithm with the same chunk tier table.
 
 The merge semantics are the same as metrics: deduplicate by timestamp. An aggregation at timestamp T over the same log data is deterministic.
 
@@ -228,7 +228,7 @@ The algorithm runs in **6 steps**:
 
 #### Microsecond Timestamps
 
-Here's a subtlety that bit us early: the Jaeger v1 API (which VictoriaTraces exposes) uses **microsecond** timestamps, not seconds. (Note: while the OpenTelemetry specification defines trace timestamps in nanoseconds, the Jaeger search API uses microseconds — a distinction that matters for bucket arithmetic.) Our tiered TTL function — originally built for seconds-precision metrics — needed a microsecond variant:
+Here's a subtlety that bit us early: the Jaeger v1 API uses **microsecond** timestamps, not seconds. (Note: while the OpenTelemetry specification defines trace timestamps in nanoseconds, the Jaeger search API uses microseconds — a distinction that matters for bucket arithmetic.) Our tiered TTL function — originally built for seconds-precision metrics — needed a microsecond variant:
 
 ```bash
 age_seconds = (now_microseconds - chunk_end_microseconds) / 1,000,000
@@ -280,7 +280,7 @@ Query 2: time=1711900818 → quantised to 1711900800  ← same bucket!
 Query 3: time=1711900819 → quantised to 1711900800  ← same bucket!
 ```
 
-The first query fetches from VictoriaMetrics. Queries 2–6 get the cached response. Six round-trips become one.
+The first query fetches from MetricStore. Queries 2–6 get the cached response. Six round-trips become one.
 
 ---
 
@@ -367,7 +367,7 @@ The cache is never in the critical path for correctness — for any backend:
 try {
   return cache_strategy.execute(query)
 } catch {
-  // Valkey is down? Go direct to VictoriaMetrics/Logs/Traces.
+  // Valkey is down? Go direct to Metrics/Logs/Traces DataStore.
   return direct_fetch(query)
 }
 ```
@@ -429,7 +429,7 @@ If User A queries `[14:02, 14:32]` and User B queries `[14:05, 14:35]`, free-for
 
 ### Why Microsecond Arithmetic for Traces?
 
-The Jaeger v1 API uses microsecond timestamps (the OpenTelemetry specification uses nanoseconds, but VictoriaTraces exposes the Jaeger API). If you use seconds-precision arithmetic for trace bucket boundaries, your buckets misalign by up to 999,999 microseconds — nearly a full second. Cache keys won't match between requests, hit rate drops to zero, and you've built an expensive no-op. We learned to provide a dedicated `tieredChunkTTLMicros` function alongside the seconds variant.
+The Jaeger v1 API uses microsecond timestamps (the OpenTelemetry specification uses nanoseconds). If you use seconds-precision arithmetic for trace bucket boundaries, your buckets misalign by up to 999,999 microseconds — nearly a full second. Cache keys won't match between requests, hit rate drops to zero, and you've built an expensive no-op. We learned to provide a dedicated `tieredChunkTTLMicros` function alongside the seconds variant.
 
 ### Why Auto-Widen Trace Buckets?
 
