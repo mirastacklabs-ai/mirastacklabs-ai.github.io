@@ -90,9 +90,9 @@ flowchart TB
   end
 
   U --> V[Valkey]
-  V --> M[MetricStore]
-  V --> L[LogStore]
-  V --> T[TraceStore]
+  V --> MS[MetricStore]
+  V --> LS[LogStore]
+  V --> TS[TraceStore]
 ```
 
 ---
