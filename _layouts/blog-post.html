@@ -1,0 +1,174 @@
+---
+layout: default
+---
+<section class="section blog-post">
+  <div class="container blog-post__container">
+    {% if page.date %}
+    <p class="blog-post__meta">{{ page.date | date: "%B %-d, %Y" }}</p>
+    {% endif %}
+    <article class="blog-prose">
+      {{ content }}
+    </article>
+  </div>
+</section>
+
+<script src="{{ '/assets/js/vendor/mermaid.min.js' | relative_url }}"></script>
+<script>
+  const html = document.documentElement;
+  const mermaid = window.mermaid;
+
+  if (!mermaid) {
+    console.error("Mermaid failed to load from local asset.");
+  }
+
+  function cssVar(name) {
+    return getComputedStyle(html).getPropertyValue(name).trim();
+  }
+
+  function buildThemeVariables() {
+    return {
+      fontFamily: "'JetBrains Mono', 'Courier New', monospace",
+      primaryColor: cssVar("--bg-alt"),
+      primaryTextColor: cssVar("--text"),
+      primaryBorderColor: cssVar("--border-accent"),
+      lineColor: cssVar("--accent"),
+      secondaryColor: cssVar("--bg-card"),
+      tertiaryColor: cssVar("--bg"),
+      background: cssVar("--bg"),
+      mainBkg: cssVar("--bg-alt"),
+      nodeBorder: cssVar("--border-accent"),
+      clusterBkg: cssVar("--bg"),
+      clusterBorder: cssVar("--border-accent"),
+      defaultLinkColor: cssVar("--accent"),
+      edgeLabelBackground: cssVar("--bg-card"),
+      noteBkgColor: cssVar("--bg-card"),
+      noteTextColor: cssVar("--text"),
+      tertiaryTextColor: cssVar("--text-muted")
+    };
+  }
+
+  function normalizeLanguage(raw) {
+    if (!raw) return "text";
+    const lang = raw.toLowerCase();
+    if (lang === "shell-session" || lang === "terminal" || lang === "console") return "shell";
+    if (lang === "plaintext") return "text";
+    if (lang === "zsh") return "bash";
+    return lang;
+  }
+
+  function looksLikeShell(content) {
+    const sample = content.trim();
+    if (!sample) return false;
+    return /(^|\n)\s*(\$\s+|sudo\s+|curl\s+|docker\s+|kubectl\s+|npm\s+|yarn\s+|pnpm\s+|bundle\s+)/.test(sample);
+  }
+
+  function setCodeLanguageBadges() {
+    const blocks = document.querySelectorAll("article.blog-prose pre > code");
+    blocks.forEach((code) => {
+      const pre = code.parentElement;
+      if (!pre) return;
+      const languageClass =
+        Array.from(code.classList).find((c) => c.startsWith("language-")) ||
+        Array.from(pre.classList).find((c) => c.startsWith("language-")) ||
+        Array.from((pre.parentElement && pre.parentElement.classList) || []).find((c) => c.startsWith("language-")) ||
+        Array.from((pre.closest("[class*='language-']")?.classList) || []).find((c) => c.startsWith("language-"));
+
+      let lang = normalizeLanguage(languageClass ? languageClass.replace("language-", "") : "text");
+      if (lang === "text" && looksLikeShell(code.textContent)) {
+        lang = "bash";
+      }
+      pre.dataset.lang = lang;
+    });
+  }
+
+  function enforceNewTabLinks() {
+    const links = document.querySelectorAll("article.blog-prose a[href]");
+    links.forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      if (href.startsWith("#")) return;
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+    });
+  }
+
+  function addLineNumbers() {
+    const blocks = document.querySelectorAll("article.blog-prose pre > code");
+
+    blocks.forEach((code) => {
+      const pre = code.parentElement;
+      if (!pre || pre.dataset.lang === "mermaid" || code.classList.contains("has-line-numbers")) {
+        return;
+      }
+
+      const htmlSource = code.innerHTML.replace(/\n$/, "");
+      const lines = htmlSource.split("\n");
+      const wrapped = lines
+        .map((line) => `<span class=\"code-line\">${line.length ? line : " "}</span>`)
+        .join("");
+
+      code.innerHTML = wrapped;
+      code.classList.add("has-line-numbers");
+    });
+  }
+
+  function hydrateMermaidBlocks() {
+    const codeBlocks = document.querySelectorAll("pre > code.language-mermaid");
+
+    codeBlocks.forEach((code) => {
+      const pre = code.parentElement;
+      if (!pre) return;
+
+      const container = document.createElement("div");
+      container.className = "mermaid";
+      container.dataset.lang = "mermaid";
+      container.dataset.mermaidSource = code.textContent.trim();
+      container.textContent = container.dataset.mermaidSource;
+
+      const highlight = pre.parentElement;
+      if (highlight && highlight.classList.contains("highlight")) {
+        highlight.replaceWith(container);
+      } else {
+        pre.replaceWith(container);
+      }
+    });
+  }
+
+  async function renderMermaid() {
+    const nodes = document.querySelectorAll(".mermaid");
+    if (!nodes.length || !mermaid) return;
+
+    nodes.forEach((node) => {
+      if (node.dataset.mermaidSource) {
+        node.textContent = node.dataset.mermaidSource;
+      }
+      node.removeAttribute("data-processed");
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: "loose",
+      theme: "base",
+      themeVariables: buildThemeVariables()
+    });
+
+    await mermaid.run({ nodes });
+  }
+
+  setCodeLanguageBadges();
+  enforceNewTabLinks();
+  addLineNumbers();
+  hydrateMermaidBlocks();
+  renderMermaid();
+
+  const observer = new MutationObserver((mutations) => {
+    const changed = mutations.some(
+      (m) => m.type === "attributes" && m.attributeName === "data-theme"
+    );
+
+    if (changed) {
+      renderMermaid();
+    }
+  });
+
+  observer.observe(html, { attributes: true });
+</script>

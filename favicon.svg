@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 26">
-  <polygon points="0,26 7,0 12,0 5,26" fill="var(--accent, #00C9B1)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 26" role="img" aria-labelledby="title">
+  <title id="title">MIRASTACK LABS Favicon</title>
+  <polygon points="0,26 7,0 12,0 5,26" fill="#00C9B1"/>
   <polygon points="9,26 16,0 21,0 14,26" fill="#FF671F"/>
-  <polygon points="18,26 25,0 30,0 23,26" fill="#ced4da"/>
+  <polygon points="18,26 25,0 30,0 23,26" fill="#CED4DA"/>
 </svg>

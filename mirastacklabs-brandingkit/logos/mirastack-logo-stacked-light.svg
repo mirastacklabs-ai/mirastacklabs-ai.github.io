@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" role="img" aria-labelledby="title desc">
+  <title id="title">MIRASTACK LABS Stacked Logo Light</title>
+  <desc id="desc">Stacked MIRASTACK LABS logo lockup for light backgrounds and square placements.</desc>
+  <rect width="320" height="180" fill="#F0F2F5"/>
+  <g transform="translate(126 24)">
+    <polygon points="0,52 14,0 24,0 10,52" fill="#007A6E"/>
+    <polygon points="18,52 32,0 42,0 28,52" fill="#FF671F"/>
+    <polygon points="36,52 50,0 60,0 46,52" fill="#5A6373"/>
+  </g>
+  <text x="160" y="112" text-anchor="middle" font-family="JetBrains Mono, Courier New, monospace" font-size="34" font-weight="700" letter-spacing="2" fill="#6B7480">MIRASTACK</text>
+  <text x="160" y="144" text-anchor="middle" font-family="JetBrains Mono, Courier New, monospace" font-size="28" font-weight="400" letter-spacing="2" fill="#5A6373">LABS</text>
+</svg>

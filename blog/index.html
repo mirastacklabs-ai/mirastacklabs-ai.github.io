@@ -1,0 +1,32 @@
+---
+layout: default
+title: MIRASTACK LABS Engineering Blog
+description: Engineering deep-dives from MIRASTACK LABS on observability, platform architecture, and sovereign AI infrastructure.
+permalink: /blog/
+---
+
+<section class="section blog-index">
+  <div class="container">
+    <header class="blog-index__head">
+      <span class="label">Engineering Blog</span>
+      <h1>Building Production-Grade Sovereign Platforms</h1>
+      <p>Technical deep-dives from the MIRASTACK engineering team on scale architecture, observability systems, and platform reliability.</p>
+    </header>
+
+    {% assign posts = site.pages | where: "layout", "blog-post" | sort: 'date' | reverse %}
+
+    <div class="blog-index__list">
+      {% for post in posts %}
+      <article class="blog-card">
+        {% if post.date %}
+        <p class="blog-card__meta">{{ post.date | date: "%B %-d, %Y" }}</p>
+        {% endif %}
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        {% if post.description %}
+        <p>{{ post.description }}</p>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
