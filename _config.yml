@@ -1,14 +1,31 @@
-title: MIRASTACKLABS
-tagline: The AIR-GAPPED Agentic AI-Native Sovereign Platform of Platforms
-description: Building the Agentic AI-Native Air-Gapped Sovereign Infrastructure of the Future. Purpose-built for regulated, air-gapped, and sovereignty-critical environments.
+title: MIRASTACK LABS
+tagline: Agentic AI Control Plane for Sovereign Infrastructure
+description: MIRASTACK LABS builds the Agentic AI Control Plane for sovereign infrastructure across regulated, air-gapped, and sovereignty-critical environments.
+keywords: sovereign infrastructure, agentic ai, air-gapped ai, ai governance, explainable ai, devsecops, observability, root cause analysis
 baseurl: ""
-url: "https://MIRASTACKLABS.ai"
+url: "https://mirastacklabs.ai"
+locale: en_US
+logo: /favicon.svg
 markdown: kramdown
 permalink: pretty
 
 contact:
-  email: investors@MIRASTACKLABS.ai
+  email: hello@MIRASTACKLABS.ai
   linkedin: https://linkedin.com/company/MIRASTACK-LABS
+
+social:
+  name: MIRASTACK LABS
+  links:
+    - https://linkedin.com/company/mirastack-labs
+    - https://github.com/mirastacklabs-ai
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      image: /assets/img/mirastack-devops.png
+      robots: index,follow
 
 plugins:
   - jekyll-seo-tag

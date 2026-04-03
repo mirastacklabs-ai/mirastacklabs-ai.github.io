@@ -3,15 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="{{ page.description | default: site.description }}" />
-  {% if page.keywords %}
-  <meta name="keywords" content="{{ page.keywords }}" />
+  <meta name="robots" content="{{ page.robots | default: site.defaults[0].values.robots | default: 'index,follow' }}" />
+  {% if page.keywords or site.keywords %}
+  <meta name="keywords" content="{{ page.keywords | default: site.keywords }}" />
   {% endif %}
-  {% if page.image %}
-  <meta property="og:image" content="{{ page.image | absolute_url }}" />
-  <meta name="twitter:image" content="{{ page.image | absolute_url }}" />
-  {% endif %}
-  <title>{{ page.title | default: site.title }}</title>
 
   <!-- JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,7 +58,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </span>
         </button>
-        <a class="nav__cta" href="{{ '/#contact' | relative_url }}">Investor Inquiry</a>
+        <a class="nav__cta" href="{{ '/#contact' | relative_url }}">Contact Us</a>
         <button class="nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -83,7 +78,7 @@
       <a href="{{ '/#foundation' | relative_url }}">Open Foundation</a>
       <a href="{{ '/#who' | relative_url }}">Who We Build For</a>
       <a href="{{ '/#principles' | relative_url }}">Principles</a>
-      <a href="{{ '/#contact' | relative_url }}">Investor Inquiry</a>
+      <a href="{{ '/#contact' | relative_url }}">Contact Us</a>
     </div>
   </nav>
 
