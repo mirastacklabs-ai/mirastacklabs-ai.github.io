@@ -88,42 +88,58 @@ In MIRASTACK, the engine is the proprietary, governed control plane. Nothing els
 3. **Connectors:** Integrations that enrich engine-level capabilities, such as linking `mirastack-engine` to enterprise Auth systems.
 
 ```mermaid
-flowchart TD
-	%% User Layer
-	subgraph Interfaces [User Presentation]
-		direction LR
-		UI[MIRASTACK UI<br/>Web Browser]
-		CLI[miractl<br/>Terminal]
+flowchart LR
+	%% Presentation
+	subgraph Users [User Presentation]
+		direction TB
+		UI[MIRASTACK UI]
+		CLI[miractl CLI]
 	end
 
-	%% Core Engine
+	%% Core Chassis
 	subgraph Chassis [The Core Governance Chassis]
-		E{MIRASTACK Engine<br/>Intent Routing • #5AG • Workflow Lanes}
+		direction TB
+		E{MIRASTACK Engine<br/>Intent • #5AG • Workflows}
+		
+		subgraph Stores [Stateless Architecture]
+			direction LR
+			K[(Kine<br/>Persistent state)]
+			V[(Valkey<br/>Transient cache)]
+		end
+		
+		E <--> Stores
 	end
 
-	Interfaces -->|HTTPS / WSS| E
-
-	%% Ecosystem Layer
-	subgraph Plugins [External gRPC Ecosystem]
-		direction LR
-		C[Connectors<br/>Auth & Integrations]
+	%% Ecosystem
+	subgraph Ecosystem [External gRPC Ecosystem]
+		direction TB
+		C[Connectors<br/>SSO & Auth]
 		P[Providers<br/>LLM Brokers]
-		A[Agents<br/>Domain Compute]
+		
+		subgraph Ag [Agent Capabilities]
+			SDK(Agent SDKs<br/>Go / Python)
+			A[Domain Agents<br/>RCA, Build, Deploy]
+			SDK --- A
+		end
+	end
+	
+	%% Infrastructure
+	subgraph Infra [Enterprise Infrastructure]
+		direction TB
+		AUTH[Active Directory / Okta]
+		MOD[OpenAI / Sovereign Models]
+		OPS[Kubernetes / GitLab / Prometheus]
 	end
 
+	Users -->|HTTPS / WSS| E
+	
 	E ===|gRPC| C
 	E ===|gRPC| P
-	E ===|gRPC| A
-
-	%% External World
-	AUTH[ActiveDirectory / Keycloak]
-	LLMs[OpenAI / Sovereign Models]
-	TOOLS[Argo / Prometheus / GitLab]
-
+	E ===|gRPC| SDK
+	
 	C -.-> AUTH
-	P -.-> LLMs
-	A -.-> TOOLS
-
+	P -.-> MOD
+	A -.-> OPS
 	OSS((OSS Community)) -.->|Contributes to| A
 ```
 
