@@ -180,11 +180,77 @@ layout: default
     await mermaid.run({ nodes });
   }
 
+
+  // Click to Zoom feature
+  function setupMermaidZoom() {
+    let modal = document.querySelector('.mermaid-zoom-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.className = 'mermaid-zoom-modal';
+      modal.innerHTML = `
+        <button class="mermaid-zoom-close">&times;</button>
+        <div class="mermaid-zoom-content"></div>
+      `;
+      document.body.appendChild(modal);
+
+      modal.addEventListener('click', (e) => {
+        if (e.target !== document.querySelector('.mermaid-zoom-content') && !e.target.closest('svg')) {
+          modal.classList.remove('active');
+        }
+      });
+      
+      const content = modal.querySelector('.mermaid-zoom-content');
+      let isDown = false;
+      let startX, startY, scrollLeft, scrollTop;
+
+      content.addEventListener('mousedown', (e) => {
+        isDown = true;
+        content.style.cursor = 'grabbing';
+        startX = e.pageX - content.offsetLeft;
+        startY = e.pageY - content.offsetTop;
+        scrollLeft = content.scrollLeft;
+        scrollTop = content.scrollTop;
+      });
+      content.addEventListener('mouseleave', () => { isDown = false; content.style.cursor = 'grab'; });
+      content.addEventListener('mouseup', () => { isDown = false; content.style.cursor = 'grab'; });
+      content.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - content.offsetLeft;
+        const y = e.pageY - content.offsetTop;
+        content.scrollLeft = scrollLeft - (x - startX);
+        content.scrollTop = scrollTop - (y - startY);
+      });
+    }
+
+    const modalContent = modal.querySelector('.mermaid-zoom-content');
+    
+    document.querySelectorAll('.blog-prose .mermaid').forEach(container => {
+      // Remove old listeners to prevent duplicates
+      const newContainer = container.cloneNode(true);
+      container.parentNode.replaceChild(newContainer, container);
+      
+      newContainer.addEventListener('click', function() {
+        const svg = this.querySelector('svg');
+        if (svg) {
+          modalContent.innerHTML = '';
+          const clonedSvg = svg.cloneNode(true);
+          // Remove max-width constraints for zooming
+          clonedSvg.style.maxWidth = 'none';
+          clonedSvg.style.width = '100%';
+          clonedSvg.style.minWidth = window.innerWidth > 900 ? '1200px' : '800px'; 
+          modalContent.appendChild(clonedSvg);
+          modal.classList.add('active');
+        }
+      });
+    });
+  }
+
   setCodeLanguageBadges();
   enforceNewTabLinks();
   addLineNumbers();
   hydrateMermaidBlocks();
-  renderMermaid();
+  renderMermaid().then(setupMermaidZoom);
 
   const observer = new MutationObserver((mutations) => {
     const changed = mutations.some(
@@ -192,7 +258,7 @@ layout: default
     );
 
     if (changed) {
-      renderMermaid();
+      renderMermaid().then(setupMermaidZoom);
     }
   });
 
@@ -202,7 +268,7 @@ layout: default
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      renderMermaid();
+      renderMermaid().then(setupMermaidZoom);
     }, 150);
   });
 </script>
