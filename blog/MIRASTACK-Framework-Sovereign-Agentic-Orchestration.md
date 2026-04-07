@@ -381,16 +381,6 @@ The framework ships with adapters for inference backends commonly used in sovere
 
 **Custom OpenAI-compatible endpoints** — Any inference server that implements the OpenAI-compatible `/v1/chat/completions` API can be used with the generic adapter. Schema conformance relies on the retry loop.
 
-### Model Family Format Detection
-
-Different model families use different trained formats for tool calls. The adapter layer includes a model family detector that identifies the loaded model and selects the appropriate output parser:
-
-- Llama 3.x family — uses the `<|python_tag|>` token format
-- Qwen 2.x family — uses the `<tool_call>` tag format
-- Mistral/Mixtral family — uses function calling JSON format
-- Hermes family — uses the Hermes tool call format
-- Generic fallback — JSON extraction from free-form text
-
 When the inference backend supports constrained decoding, model family detection is bypassed — the schema constraint makes the output format irrelevant.
 
 ### Reliability Under Open Source Model Constraints
@@ -492,11 +482,34 @@ The audit trail is immutable and is persisted separately from the checkpoint sto
 
 MIRASTACK enforces governance as a non-bypassable engine primitive. The #5AG framework guarantees enterprise compliance on every execution:
 
-1. **Authentication (PASETO):** Symmetric PASETO tokens handle all active engine sessions directly linked to strict operator identities without in-memory bloat.
-2. **Authorisation (RBAC):** Three rigidly enforced roles (`operator`, `engineer`, `admin`) govern execution. Only `engineer`+ roles can trigger agentic loops; `admin`+ roles gate destructive executions.
-3. **Approvals (Human-in-the-loop):** The engine suspends execution over Valkey, persisting state to Kine, emitting a request over WebSocket for Human approval before executing any `MODIFY` or `ADMIN` actions. 
-4. **Audit (OTel Logs):** Every intent, node transition, LLM transaction, and capability request is stamped out as immutable OTel Audit events.
-5. **Alerts:** Native WebSocket dispatch triggers push notifications securely whenever a workflow fails or agentic budget is exhausted.
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2.5rem 0;">
+
+  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">01 / Authentication</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>PASETO:</strong> Symmetric PASETO tokens handle all active engine sessions directly linked to strict operator identities without in-memory bloat.</p>
+  </div>
+
+  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">02 / Authorisation</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>RBAC:</strong> Three rigidly enforced roles (<code>operator</code>, <code>engineer</code>, <code>admin</code>) govern execution. Only <code>engineer</code>+ roles trigger agentic loops; <code>admin</code>+ gate destructive executions.</p>
+  </div>
+
+  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">03 / Approvals</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>Human-in-the-loop:</strong> Engine suspends execution over Valkey, persisting state to Kine, emitting a request over WebSocket for approval before executing <code>MODIFY</code> or <code>ADMIN</code> actions.</p>
+  </div>
+
+  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">04 / Audit</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>OTel Logs:</strong> Every intent, node transition, LLM transaction, and capability request is stamped out as immutable OTel Audit events.</p>
+  </div>
+
+  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">05 / Alerts</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>WebSockets:</strong> Native WebSocket dispatch triggers push notifications securely whenever a workflow fails or agentic budget is exhausted.</p>
+  </div>
+
+</div>
 
 ### Decision Request Structure
 
@@ -561,7 +574,7 @@ The framework is designed with specific extension points that the community can 
 
 ### Agent Directory (Skills)
 
-The most valuable community contribution is writing new OSS DOMAIN AGENTS for the breadth of infrastructure integrations that platform engineers use. Using the `mirastack-agents-sdk-go` or `-python` packages, domain experts easily containerize integration knowledge:
+The most valuable community contribution is writing new OSS DOMAIN AGENTS for the breadth of infrastructure integrations that platform engineers use. Using the `mirastack-agents-sdk-go` or `mirastack-agents-sdk-python` packages, domain experts easily containerize integration knowledge:
 
 - Cloud provider APIs — AWS, GCP, Azure, OpenStack resource queries
 - CMDB and asset management systems — ServiceNow, Netbox, Device42
@@ -641,4 +654,4 @@ The framework core follows a quarterly release cadence with semantic versioning.
 
 *MIRASTACK is built by MIRASTACK LABS for the platform engineering community. We open-source the SDKs and capabilities to foster deep integration growth, while fiercely protecting the Engine to guarantee enterprise stability.*
 
-*MIRASTACK LABS — Building the AI-Native Sovereign Infrastructure for AI and Quantim Era*
+*MIRASTACK LABS — Building the AI-Native Sovereign Infrastructure for AI and Quantum Era*
