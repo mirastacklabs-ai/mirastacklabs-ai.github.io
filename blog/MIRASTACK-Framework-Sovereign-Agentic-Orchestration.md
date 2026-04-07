@@ -269,6 +269,66 @@ The graph engine validates the graph topology at startup and identifies all cycl
 
 ## 7. The Plugin Protocol: Agents, Providers, Connectors
 
+### The Lego-Block Modularity
+
+MIRASTACK is designed as a highly modular, Lego-like ecosystem. The core governance chassis handles intent, #5AG governance, workflows, and state, while all actual capabilities (Connectors, Providers, and Domain Agents) live entirely outside the engine boundary. They communicate securely over gRPC, extending the framework without risking the stability of the core.
+
+```mermaid
+flowchart LR
+    %% Presentation
+    subgraph Users [User Presentation]
+        direction TB
+        UI[MIRASTACK UI]
+        CLI[miractl CLI]
+    end
+
+    %% Core Chassis
+    subgraph Chassis [The Core Governance Chassis]
+        direction TB
+        E{MIRASTACK Engine<br/>Intent • #5AG • Workflows}
+        
+        subgraph Stores [Stateless Architecture]
+            direction LR
+            K[(Kine<br/>Persistent state)]
+            V[(Valkey<br/>Transient cache)]
+        end
+        
+        E <--> Stores
+    end
+
+    %% Ecosystem
+    subgraph Ecosystem [External gRPC Ecosystem]
+        direction TB
+        C[Connectors<br/>SSO & Auth]
+        P[Providers<br/>LLM Brokers]
+        
+        subgraph Ag [Agent Capabilities]
+            SDK(Agent SDKs<br/>Go / Python)
+            A[Domain Agents<br/>RCA, Build, Deploy]
+            SDK --- A
+        end
+    end
+    
+    %% Infrastructure
+    subgraph Infra [Enterprise Infrastructure]
+        direction TB
+        AUTH[Active Directory / Okta]
+        MOD[OpenAI / Sovereign Models]
+        OPS[Kubernetes / GitLab / Prometheus]
+    end
+
+    Users -->|HTTPS / WSS| E
+    
+    E ===|gRPC| C
+    E ===|gRPC| P
+    E ===|gRPC| SDK
+    
+    C -.-> AUTH
+    P -.-> MOD
+    A -.-> OPS
+    OSS((OSS Community)) -.->|Contributes to| A
+```
+
 ### The Core Interface
 
 Every external capability in MIRASTACK implements a single gRPC interface. The interface is intentionally minimal — the richness is in the typed inputs and outputs, not in the interface signature.
