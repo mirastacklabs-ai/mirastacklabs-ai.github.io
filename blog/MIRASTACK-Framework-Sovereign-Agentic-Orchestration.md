@@ -13,8 +13,8 @@ permalink: /blog/mirastack-framework-sovereign-agentic-orchestration/
 # MIRASTACK Framework — Sovereign Agentic Orchestration for Enterprise Infrastructure
 
 **Maintainer:** MIRASTACK LABS Private Limited  
-**Engine License:** Free for non-prod development/testing
-**SDK & Domain Agents License:** Open Source
+**Engine License:** Free for non-prod development/testing  
+**SDK & Domain Agents License:** Open Source  
 **Target Community:** Platform Engineers, SREs, DevOps practitioners operating in Data Centers, Private Clouds, and Sovereign Environments
 
 ---
