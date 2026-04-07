@@ -87,6 +87,48 @@ In MIRASTACK, the engine is the proprietary, governed control plane. Nothing els
 2. **Providers:** AI inferencing brokers for LLM backends (such as OpenAI, Anthropic, LM Studio, Ollama, or vLLM).
 3. **Connectors:** Integrations that enrich engine-level capabilities, such as linking `mirastack-engine` to enterprise Auth systems.
 
+```mermaid
+flowchart TD
+	%% User Layer
+	subgraph Interfaces [User Presentation]
+		direction LR
+		UI[MIRASTACK UI<br/>Web Browser]
+		CLI[miractl<br/>Terminal]
+	end
+
+	%% Core Engine
+	subgraph Chassis [The Core Governance Chassis]
+		E{MIRASTACK Engine<br/>Intent Routing • #5AG • Workflow Lanes}
+	end
+
+	Interfaces -->|HTTPS / WSS| E
+
+	%% Ecosystem Layer
+	subgraph Plugins [External gRPC Ecosystem]
+		direction LR
+		C[Connectors<br/>Auth & Integrations]
+		P[Providers<br/>LLM Brokers]
+		A[Agents<br/>Domain Compute]
+	end
+
+	E ===|gRPC| C
+	E ===|gRPC| P
+	E ===|gRPC| A
+
+	%% External World
+	AUTH[ActiveDirectory / Keycloak]
+	LLMs[OpenAI / Sovereign Models]
+	TOOLS[Argo / Prometheus / GitLab]
+
+	C -.-> AUTH
+	P -.-> LLMs
+	A -.-> TOOLS
+
+	OSS((OSS Community)) -.->|Contributes to| A
+```
+
+We are inviting the OSS community to start contributing new MIRASTACK agents; the full OSS invitation is detailed in **The OSS Agent Initiative** section below.
+
 This matters because it keeps the platform honest. Agents do not bypass the engine. Providers do not leak AI calls into random parts of the codebase. Every meaningful interaction flows through one single, highly governed runtime.
 
 ## Stateless by Design, Not by Slogan
