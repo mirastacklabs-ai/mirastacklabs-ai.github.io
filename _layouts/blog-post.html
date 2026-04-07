@@ -3,9 +3,16 @@ layout: default
 ---
 <section class="section blog-post">
   <div class="container blog-post__container">
-    {% if page.date %}
-    <p class="blog-post__meta">{{ page.date | date: "%B %-d, %Y" }}</p>
-    {% endif %}
+    <div class="blog-post__meta-bar">
+      {% if page.date %}
+      <span class="blog-post__meta-tag label">{{ page.date | date: "%B %-d, %Y" }}</span>
+      {% endif %}
+      {% if page.categories and page.categories.size > 0 %}
+      <span class="blog-post__meta-tag label">Category: {{ page.categories[0] }}</span>
+      {% endif %}
+      <span class="blog-post__meta-tag label">Role: Engineer</span>
+    </div>
+    
     <article class="blog-prose">
       {{ content }}
     </article>
@@ -29,7 +36,7 @@ layout: default
     const isMobile = window.matchMedia("(max-width: 640px)").matches;
     return {
       fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-      fontSize: isMobile ? "14px" : "16px",
+      fontSize: isMobile ? "17px" : "16px",
       primaryColor: cssVar("--bg-alt"),
       primaryTextColor: cssVar("--text"),
       primaryBorderColor: cssVar("--border-accent"),
@@ -153,10 +160,11 @@ layout: default
       securityLevel: "loose",
       theme: "base",
       flowchart: {
-        useMaxWidth: !isMobile,
+        useMaxWidth: true,
         htmlLabels: true,
-        nodeSpacing: isMobile ? 34 : 48,
-        rankSpacing: isMobile ? 54 : 70
+        nodeSpacing: isMobile ? 22 : 48,
+        rankSpacing: isMobile ? 34 : 70,
+        padding: isMobile ? 6 : 10
       },
       themeVariables: buildThemeVariables()
     });

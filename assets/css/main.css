@@ -1527,16 +1527,54 @@ p {
   max-width: 1040px;
 }
 
-.blog-post__meta {
-  font-size: 0.78rem;
+.blog-post__meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.blog-post__meta-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-dim);
-  margin-bottom: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+}
+
+.blog-prose {
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-prose > * {
+  width: 100%;
+}
+
+.blog-prose > p,
+.blog-prose > ul,
+.blog-prose > ol,
+.blog-prose > h1,
+.blog-prose > h2,
+.blog-prose > h3,
+.blog-prose > h4,
+.blog-prose > blockquote {
+  max-width: 768px;
+}
+
+.blog-prose > hr {
+  max-width: 768px;
+  margin-left: 0;
 }
 
 .blog-prose > * + * {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .blog-prose h1,
@@ -1585,7 +1623,7 @@ p {
   position: relative;
   overflow-x: auto;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   background: var(--bg-card);
   padding: 2.1rem 1rem 0.9rem;
   --code-lang-accent: var(--border-accent);
@@ -1621,7 +1659,7 @@ p {
     radial-gradient(circle at 1.55rem 0.8rem, #ffbd2e 0.18rem, transparent 0.2rem),
     radial-gradient(circle at 2.2rem 0.8rem, #27c93f 0.18rem, transparent 0.2rem),
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.05));
-  border-radius: 10px 10px 0 0;
+  border-radius: 4px 4px 0 0;
   pointer-events: none;
 }
 
@@ -1694,7 +1732,7 @@ p {
 
 .blog-prose .highlighter-rouge,
 .blog-prose .highlight {
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .blog-prose .highlight {
@@ -1832,8 +1870,13 @@ p {
 
 .blog-prose blockquote {
   border-left: 3px solid var(--accent);
-  padding-left: 0.9rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--bg-alt);
   color: var(--text);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .blog-prose hr {
@@ -1846,7 +1889,7 @@ p {
   margin: 1.2rem 0;
   padding: 2.05rem 1rem 0.95rem;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   background:
     radial-gradient(circle at 20% 15%, var(--accent-glow), transparent 48%),
     var(--bg-card);
@@ -1880,10 +1923,14 @@ p {
 }
 
 @media (max-width: 900px) {
+  .blog-prose .mermaid {
+    overflow-x: hidden;
+  }
+
   .blog-prose .mermaid svg {
-    width: max-content;
-    min-width: 760px;
-    max-width: none;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 }
 
@@ -1894,12 +1941,13 @@ p {
 
   .blog-prose .mermaid {
     padding: 1.9rem 0.7rem 0.8rem;
+    overflow-x: hidden;
   }
 
   .blog-prose .mermaid svg {
-    width: max-content;
-    min-width: 680px;
-    max-width: none;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .blog-prose .mermaid[data-lang]::before {
