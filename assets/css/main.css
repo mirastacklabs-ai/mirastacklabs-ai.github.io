@@ -1873,15 +1873,17 @@ p {
 }
 
 .blog-prose .mermaid svg {
-  width: max-content;
-  min-width: 940px;
-  max-width: none;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   height: auto;
 }
 
 @media (max-width: 900px) {
   .blog-prose .mermaid svg {
+    width: max-content;
     min-width: 760px;
+    max-width: none;
   }
 }
 
@@ -1895,7 +1897,9 @@ p {
   }
 
   .blog-prose .mermaid svg {
+    width: max-content;
     min-width: 680px;
+    max-width: none;
   }
 
   .blog-prose .mermaid[data-lang]::before {
