@@ -26,8 +26,10 @@ layout: default
   }
 
   function buildThemeVariables() {
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
     return {
       fontFamily: "'JetBrains Mono', 'Courier New', monospace",
+      fontSize: isMobile ? "14px" : "16px",
       primaryColor: cssVar("--bg-alt"),
       primaryTextColor: cssVar("--text"),
       primaryBorderColor: cssVar("--border-accent"),
@@ -137,6 +139,8 @@ layout: default
     const nodes = document.querySelectorAll(".mermaid");
     if (!nodes.length || !mermaid) return;
 
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
     nodes.forEach((node) => {
       if (node.dataset.mermaidSource) {
         node.textContent = node.dataset.mermaidSource;
@@ -148,6 +152,12 @@ layout: default
       startOnLoad: false,
       securityLevel: "loose",
       theme: "base",
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        nodeSpacing: isMobile ? 34 : 48,
+        rankSpacing: isMobile ? 54 : 70
+      },
       themeVariables: buildThemeVariables()
     });
 
@@ -171,4 +181,12 @@ layout: default
   });
 
   observer.observe(html, { attributes: true });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      renderMermaid();
+    }, 150);
+  });
 </script>

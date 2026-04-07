@@ -1524,7 +1524,7 @@ p {
 }
 
 .blog-post__container {
-  max-width: 840px;
+  max-width: 1040px;
 }
 
 .blog-post__meta {
@@ -1844,7 +1844,7 @@ p {
 .blog-prose .mermaid {
   position: relative;
   margin: 1.2rem 0;
-  padding: 2.05rem 0.85rem 0.85rem;
+  padding: 2.05rem 1rem 0.95rem;
   border: 1px solid var(--border);
   border-radius: 10px;
   background:
@@ -1852,6 +1852,9 @@ p {
     var(--bg-card);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
 .blog-prose .mermaid[data-lang]::before {
@@ -1870,8 +1873,35 @@ p {
 }
 
 .blog-prose .mermaid svg {
-  max-width: 100%;
+  width: max-content;
+  min-width: 940px;
+  max-width: none;
   height: auto;
+}
+
+@media (max-width: 900px) {
+  .blog-prose .mermaid svg {
+    min-width: 760px;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-post__container {
+    max-width: 100%;
+  }
+
+  .blog-prose .mermaid {
+    padding: 1.9rem 0.7rem 0.8rem;
+  }
+
+  .blog-prose .mermaid svg {
+    min-width: 680px;
+  }
+
+  .blog-prose .mermaid[data-lang]::before {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
 }
 
 .blog-prose .mermaid .node rect,
