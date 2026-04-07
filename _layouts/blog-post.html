@@ -33,7 +33,7 @@ layout: default
   }
 
   function buildThemeVariables() {
-    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
     return {
       fontFamily: "'JetBrains Mono', 'Courier New', monospace",
       fontSize: isMobile ? "28px" : "32px",
@@ -146,11 +146,19 @@ layout: default
     const nodes = document.querySelectorAll(".mermaid");
     if (!nodes.length || !mermaid) return;
 
-    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
     nodes.forEach((node) => {
       if (node.dataset.mermaidSource) {
-        node.textContent = node.dataset.mermaidSource;
+        let source = node.dataset.mermaidSource;
+        
+        // Pivot wide diagrams to vertical flow on mobile for legibility
+        if (isMobile) {
+          source = source.replace(/^(flowchart|graph)\s+LR/im, '$1 TD');
+          source = source.replace(/^(flowchart|graph)\s+RL/im, '$1 BT');
+        }
+        
+        node.textContent = source;
       }
       node.removeAttribute("data-processed");
     });
