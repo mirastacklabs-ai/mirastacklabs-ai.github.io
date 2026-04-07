@@ -115,7 +115,7 @@ Human approval gates are not an afterthought bolted onto the framework. They are
 The MIRASTACK Framework is composed of six layers. Each layer has a clean interface boundary with the layer above and below it.
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph Users [Users]
         U1["Platform Engineers"]
         U2["SREs"]
