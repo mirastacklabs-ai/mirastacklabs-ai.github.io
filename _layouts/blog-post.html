@@ -36,7 +36,7 @@ layout: default
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
     return {
       fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-      fontSize: isMobile ? "28px" : "32px",
+      fontSize: isMobile ? "12px" : "14px",
       primaryColor: cssVar("--bg-alt"),
       primaryTextColor: cssVar("--text"),
       primaryBorderColor: cssVar("--border-accent"),
@@ -168,7 +168,7 @@ layout: default
       securityLevel: "loose",
       theme: "base",
       flowchart: {
-        useMaxWidth: true,
+        useMaxWidth: false,
         htmlLabels: true,
         nodeSpacing: isMobile ? 40 : 80,
         rankSpacing: isMobile ? 60 : 100,

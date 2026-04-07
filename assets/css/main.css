@@ -1900,10 +1900,11 @@ p {
 }
 
 .blog-prose .mermaid svg {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
+  width: auto;
+  min-width: 100%;
+  max-width: none;
   height: auto;
+  display: block;
 }
 
 @media (max-width: 900px) {
@@ -1912,7 +1913,7 @@ p {
   }
 
   .blog-prose .mermaid svg {
-    width: 100%;
+    width: auto;
     min-width: 600px;
     max-width: none;
   }
@@ -1929,8 +1930,8 @@ p {
   }
 
   .blog-prose .mermaid svg {
-    width: 100%;
-    min-width: 100%;
+    width: auto;
+    min-width: 500px;
     max-width: none;
   }
 
@@ -1944,7 +1945,7 @@ p {
 .blog-prose .mermaid .node polygon,
 .blog-prose .mermaid .node circle,
 .blog-prose .mermaid .node ellipse {
-  fill: var(--bg-alt) !important;
+  fill: var(--table-head-bg) !important;
   stroke: var(--border-accent) !important;
   stroke-width: 1.4px !important;
 }
