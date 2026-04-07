@@ -544,29 +544,29 @@ MIRASTACK enforces governance as a non-bypassable engine primitive. The #5AG fra
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2.5rem 0;">
 
-  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
-    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">01 / Authentication</h4>
-    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>PASETO:</strong> Symmetric PASETO tokens handle all active engine sessions directly linked to strict operator identities without in-memory bloat.</p>
+  <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 1.5rem; border-radius: 4px; background: var(--bg-card); box-shadow: 0 4px 12px var(--accent-glow);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;">01 / Authentication</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);"><strong>PASETO:</strong> Symmetric PASETO tokens handle all active engine sessions directly linked to strict operator identities without in-memory bloat.</p>
   </div>
 
-  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
-    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">02 / Authorisation</h4>
-    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>RBAC:</strong> Three rigidly enforced roles (<code>operator</code>, <code>engineer</code>, <code>admin</code>) govern execution. Only <code>engineer</code>+ roles trigger agentic loops; <code>admin</code>+ gate destructive executions.</p>
+  <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 1.5rem; border-radius: 4px; background: var(--bg-card); box-shadow: 0 4px 12px var(--accent-glow);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;">02 / Authorisation</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);"><strong>RBAC:</strong> Three rigidly enforced roles (<code>operator</code>, <code>engineer</code>, <code>admin</code>) govern execution. Only <code>engineer</code>+ roles trigger agentic loops; <code>admin</code>+ gate destructive executions.</p>
   </div>
 
-  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
-    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">03 / Approvals</h4>
-    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>Human-in-the-loop:</strong> Engine suspends execution over Valkey, persisting state to Kine, emitting a request over WebSocket for approval before executing <code>MODIFY</code> or <code>ADMIN</code> actions.</p>
+  <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 1.5rem; border-radius: 4px; background: var(--bg-card); box-shadow: 0 4px 12px var(--accent-glow);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;">03 / Approvals</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);"><strong>Human-in-the-loop:</strong> Engine suspends execution over Valkey, persisting state to Kine, emitting a request over WebSocket for approval before executing <code>MODIFY</code> or <code>ADMIN</code> actions.</p>
   </div>
 
-  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
-    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">04 / Audit</h4>
-    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>OTel Logs:</strong> Every intent, node transition, LLM transaction, and capability request is stamped out as immutable OTel Audit events.</p>
+  <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 1.5rem; border-radius: 4px; background: var(--bg-card); box-shadow: 0 4px 12px var(--accent-glow);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;">04 / Audit</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);"><strong>OTel Logs:</strong> Every intent, node transition, LLM transaction, and capability request is stamped out as immutable OTel Audit events.</p>
   </div>
 
-  <div style="border: 1px solid #333; border-top: 3px solid #00d2ff; padding: 1.5rem; border-radius: 4px; background: rgba(0, 210, 255, 0.03);">
-    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px;">05 / Alerts</h4>
-    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #ccc;"><strong>WebSockets:</strong> Native WebSocket dispatch triggers push notifications securely whenever a workflow fails or agentic budget is exhausted.</p>
+  <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 1.5rem; border-radius: 4px; background: var(--bg-card); box-shadow: 0 4px 12px var(--accent-glow);">
+    <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 1.0rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;">05 / Alerts</h4>
+    <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);"><strong>WebSockets:</strong> Native WebSocket dispatch triggers push notifications securely whenever a workflow fails or agentic budget is exhausted.</p>
   </div>
 
 </div>
