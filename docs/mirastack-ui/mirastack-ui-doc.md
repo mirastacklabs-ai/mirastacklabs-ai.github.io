@@ -10,7 +10,7 @@ parent: MIRASTACK Documentation
 
 MIRASTACK UI is the full-featured web application for platform engineering teams. It connects to your MIRASTACK Engine and provides a rich browser experience for all capabilities the engine exposes.
 
-Unlike the [Engine Embedded UI](../embedded-ui/engine-embeded-ui-doc.md) — a lightweight operational tool bundled with the engine — MIRASTACK UI is a full product designed for continuous daily use by entire platform engineering organisations.
+Unlike the [Engine Embedded UI](../embedded-ui/engine-embeded-ui-doc) — a lightweight operational tool bundled with the engine — MIRASTACK UI is a full product designed for continuous daily use by entire platform engineering organisations.
 
 > **Full documentation for this component is being written.** Check back soon.
 

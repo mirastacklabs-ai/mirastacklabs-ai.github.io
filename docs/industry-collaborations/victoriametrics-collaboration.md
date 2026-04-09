@@ -18,4 +18,4 @@ MIRASTACK's open-source observability agents target the VictoriaMetrics ecosyste
 
 VictoriaMetrics is also the data source for the [`cardinality`](../agents/opensource-agents/index.md#cardinality--tsdb-cardinality-agent) agent (TSDB health analysis) and the [`service_graph`](../agents/opensource-agents/index.md#service_graph--service-graph-agent) agent (service topology).
 
-> **Full documentation for this section is being written.** See the [Open-Source Agents](../agents/opensource-agents/index.md) page for configuration details on each agent.
+> **Full documentation for this section is being written.** See the [Open-Source Agents](../agents/opensource-agents/) page for configuration details on each agent.

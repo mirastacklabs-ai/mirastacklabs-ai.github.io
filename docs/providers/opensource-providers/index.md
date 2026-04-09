@@ -172,4 +172,4 @@ This means MIRASTACK can run fully air-gapped with no external AI API calls — 
 
 ## Building Your Own Provider
 
-If you want to connect MIRASTACK to an inference backend not covered here, see the [Provider Development Guide](../provider-development.md).
+If you want to connect MIRASTACK to an inference backend not covered here, see the [Provider Development Guide](../provider-development).

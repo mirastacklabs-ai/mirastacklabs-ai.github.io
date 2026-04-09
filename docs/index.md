@@ -56,7 +56,7 @@ It is built specifically for **data centers, private clouds, and sovereign envir
 
 The **brain** of the platform. It understands what you want, plans how to achieve it, calls the right agents, routes LLM requests, manages approvals, and keeps track of everything that happens. You never interact with the engine's internals — you use it through the CLI, the web console, or the REST API.
 
-[Read the Engine documentation →](engine/engine-doc.md)
+[Read the Engine documentation →](engine/engine-doc)
 
 ---
 
@@ -71,7 +71,7 @@ miractl approval list                         # See pending approvals
 miractl agent list                            # See all registered agents
 ```
 
-[Read the miractl documentation →](miractl/miractl-doc.md)
+[Read the miractl documentation →](miractl/miractl-doc)
 
 ---
 
@@ -86,9 +86,9 @@ Agents come in three permission levels:
 
 MIRASTACK ships with open-source agents for metrics, logs, and traces. You can also build your own.
 
-[See the open-source agents →](agents/opensource-agents/index.md)
+[See the open-source agents →](agents/opensource-agents/)
 
-[Build your own agent →](agents/agent-development.md)
+[Build your own agent →](agents/agent-development)
 
 ---
 
@@ -98,9 +98,9 @@ Providers connect the engine to AI inference backends. The engine never calls an
 
 Open-source providers are available for OpenAI and Anthropic. Enterprise providers cover self-hosted options like Ollama, vLLM, and LM Studio.
 
-[See the open-source providers →](providers/opensource-providers/index.md)
+[See the open-source providers →](providers/opensource-providers/)
 
-[Build your own provider →](providers/provider-development.md)
+[Build your own provider →](providers/provider-development)
 
 ---
 
@@ -117,7 +117,7 @@ Two official SDKs let you build agents and providers in the language you prefer:
 - **Go SDK** (AGPL v3, open source) — for building agents and providers in Go
 - **Python SDK** (AGPL v3, open source) — for building agents and providers in Python
 
-[Go SDK →](sdk/go-sdk-doc.md) | [Python SDK →](sdk/python-sdk-doc.md)
+[Go SDK →](sdk/go-sdk-doc) | [Python SDK →](sdk/python-sdk-doc)
 
 ---
 
@@ -125,7 +125,7 @@ Two official SDKs let you build agents and providers in the language you prefer:
 
 A full web console for interacting with the engine, viewing execution history, managing agents and providers, and handling approvals — all through a browser.
 
-[Read the UI documentation →](mirastack-ui/mirastack-ui-doc.md)
+[Read the UI documentation →](mirastack-ui/mirastack-ui-doc)
 
 ---
 
@@ -181,12 +181,12 @@ Everything is logged. Every action that could change your system requires your e
 
 | Topic | Link |
 |-------|------|
-| Install and bootstrap the engine | [Engine doc](engine/engine-doc.md) |
-| Install miractl | [miractl doc](miractl/miractl-doc.md) |
-| Build an agent in Go | [Go SDK](sdk/go-sdk-doc.md) |
-| Build an agent in Python | [Python SDK](sdk/python-sdk-doc.md) |
-| Full agent development guide | [Agent dev guide](agents/agent-development.md) |
-| All open-source agents | [OSS agents](agents/opensource-agents/index.md) |
-| All open-source providers | [OSS providers](providers/opensource-providers/index.md) |
-| Provider development guide | [Provider dev guide](providers/provider-development.md) |
-| MIRASTACK Web UI | [UI doc](mirastack-ui/mirastack-ui-doc.md) |
+| Install and bootstrap the engine | [Engine doc](engine/engine-doc) |
+| Install miractl | [miractl doc](miractl/miractl-doc) |
+| Build an agent in Go | [Go SDK](sdk/go-sdk-doc) |
+| Build an agent in Python | [Python SDK](sdk/python-sdk-doc) |
+| Full agent development guide | [Agent dev guide](agents/agent-development) |
+| All open-source agents | [OSS agents](agents/opensource-agents/) |
+| All open-source providers | [OSS providers](providers/opensource-providers/) |
+| Provider development guide | [Provider dev guide](providers/provider-development) |
+| MIRASTACK Web UI | [UI doc](mirastack-ui/mirastack-ui-doc) |

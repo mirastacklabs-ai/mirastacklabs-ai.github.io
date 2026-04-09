@@ -219,4 +219,4 @@ The MIRASTACK Engine supports **agent-to-agent orchestration** — an agent can 
 
 If you are building a new agent that needs metric, log, or trace data, your agent should call the base query agents via the engine rather than implementing its own backend queries. The engine handles scheduling, state, caching, and LLM plumbing. Your agent contributes only its core logic.
 
-See the [Agent Development](../agent-development.md) guide for details on the `EngineClient` API for inter-agent calls.
+See the [Agent Development](../agent-development) guide for details on the `EngineClient` API for inter-agent calls.

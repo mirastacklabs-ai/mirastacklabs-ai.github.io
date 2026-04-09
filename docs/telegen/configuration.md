@@ -803,5 +803,5 @@ exports:
 
 ## Next Steps
 
-- [Installation Guide](installation.md) - Install Telegen on your platform
-- [Troubleshooting Guide](troubleshooting.md) - Common issues and solutions
+- [Installation Guide](installation) - Install Telegen on your platform
+- [Troubleshooting Guide](troubleshooting) - Common issues and solutions

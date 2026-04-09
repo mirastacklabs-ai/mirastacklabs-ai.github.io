@@ -12,7 +12,7 @@ The MIRASTACK Engine ships with a lightweight built-in web UI that runs from the
 
 The embedded UI is designed for platform engineers and operators who want a browser-based interface for day-to-day operations without deploying the full MIRASTACK UI application.
 
-> **Full documentation for this component is being written.** Refer to the [Engine REST API reference](../engine/engine-doc.md) and [miractl CLI reference](../miractl/miractl-doc.md) in the meantime.
+> **Full documentation for this component is being written.** Refer to the [Engine REST API reference](../engine/engine-doc) and [miractl CLI reference](../miractl/miractl-doc) in the meantime.
 
 ## What you can do in the Embedded UI
 
