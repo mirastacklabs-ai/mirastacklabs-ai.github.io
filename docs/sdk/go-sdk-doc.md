@@ -270,7 +270,9 @@ Contribute prompt templates to the engine's template store. The engine uses thes
 PromptTemplates: []mirastack.PromptTemplate{
     {
         Name:    "metrics_analysis",
+        {% raw %}
         Content: "You are analyzing metrics data for {{.service}}. The data shows: {{.metrics_output}}. Identify anomalies, trends, and potential root causes.",
+        {% endraw %}
     },
 },
 ```
@@ -328,6 +330,7 @@ func (p *Plugin) Info() mirastack.PluginInfo {
 }
 
 func (p *Plugin) Schema() mirastack.PluginSchema {
+    {% raw %}
     return mirastack.PluginSchema{Actions: []mirastack.Action{{
         Name:        "get_status",
         Description: "Get the current status of a named service from My Backend.",
@@ -335,6 +338,7 @@ func (p *Plugin) Schema() mirastack.PluginSchema {
             "service": {Type: "string", Required: true, Description: "Service name"},
         },
     }}}
+    {% endraw %}
 }
 
 func (p *Plugin) Execute(ctx context.Context, req mirastack.ExecuteRequest) (mirastack.ExecuteResponse, error) {

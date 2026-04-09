@@ -166,7 +166,9 @@ func (p *Plugin) actionGetItem(ctx context.Context, params map[string]string) (m
 
 func (p *Plugin) actionListItems(ctx context.Context, params map[string]string) (mirastack.ExecuteResponse, error) {
     // Call your backend here...
+    {% raw %}
     result := []map[string]any{{"id": "1", "name": "item one"}}
+    {% endraw %}
     out, _ := json.Marshal(result)
     return mirastack.ExecuteResponse{
         Output: map[string]string{"result": string(out)},
