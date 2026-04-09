@@ -6,6 +6,20 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   0. Docs-specific theme tokens
+   -------------------------------------------------------------------------- */
+:root,
+[data-theme="dark"] {
+  /* #CED4DA = --mira-accent-neutral (logo 3rd stroke neutral gray) */
+  --sidebar-nav-text: #CED4DA;
+}
+
+[data-theme="light"] {
+  /* Deep navy-gray — readable on #F0F2F5 / #FFFFFF, brand-aligned */
+  --sidebar-nav-text: #2D3340;
+}
+
+/* --------------------------------------------------------------------------
    1. Docs wrapper — two-column layout below the fixed 60px nav
    -------------------------------------------------------------------------- */
 .docs-wrapper {
@@ -121,7 +135,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #CED4DA;
+  color: var(--sidebar-nav-text);
   padding: 0.55rem 0;
   display: block;
   text-decoration: none;
@@ -151,7 +165,7 @@
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: #CED4DA;
+  color: var(--sidebar-nav-text);
   text-decoration: none;
   transition: color 0.15s;
   border-left: 2px solid transparent;
@@ -179,7 +193,7 @@
   display: block;
   padding: 0.3rem 0.5rem;
   font-size: 0.76rem;
-  color: #CED4DA;
+  color: var(--sidebar-nav-text);
   text-decoration: none;
   transition: color 0.15s;
   border-left: 2px solid transparent;
