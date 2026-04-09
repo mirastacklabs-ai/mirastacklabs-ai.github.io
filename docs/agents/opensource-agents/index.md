@@ -186,13 +186,13 @@ Each agent is published as a Docker image at `ghcr.io/mirastacklabs-ai/<agent-na
 All agents follow the same startup pattern regardless of language:
 
 ```bash
-# Set the engine's gRPC address so the agent can call back
+# Set the engine's gRPC address so the agent can self-register and call back
 export MIRASTACK_ENGINE_ADDR=your-engine-host:9090
 
 # Set the agent's backend URL
 export VICTORIAMETRICS_URL=http://victoriametrics:8428
 
-# Start the agent (it registers itself with the engine automatically)
+# Start the agent (it self-registers with the engine automatically — no engine restart needed)
 ./mirastack-plugin-query-vmetrics
 ```
 

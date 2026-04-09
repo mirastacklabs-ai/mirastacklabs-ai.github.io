@@ -532,11 +532,13 @@ docker push ghcr.io/your-org/mirastack-plugin-my-agent:v1.0.0
 
 ## Registering Your Agent with the Engine
 
-Registration is automatic — there are no manual registration steps, no CRDs, and no operators. The engine connects to plugins directly over gRPC. There are two models.
+Registration is automatic — there are no manual registration steps, no CRDs, and no operators. When you call `mirastack.Serve()` (Go) or `serve()` (Python), the SDK starts the agent's gRPC server, connects to the engine at `MIRASTACK_ENGINE_ADDR`, and calls the `RegisterPlugin` RPC. The engine calls back to the agent to retrieve its metadata (`Info`, `GetSchema`), validates it, ingests intents and templates, and adds the agent to the active registry. **No engine restart is required.**
+
+There are two deployment models.
 
 ### Model 1 — Co-located (same host as the engine)
 
-Place your agent binary inside the directory configured as `plugins.dir` in the engine's `config.yaml`. On startup, the engine launches it as a child process, reads its gRPC port from stdout, and completes the connection.
+Place your agent binary inside the directory configured as `plugins.dir` in the engine's `config.yaml`. On startup, the engine launches it as a child process and sets `MIRASTACK_ENGINE_ADDR` automatically. The agent starts, self-registers, and is ready to receive tasks.
 
 ```yaml
 # engine config.yaml
@@ -550,29 +552,26 @@ plugins:
     mirastack-plugin-my-agent    ← your binary
 ```
 
-The engine automatically passes `MIRASTACK_ENGINE_ADDR` to your process. Your agent reads that value in `main()` (or via the SDK default) and connects back to the engine for cache, log, and approval callbacks.
-
 ### Model 2 — Remote (different host, VM, or container)
 
-If your agent runs on a different machine or in a separate container, add it to `plugins.external` in the engine's `config.yaml`:
-
-```yaml
-# engine config.yaml
-plugins:
-  external:
-    - name: my_agent
-      addr: 192.168.1.50:50051    # IP and gRPC port of your agent process
-```
-
-On the agent host, start the agent with `MIRASTACK_ENGINE_ADDR` pointing back to the engine:
+Start your agent anywhere with `MIRASTACK_ENGINE_ADDR` pointing to the engine. Optionally set `MIRASTACK_PLUGIN_ADVERTISE_ADDR` to the address the engine can reach the agent on (defaults to OS hostname + bound port):
 
 ```bash
 export MIRASTACK_ENGINE_ADDR=engine-host:9090
+export MIRASTACK_PLUGIN_ADVERTISE_ADDR=192.168.1.50:50051
 export MY_BACKEND_URL=http://my-backend:8080
 ./mirastack-plugin-my-agent
 ```
 
-Both models work identically on bare metal, VMs, Docker Compose, and Kubernetes — the engine does not care where the process runs, only that it is reachable at the configured gRPC address.
+The agent self-registers on startup. No changes to the engine's `config.yaml` are needed.
+
+> **Backward compatibility:** You can still list remote agents in `plugins.external` in `config.yaml`. Self-registration takes precedence when both are configured for the same agent name.
+
+Both models work identically on bare metal, VMs, Docker Compose, and Kubernetes — the engine does not care where the process runs, only that the agent can reach the engine and the engine can call back to the agent.
+
+### Graceful Shutdown
+
+When the agent process receives SIGINT or SIGTERM, the SDK automatically deregisters it from the engine via the `DeregisterPlugin` RPC before stopping the gRPC server. The engine removes the agent from the active registry immediately.
 
 ---
 

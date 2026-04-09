@@ -180,13 +180,13 @@ miractl login
 
 ## Registering Agents (and Providers and Connectors)
 
-Every plugin — agent, provider, or connector — registers itself with the engine automatically. There are no CRDs, no operators, and no manual registration APIs. There are two models depending on where the plugin process runs.
+Every plugin — agent, provider, or connector — **registers itself** with the engine automatically. There are no CRDs, no operators, and no manual registration APIs. When a plugin starts, the SDK's `Serve()` function connects to the engine, calls the `RegisterPlugin` gRPC endpoint, and the engine completes the handshake by calling back to the plugin's own gRPC server to retrieve its metadata (`Info`, `GetSchema`). No engine restart is required to add new plugins.
+
+There are two deployment models depending on where the plugin process runs.
 
 ### Model 1 — Co-located (same host as the engine)
 
-Place plugin binaries in the directory configured as `plugins.dir` in `config.yaml`. On startup, the engine scans that directory, launches each binary as a child process, and connects to it automatically.
-
-The engine passes `MIRASTACK_ENGINE_ADDR` to the plugin process automatically. The plugin starts its gRPC server, prints `MIRASTACK_PLUGIN_PORT=<port>` to stdout, and the engine reads that port and completes the connection.
+Place plugin binaries in the directory configured as `plugins.dir` in `config.yaml`. On startup, the engine launches each binary as a child process. The plugin starts its gRPC server, reads `MIRASTACK_ENGINE_ADDR` from the environment (set automatically by the engine), and self-registers with the engine.
 
 ```yaml
 # config.yaml — tell the engine where your plugins live
@@ -214,32 +214,37 @@ miractl agent list
 
 ### Model 2 — Remote (different host, VM, or container)
 
-If a plugin runs on a different host or in a separate container, list it in `config.yaml` under `plugins.external`. The engine connects to it at the given gRPC address at startup.
-
-```yaml
-# config.yaml — list remotely-running plugins
-plugins:
-  external:
-    - name: query_vmetrics
-      addr: 192.168.1.42:50051
-    - name: openai
-      addr: provider-openai-host:50052
-    - name: keycloak
-      addr: connector-keycloak-host:50053
-```
-
-On the plugin side, start it with your environment-specific backend URL and point it back at the engine:
+If a plugin runs on a different host or in a separate container, start it with `MIRASTACK_ENGINE_ADDR` pointing to the engine and optionally `MIRASTACK_PLUGIN_ADVERTISE_ADDR` set to the address the engine can reach it on:
 
 ```bash
 # On the plugin host
 export MIRASTACK_ENGINE_ADDR=engine-host:9090
+export MIRASTACK_PLUGIN_ADVERTISE_ADDR=192.168.1.42:50051
 export VICTORIAMETRICS_URL=http://vmetrics:8428
 ./mirastack-plugin-query-vmetrics
 ```
 
-The plugin starts its gRPC server, accepts incoming calls from the engine, and calls back to the engine at `MIRASTACK_ENGINE_ADDR` for cache, logging, and approval operations.
+On startup, the plugin connects to the engine at `MIRASTACK_ENGINE_ADDR`, announces itself via the `RegisterPlugin` RPC, and the engine calls back to verify the plugin and ingest its metadata. No entry in `config.yaml` is required.
 
-> **Both models work on bare metal, VMs, Docker, and Kubernetes.** The engine does not care where the plugin process runs — only that it is reachable at the configured gRPC address.
+If `MIRASTACK_PLUGIN_ADVERTISE_ADDR` is not set, the SDK resolves the advertise address from the OS hostname and the bound port.
+
+> **Backward compatibility:** You can still list remote plugins in `plugins.external` in `config.yaml`. The engine will connect to those addresses on startup as before. Self-registration and static configuration coexist — self-registration takes precedence when a plugin registers under an already-configured name.
+
+```yaml
+# config.yaml — optional static listing (legacy)
+plugins:
+  external:
+    - name: query_vmetrics
+      addr: 192.168.1.42:50051
+```
+
+The plugin calls back to the engine at `MIRASTACK_ENGINE_ADDR` for cache, logging, and approval operations.
+
+> **Both models work on bare metal, VMs, Docker, and Kubernetes.** The engine does not care where the plugin process runs — only that the plugin can reach the engine to register and the engine can reach the plugin to dispatch tasks.
+
+### Graceful Shutdown
+
+When a plugin receives a shutdown signal (SIGINT, SIGTERM), the SDK automatically deregisters it from the engine via the `DeregisterPlugin` RPC before stopping the gRPC server. The engine removes the plugin from the active registry immediately rather than waiting for a health check timeout.
 
 ---
 

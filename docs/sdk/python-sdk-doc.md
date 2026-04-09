@@ -54,7 +54,7 @@ from mirastack_sdk import serve
 serve(plugin_instance)
 ```
 
-`serve` reads `MIRASTACK_ENGINE_ADDR` from the environment, runs the agent's gRPC server, connects to the engine, registers the agent, and handles all incoming calls. It blocks until shutdown.
+`serve` starts the agent's gRPC server, reads `MIRASTACK_ENGINE_ADDR` from the environment, connects to the engine, self-registers via the `RegisterPlugin` RPC, and handles all incoming calls. It blocks until shutdown. On SIGINT/SIGTERM, it deregisters from the engine before stopping.
 
 ---
 

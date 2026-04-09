@@ -19,6 +19,6 @@ Providers are the bridge between the MIRASTACK Engine and external AI services. 
 
 ## How Providers Work
 
-The engine communicates with providers over a local gRPC channel. Providers register the AI models they expose, and the engine selects the appropriate provider at runtime based on the workflow's model requirements.
+The engine communicates with providers over gRPC. Providers self-register on startup via the SDK's `Serve()` function, announcing the AI models they expose. The engine selects the appropriate provider at runtime based on the workflow's model requirements. No engine restart is needed to add new providers.
 
 Providers can be deployed as sidecars (embedded), standalone processes, or remote microservices — all using the same protocol.

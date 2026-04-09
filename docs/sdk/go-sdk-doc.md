@@ -50,7 +50,7 @@ The entry point for every agent. Call it from `main()` with your plugin:
 err := mirastack.Serve(plugin)
 ```
 
-`Serve` blocks indefinitely. It reads `MIRASTACK_ENGINE_ADDR` from the environment, connects to the engine, registers the agent, and handles all incoming gRPC calls.
+`Serve` blocks indefinitely. It starts the plugin's gRPC server, reads `MIRASTACK_ENGINE_ADDR` from the environment, connects to the engine, self-registers via the `RegisterPlugin` RPC, and handles all incoming gRPC calls. On shutdown (SIGINT/SIGTERM), it deregisters from the engine before stopping.
 
 ---
 

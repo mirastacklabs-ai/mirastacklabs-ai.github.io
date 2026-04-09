@@ -142,7 +142,7 @@ docker run -e MIRASTACK_ENGINE_ADDR=engine-host:9090 \
            ghcr.io/mirastacklabs-ai/mirastack-provider-openai:latest
 ```
 
-The provider registers automatically. Configure its API credentials at runtime — no restart needed:
+The provider self-registers with the engine automatically — no engine restart needed. Configure its API credentials at runtime:
 
 ```bash
 miractl provider config-set openai --key api_key --value sk-...

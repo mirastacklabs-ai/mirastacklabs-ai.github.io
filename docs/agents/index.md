@@ -19,7 +19,7 @@ MIRASTACK agents are lightweight, autonomous processes that execute tasks on beh
 
 ## How Agents Work
 
-Agents register with the MIRASTACK Engine over a secure gRPC channel. Once registered, the engine dispatches tasks to the agent and the agent streams back results, logs, and status updates in real time.
+Agents self-register with the MIRASTACK Engine over gRPC on startup. The SDK's `Serve()` function handles the registration handshake automatically — no engine restart is needed to add new agents. Once registered, the engine dispatches tasks to the agent and the agent streams back results, logs, and status updates in real time.
 
 Agents are stateless by design: all persistent state lives in the engine. This makes them trivially scalable — deploy as many instances as needed, anywhere in your infrastructure.
 
