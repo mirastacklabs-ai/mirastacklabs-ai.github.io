@@ -278,6 +278,7 @@ signal_metadata:
 
 Each metric is defined as a `FamilyGenerator`:
 
+{% raw %}
 ```go
 NewFamilyGenerator(
     "kube_pod_info",                    // Metric name
@@ -296,6 +297,7 @@ NewFamilyGenerator(
     },
 )
 ```
+{% endraw %}
 
 ### 2. MetricsStore with Informers
 

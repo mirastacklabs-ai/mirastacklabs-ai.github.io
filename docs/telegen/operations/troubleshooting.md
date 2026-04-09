@@ -422,6 +422,7 @@ cat /proc/sys/kernel/perf_event_paranoid
 
 **Diagnostics:**
 
+{% raw %}
 ```bash
 # Check exit code
 docker inspect telegen --format='{{.State.ExitCode}}'
@@ -429,6 +430,7 @@ docker inspect telegen --format='{{.State.ExitCode}}'
 # Check last logs
 docker logs telegen 2>&1 | tail -50
 ```
+{% endraw %}
 
 **Solutions:**
 

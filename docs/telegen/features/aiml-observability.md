@@ -271,6 +271,7 @@ rate(gpu_nccl_send_bytes_total[5m]) + rate(gpu_nccl_recv_bytes_total[5m])
 
 ### GPU Alerts
 
+{% raw %}
 ```yaml
 groups:
   - name: gpu
@@ -299,9 +300,11 @@ groups:
         annotations:
           summary: "GPU {{ $labels.device }} underutilized"
 ```
+{% endraw %}
 
 ### LLM Alerts
 
+{% raw %}
 ```yaml
 groups:
   - name: llm
@@ -330,6 +333,7 @@ groups:
         annotations:
           summary: "LLM time-to-first-token P95 is {{ $value | humanizeDuration }}"
 ```
+{% endraw %}
 
 ---
 

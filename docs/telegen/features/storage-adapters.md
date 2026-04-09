@@ -285,6 +285,7 @@ topk(10, rate(storage_volume_read_iops[5m]) + rate(storage_volume_write_iops[5m]
 
 ### Health Alerts
 
+{% raw %}
 ```yaml
 groups:
   - name: storage
@@ -313,6 +314,7 @@ groups:
         annotations:
           summary: "Hardware issue on {{ $labels.array }}"
 ```
+{% endraw %}
 
 ---
 

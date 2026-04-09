@@ -557,6 +557,7 @@ rate(node_network_transmit_errs_total[5m])
 
 ## Alerting Examples
 
+{% raw %}
 ```yaml
 groups:
   - name: node
@@ -593,6 +594,7 @@ groups:
         annotations:
           summary: "High disk I/O on {{ $labels.instance }}"
 ```
+{% endraw %}
 
 ---
 

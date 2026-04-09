@@ -216,6 +216,7 @@ telegen_go_goroutines
 
 ### Recommended Alerts
 
+{% raw %}
 ```yaml
 groups:
   - name: telegen
@@ -265,6 +266,7 @@ groups:
         annotations:
           summary: "Telegen export queue backing up ({{ $value }} items)"
 ```
+{% endraw %}
 
 ---
 
