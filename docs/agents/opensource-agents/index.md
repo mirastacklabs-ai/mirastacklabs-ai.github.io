@@ -38,7 +38,7 @@ Queries VictoriaMetrics for time-series metrics data using MetricsQL (a superset
 **Required configuration**
 
 ```bash
-miractl agent config-set query_vmetrics --key endpoint --value http://victoriametrics:8428
+miractl agent config-set query_vmetrics endpoint http://victoriametrics:8428
 ```
 
 **Example conversation trigger:**
@@ -59,7 +59,7 @@ Searches and analyses logs stored in VictoriaLogs using LogsQL. Supports full-te
 **Required configuration**
 
 ```bash
-miractl agent config-set query_vlogs --key endpoint --value http://victorialogs:9428
+miractl agent config-set query_vlogs endpoint http://victorialogs:9428
 ```
 
 **Example conversation trigger:**
@@ -80,7 +80,7 @@ Retrieves and searches distributed traces from VictoriaTraces via the Jaeger-com
 **Required configuration**
 
 ```bash
-miractl agent config-set query_vtraces --key endpoint --value http://victoriatraces:9411
+miractl agent config-set query_vtraces endpoint http://victoriatraces:9411
 ```
 
 **Example conversation trigger:**
@@ -111,7 +111,7 @@ Supported metric categories for `discover_metrics`:
 **Required configuration**
 
 ```bash
-miractl agent config-set metrics_discovery --key endpoint --value http://victoriametrics:8428
+miractl agent config-set metrics_discovery endpoint http://victoriametrics:8428
 ```
 
 ---
@@ -129,7 +129,7 @@ Analyses the time-series cardinality health of VictoriaMetrics. High cardinality
 **Required configuration**
 
 ```bash
-miractl agent config-set cardinality --key endpoint --value http://victoriametrics:8428
+miractl agent config-set cardinality endpoint http://victoriametrics:8428
 ```
 
 **Example conversation trigger:**
@@ -151,8 +151,8 @@ Maps the real-time topology of your distributed system. Derives service-to-servi
 **Required configuration**
 
 ```bash
-miractl agent config-set service_graph --key endpoint --value http://victoriametrics:8428
-miractl agent config-set service_graph --key traces_endpoint --value http://victoriatraces:9411
+miractl agent config-set service_graph endpoint http://victoriametrics:8428
+miractl agent config-set service_graph traces_endpoint http://victoriatraces:9411
 ```
 
 **Example conversation trigger:**

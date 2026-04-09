@@ -34,9 +34,9 @@ Wraps the OpenAI Chat Completions API using the official OpenAI Go SDK. Supports
 ### Configuration
 
 ```bash
-miractl provider config-set openai --key endpoint --value https://api.openai.com/v1
-miractl provider config-set openai --key api_key --value sk-...
-miractl provider config-set openai --key model --value gpt-4o
+miractl provider config-set openai endpoint https://api.openai.com/v1
+miractl provider config-set openai api_key sk-...
+miractl provider config-set openai model gpt-4o
 ```
 
 | Key | Required | Description |
@@ -72,9 +72,9 @@ Wraps the Anthropic Messages API using the official Anthropic Go SDK. Supports a
 ### Configuration
 
 ```bash
-miractl provider config-set anthropic --key endpoint --value https://api.anthropic.com
-miractl provider config-set anthropic --key api_key --value sk-ant-...
-miractl provider config-set anthropic --key model --value claude-sonnet-4-20250514
+miractl provider config-set anthropic endpoint https://api.anthropic.com
+miractl provider config-set anthropic api_key sk-ant-...
+miractl provider config-set anthropic model claude-sonnet-4-20250514
 ```
 
 | Key | Required | Description |
@@ -145,8 +145,8 @@ docker run -e MIRASTACK_ENGINE_ADDR=engine-host:9090 \
 The provider self-registers with the engine automatically — no engine restart needed. Configure its API credentials at runtime:
 
 ```bash
-miractl provider config-set openai --key api_key --value sk-...
-miractl provider config-set openai --key model --value gpt-4o
+miractl provider config-set openai api_key sk-...
+miractl provider config-set openai model gpt-4o
 ```
 
 Verify the provider is healthy:

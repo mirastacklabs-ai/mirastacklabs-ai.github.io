@@ -164,9 +164,7 @@ miractl agent list                 # List all registered agents (name, version, 
 miractl agent get query-vmetrics   # See full details for one agent
 miractl agent health query-vmetrics  # Run a live health check
 miractl agent config query-vmetrics  # View the agent's current configuration
-miractl agent config-set query-vmetrics \
-  --key backend_url \
-  --value http://victoriametrics:8428   # Update a config value
+miractl agent config-set query-vmetrics backend_url http://victoriametrics:8428   # Update a config value
 ```
 
 ---
@@ -178,9 +176,7 @@ miractl provider list              # List all registered providers
 miractl provider get openai        # See provider details
 miractl provider health openai     # Run a live health check
 miractl provider config openai     # View provider config
-miractl provider config-set openai \
-  --key model \
-  --value gpt-4o                   # Update provider config
+miractl provider config-set openai model gpt-4o   # Update provider config
 ```
 
 ---

@@ -231,7 +231,9 @@ func main() {
 
 ## Registering Your Provider with the Engine
 
-Registration is automatic — no manual steps, no CRDs. The same two models as agents:
+Registration is automatic — no manual steps, no CRDs. When you call `mirastack.Serve()`, the SDK starts the provider's gRPC server, connects to the engine at `MIRASTACK_ENGINE_ADDR`, and self-registers via the `RegisterPlugin` RPC. The engine calls back to verify metadata and adds the provider to its LLM Router. **No engine restart is required.**
+
+The same two deployment models as agents:
 
 ### Co-located (same host)
 
@@ -245,21 +247,17 @@ Put the provider binary in the engine's `plugins.dir` directory:
 
 ### Remote (different host)
 
-Add it to `plugins.external` in the engine's `config.yaml`:
-
-```yaml
-plugins:
-  external:
-    - name: my_llm
-      addr: 10.0.1.55:50051
-```
-
-Start the provider with `MIRASTACK_ENGINE_ADDR` pointing back to the engine:
+Start the provider with `MIRASTACK_ENGINE_ADDR` pointing to the engine. Optionally set `MIRASTACK_PLUGIN_ADVERTISE_ADDR` for the address the engine can reach the provider on:
 
 ```bash
 export MIRASTACK_ENGINE_ADDR=engine-host:9090
+export MIRASTACK_PLUGIN_ADVERTISE_ADDR=10.0.1.55:50051
 ./mirastack-provider-my-llm
 ```
+
+The provider self-registers on startup. No changes to the engine's `config.yaml` are needed.
+
+> **Backward compatibility:** You can still list remote providers in `plugins.external` in the engine's `config.yaml`. Self-registration takes precedence when both are configured.
 
 Check it registered:
 
@@ -275,9 +273,9 @@ miractl provider list
 Provider configuration (API keys, endpoint URLs, model names) is managed at runtime through the engine's settings store — not through environment variables or files. Once the provider registers, initialize its config:
 
 ```bash
-miractl provider config-set my_llm --key endpoint --value http://my-inference-server:8080
-miractl provider config-set my_llm --key api_key --value sk-...
-miractl provider config-set my_llm --key model --value my-model-name
+miractl provider config-set my_llm endpoint http://my-inference-server:8080
+miractl provider config-set my_llm api_key sk-...
+miractl provider config-set my_llm model my-model-name
 ```
 
 The engine pushes these values to the provider over gRPC via `ConfigUpdated`. The provider applies them live. No restart is needed.
