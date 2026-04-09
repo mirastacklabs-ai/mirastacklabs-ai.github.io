@@ -1,3 +1,10 @@
+---
+title: "Metrics Reference"
+layout: docs
+parent: "Reference"
+grand_parent: "Telegen"
+nav_order: 3
+---
 # Metrics Reference
 
 Complete catalog of metrics collected and exported by Telegen.

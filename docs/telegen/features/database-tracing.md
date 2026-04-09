@@ -1,3 +1,10 @@
+---
+title: "Database Tracing"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 4
+---
 # Database Tracing
 
 Telegen provides deep database observability using eBPF protocol tracing.

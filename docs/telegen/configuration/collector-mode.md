@@ -1,3 +1,10 @@
+---
+title: "Collector Mode"
+layout: docs
+parent: "Configuration"
+grand_parent: "Telegen"
+nav_order: 4
+---
 # Collector Mode Configuration
 
 Detailed configuration guide for Telegen Collector mode.

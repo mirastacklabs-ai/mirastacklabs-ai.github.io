@@ -1,3 +1,10 @@
+---
+title: "Node Exporter Fusion"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 9
+---
 # Node Exporter Fusion
 
 Telegen includes a drop-in replacement for Prometheus node_exporter, providing full compatibility with existing dashboards and alerts.

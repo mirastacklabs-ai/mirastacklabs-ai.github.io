@@ -1,3 +1,10 @@
+---
+title: "Configuration"
+layout: docs
+parent: "Telegen"
+grand_parent: "MIRASTACK Documentation"
+nav_order: 4
+---
 # Configuration
 
 Complete guide to configuring Telegen for your environment.

@@ -1,3 +1,10 @@
+---
+title: "Quick Start"
+layout: docs
+parent: "Getting Started"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # Quick Start Guide
 
 Get Telegen running in under 5 minutes with zero configuration.

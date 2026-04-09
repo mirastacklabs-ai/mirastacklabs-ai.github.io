@@ -1,3 +1,10 @@
+---
+title: "Troubleshooting"
+layout: docs
+parent: "Operations"
+grand_parent: "Telegen"
+nav_order: 3
+---
 # Troubleshooting
 
 Common issues and solutions for Telegen.

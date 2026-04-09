@@ -1,3 +1,10 @@
+---
+title: "Log Collection"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 7
+---
 # Log Collection & Trace Enrichment
 
 Telegen provides native log collection with automatic trace correlation, delivering 100% OTLP-compliant logs.

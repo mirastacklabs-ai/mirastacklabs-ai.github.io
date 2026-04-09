@@ -1,3 +1,10 @@
+---
+title: "Upgrading"
+layout: docs
+parent: "Operations"
+grand_parent: "Telegen"
+nav_order: 4
+---
 # Upgrading Telegen
 
 Guide for upgrading Telegen to new versions.

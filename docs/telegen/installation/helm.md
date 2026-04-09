@@ -1,3 +1,10 @@
+---
+title: "Helm"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 4
+---
 # Helm Installation
 
 Deploy Telegen using the official Helm chart for simplified configuration management.

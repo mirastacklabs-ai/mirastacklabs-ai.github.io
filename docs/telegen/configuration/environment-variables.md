@@ -1,3 +1,10 @@
+---
+title: "Environment Variables"
+layout: docs
+parent: "Configuration"
+grand_parent: "Telegen"
+nav_order: 5
+---
 # Environment Variables
 
 Complete reference for Telegen environment variables.

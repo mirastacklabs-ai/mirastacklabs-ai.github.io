@@ -1,3 +1,10 @@
+---
+title: "API Reference"
+layout: docs
+parent: "Reference"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # API Reference
 
 REST API endpoints exposed by Telegen.

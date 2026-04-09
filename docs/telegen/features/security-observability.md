@@ -1,3 +1,10 @@
+---
+title: "Security Observability"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 10
+---
 # Security Observability
 
 Telegen provides runtime security monitoring using eBPF.

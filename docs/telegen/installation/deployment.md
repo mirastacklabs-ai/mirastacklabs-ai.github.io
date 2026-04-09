@@ -1,3 +1,10 @@
+---
+title: "Deployment"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # Pipeline Deployment Guide
 
 Complete deployment guide for Telegen unified pipeline across all environments.

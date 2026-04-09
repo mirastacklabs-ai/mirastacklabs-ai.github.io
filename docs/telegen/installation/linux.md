@@ -1,3 +1,10 @@
+---
+title: "Linux"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 6
+---
 # Linux Installation
 
 Deploy Telegen on bare-metal Linux or VMs using systemd.

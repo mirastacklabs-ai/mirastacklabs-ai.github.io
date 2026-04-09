@@ -1,3 +1,10 @@
+---
+title: "Distributed Tracing"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 5
+---
 # Distributed Tracing
 
 Telegen provides zero-configuration distributed tracing using eBPF.

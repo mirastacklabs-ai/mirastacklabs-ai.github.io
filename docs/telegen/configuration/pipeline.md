@@ -1,3 +1,10 @@
+---
+title: "Pipeline"
+layout: docs
+parent: "Configuration"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # Pipeline Configuration
 
 Complete reference for the unified pipeline configuration.

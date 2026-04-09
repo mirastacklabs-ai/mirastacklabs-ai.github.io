@@ -1,3 +1,10 @@
+---
+title: "OpenShift"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 7
+---
 # OpenShift Installation
 
 Deploy Telegen on Red Hat OpenShift with the required Security Context Constraints.

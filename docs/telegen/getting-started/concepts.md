@@ -1,3 +1,10 @@
+---
+title: "Concepts"
+layout: docs
+parent: "Getting Started"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # Core Concepts
 
 Understanding Telegen's architecture and terminology.

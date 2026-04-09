@@ -1,3 +1,10 @@
+---
+title: "CLI Reference"
+layout: docs
+parent: "Reference"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # CLI Reference
 
 Command-line interface reference for Telegen.

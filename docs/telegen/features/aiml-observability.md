@@ -1,3 +1,10 @@
+---
+title: "AI/ML Observability"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # AI/ML Observability
 
 Telegen provides observability for AI/ML workloads, including GPU monitoring and LLM inference metrics.

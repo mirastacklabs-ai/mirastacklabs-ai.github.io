@@ -1,3 +1,10 @@
+---
+title: "Backends"
+layout: docs
+parent: "Integrations"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # Backend Integrations
 
 Configure Telegen to export to various observability backends.

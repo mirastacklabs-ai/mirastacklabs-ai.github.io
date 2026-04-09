@@ -1,3 +1,10 @@
+---
+title: "Architecture"
+layout: docs
+parent: "Getting Started"
+grand_parent: "Telegen"
+nav_order: 3
+---
 # Architecture Overview
 
 Deep dive into Telegen's internal architecture.

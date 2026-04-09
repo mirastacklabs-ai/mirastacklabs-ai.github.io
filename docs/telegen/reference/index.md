@@ -1,3 +1,10 @@
+---
+title: "Reference"
+layout: docs
+parent: "Telegen"
+grand_parent: "MIRASTACK Documentation"
+nav_order: 7
+---
 # Reference
 
 Technical reference documentation for Telegen.

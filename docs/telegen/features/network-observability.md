@@ -1,3 +1,10 @@
+---
+title: "Network Observability"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 8
+---
 # Network Observability
 
 Telegen provides deep network observability using eBPF.

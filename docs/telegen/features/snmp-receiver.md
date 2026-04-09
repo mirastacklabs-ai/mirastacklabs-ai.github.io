@@ -1,3 +1,10 @@
+---
+title: "SNMP Receiver"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 11
+---
 # SNMP Receiver
 
 Telegen's SNMP receiver collects metrics from network devices, storage systems, and other SNMP-enabled infrastructure.

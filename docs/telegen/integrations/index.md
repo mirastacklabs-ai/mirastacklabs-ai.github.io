@@ -1,3 +1,10 @@
+---
+title: "Integrations"
+layout: docs
+parent: "Telegen"
+grand_parent: "MIRASTACK Documentation"
+nav_order: 5
+---
 # Integrations
 
 Guides for integrating Telegen with observability backends and tools.

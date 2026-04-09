@@ -1,3 +1,10 @@
+---
+title: "Docker"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # Docker Installation
 
 Deploy Telegen using Docker or Docker Compose.

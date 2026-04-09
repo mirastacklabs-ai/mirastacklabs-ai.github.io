@@ -1,3 +1,10 @@
+---
+title: "Kubernetes Metrics"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 6
+---
 # Kubernetes Native Metrics Integration - Engineering Documentation
 
 ## Overview

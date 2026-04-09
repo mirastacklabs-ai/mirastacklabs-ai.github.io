@@ -1,3 +1,10 @@
+---
+title: "Continuous Profiling"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 3
+---
 # Continuous Profiling
 
 Telegen provides always-on, low-overhead profiling for production environments.

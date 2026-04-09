@@ -1,3 +1,10 @@
+---
+title: "Features"
+layout: docs
+parent: "Telegen"
+grand_parent: "MIRASTACK Documentation"
+nav_order: 3
+---
 # Features
 
 Detailed guides for Telegen's observability features.

@@ -137,15 +137,15 @@
   border-bottom-color: var(--border-accent);
 }
 
-/* Child links */
-.nav-list-child {
+/* Child links (L2) */
+.nav-list-l2 {
   list-style: none;
   padding: 0.25rem 0 0.5rem 0.75rem;
   margin: 0;
   border-left: 1px solid var(--border);
 }
 
-.nav-list-child .nav-list-link {
+.nav-list-l2 .nav-list-link {
   display: block;
   padding: 0.35rem 0.5rem;
   font-size: 0.8rem;
@@ -158,23 +158,24 @@
   margin-left: -1px;
 }
 
-.nav-list-child .nav-list-link:hover { color: var(--accent); opacity: 1; }
+.nav-list-l2 .nav-list-link:hover { color: var(--accent); opacity: 1; }
 
-.nav-list-child .nav-list-item.active > .nav-list-link,
-.nav-list-child .nav-list-link.active {
+.nav-list-l2 .nav-list-item.active > .nav-list-link,
+.nav-list-l2 .nav-list-link.active {
   color: var(--accent);
   border-left-color: var(--accent);
   background: var(--accent-glow);
 }
 
-/* Grandchild links */
-.nav-list-grandchild {
+/* Sub-section links (L3) */
+.nav-list-l3 {
   list-style: none;
   padding: 0 0 0.25rem 0.75rem;
   margin: 0;
+  border-left: 1px solid var(--border);
 }
 
-.nav-list-grandchild .nav-list-link {
+.nav-list-l3 .nav-list-link {
   display: block;
   padding: 0.3rem 0.5rem;
   font-size: 0.76rem;
@@ -185,10 +186,37 @@
   margin-left: -1px;
 }
 
-.nav-list-grandchild .nav-list-link:hover { color: var(--accent); opacity: 1; }
+.nav-list-l3 .nav-list-link:hover { color: var(--accent); opacity: 1; }
 
-.nav-list-grandchild .nav-list-item.active > .nav-list-link,
-.nav-list-grandchild .nav-list-link.active {
+.nav-list-l3 .nav-list-item.active > .nav-list-link,
+.nav-list-l3 .nav-list-link.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+/* Leaf links (L4) */
+.nav-list-l4 {
+  list-style: none;
+  padding: 0 0 0.25rem 0.75rem;
+  margin: 0;
+  border-left: 1px solid var(--border);
+}
+
+.nav-list-l4 .nav-list-link {
+  display: block;
+  padding: 0.28rem 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+}
+
+.nav-list-l4 .nav-list-link:hover { color: var(--accent); opacity: 1; }
+
+.nav-list-l4 .nav-list-item.active > .nav-list-link,
+.nav-list-l4 .nav-list-link.active {
   color: var(--accent);
   border-left-color: var(--accent);
 }

@@ -1,3 +1,9 @@
+---
+title: "Telegen"
+layout: docs
+parent: "MIRASTACK Documentation"
+nav_order: 14
+---
 # Telegen Documentation
 
 ```{image} ../telegen.svg

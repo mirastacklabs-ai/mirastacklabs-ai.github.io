@@ -1,48 +1,92 @@
 {% comment %}
-  This include builds a collapsible nested list of documentation pages.
-  It relies on pages having the `parent`, `grand_parent`, or general URL structure to nest them.
-  For a simple folder-based approach, we sort by URL or `nav_order`.
+  4-level collapsible sidebar.
+  Level 1: parent == nil  (e.g. "MIRASTACK Documentation")
+  Level 2: parent == L1.title  (e.g. "Engine", "Telegen")
+  Level 3: parent == L2.title AND grand_parent == L1.title  (e.g. "Getting Started")
+  Level 4: parent == L3.title AND grand_parent == L2.title  (e.g. "Quickstart")
 {% endcomment %}
 
 {% assign docs_pages = site.pages | where_exp: "item", "item.url contains '/docs/'" | sort: "nav_order" %}
 
-<!-- Top level docs elements -->
 <ul class="nav-list">
   {% for p in docs_pages %}
-    {% if p.parent == nil and p.title %}
-      <li class="nav-list-item {% if page.url == p.url %}active{% endif %}">
-        
-        <!-- Parent Link -->
-        <a href="{{ p.url | relative_url }}" class="nav-list-link {% if page.url == p.url %}active{% endif %}">{{ p.title }}</a>
-        
-        <!-- Child Elements -->
-        {% assign children = docs_pages | where: "parent", p.title %}
-        {% if children.size > 0 %}
-          <button class="nav-list-expander" aria-label="Toggle {{ p.title }}" aria-expanded="{% if page.url contains p.url %}true{% else %}false{% endif %}">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5z"/></svg>
-          </button>
-          
-          <ul class="nav-list-child" style="{% if page.url contains p.url or page.parent == p.title %}display: block;{% else %}display: none;{% endif %}">
-            {% for child in children %}
-              <li class="nav-list-item {% if page.url == child.url %}active{% endif %}">
-                <a href="{{ child.url | relative_url }}" class="nav-list-link {% if page.url == child.url %}active{% endif %}">{{ child.title }}</a>
-                
-                <!-- Grandchild Elements -->
-                {% assign grandchildren = docs_pages | where: "parent", child.title | where: "grand_parent", p.title %}
-                {% if grandchildren.size > 0 %}
-                <ul class="nav-list-grandchild" style="{% if page.url contains child.url or page.parent == child.title %}display: block;{% else %}display: none;{% endif %}">
-                  {% for gc in grandchildren %}
-                    <li class="nav-list-item {% if page.url == gc.url %}active{% endif %}">
-                      <a href="{{ gc.url | relative_url }}" class="nav-list-link {% if page.url == gc.url %}active{% endif %}">{{ gc.title }}</a>
+    {% unless p.parent or p.title == nil %}
+
+    {%- assign l2_pages = docs_pages | where: "parent", p.title | sort: "nav_order" -%}
+
+    <li class="nav-list-item{% if page.url == p.url %} active{% endif %}">
+      <a href="{{ p.url | relative_url }}" class="nav-list-link{% if page.url == p.url %} active{% endif %}">{{ p.title }}</a>
+
+      {% if l2_pages.size > 0 %}
+        {%- assign l1_active = false -%}
+        {%- for l2 in l2_pages -%}
+          {%- if page.url == l2.url or page.parent == l2.title or page.grand_parent == l2.title -%}
+            {%- assign l1_active = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if page.url == p.url -%}{%- assign l1_active = true -%}{%- endif -%}
+
+        <button class="nav-list-expander" aria-label="Toggle {{ p.title }}" aria-expanded="{{ l1_active }}">
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        </button>
+
+        <ul class="nav-list-l2" style="{% if l1_active %}display:block{% else %}display:none{% endif %}">
+          {% for l2 in l2_pages %}
+            {%- assign l3_pages = docs_pages | where: "parent", l2.title | where: "grand_parent", p.title | sort: "nav_order" -%}
+
+            {%- assign l2_active = false -%}
+            {%- if page.url == l2.url or page.parent == l2.title -%}
+              {%- assign l2_active = true -%}
+            {%- endif -%}
+            {%- for l3 in l3_pages -%}
+              {%- if page.url == l3.url or page.parent == l3.title -%}
+                {%- assign l2_active = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            <li class="nav-list-item{% if page.url == l2.url %} active{% endif %}">
+              <a href="{{ l2.url | relative_url }}" class="nav-list-link{% if page.url == l2.url %} active{% endif %}">{{ l2.title }}</a>
+
+              {% if l3_pages.size > 0 %}
+                <button class="nav-list-expander" aria-label="Toggle {{ l2.title }}" aria-expanded="{{ l2_active }}">
+                  <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                </button>
+
+                <ul class="nav-list-l3" style="{% if l2_active %}display:block{% else %}display:none{% endif %}">
+                  {% for l3 in l3_pages %}
+                    {%- assign l4_pages = docs_pages | where: "parent", l3.title | where: "grand_parent", l2.title | sort: "nav_order" -%}
+
+                    {%- assign l3_active = false -%}
+                    {%- if page.url == l3.url or page.parent == l3.title -%}
+                      {%- assign l3_active = true -%}
+                    {%- endif -%}
+
+                    <li class="nav-list-item{% if page.url == l3.url %} active{% endif %}">
+                      <a href="{{ l3.url | relative_url }}" class="nav-list-link{% if page.url == l3.url %} active{% endif %}">{{ l3.title }}</a>
+
+                      {% if l4_pages.size > 0 %}
+                        <button class="nav-list-expander" aria-label="Toggle {{ l3.title }}" aria-expanded="{{ l3_active }}">
+                          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+
+                        <ul class="nav-list-l4" style="{% if l3_active %}display:block{% else %}display:none{% endif %}">
+                          {% for l4 in l4_pages %}
+                            <li class="nav-list-item{% if page.url == l4.url %} active{% endif %}">
+                              <a href="{{ l4.url | relative_url }}" class="nav-list-link{% if page.url == l4.url %} active{% endif %}">{{ l4.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
                     </li>
                   {% endfor %}
                 </ul>
-                {% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      </li>
-    {% endif %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+
+    {% endunless %}
   {% endfor %}
 </ul>

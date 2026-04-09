@@ -1,3 +1,10 @@
+---
+title: "Operations"
+layout: docs
+parent: "Telegen"
+grand_parent: "MIRASTACK Documentation"
+nav_order: 6
+---
 # Operations
 
 Guides for operating Telegen in production environments.

@@ -1,3 +1,10 @@
+---
+title: "Installation"
+layout: docs
+parent: "Telegen"
+grand_parent: "MIRASTACK Documentation"
+nav_order: 2
+---
 # Installation
 
 Comprehensive guides for deploying Telegen across all supported platforms.

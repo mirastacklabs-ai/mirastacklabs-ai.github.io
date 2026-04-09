@@ -1,3 +1,10 @@
+---
+title: "Semantic Conventions"
+layout: docs
+parent: "Reference"
+grand_parent: "Telegen"
+nav_order: 4
+---
 # Semantic Conventions
 
 OpenTelemetry semantic conventions used by Telegen.

@@ -1,3 +1,10 @@
+---
+title: "Monitoring"
+layout: docs
+parent: "Operations"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # Monitoring Telegen
 
 How to monitor Telegen itself for health and performance.

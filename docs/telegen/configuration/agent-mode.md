@@ -1,3 +1,10 @@
+---
+title: "Agent Mode"
+layout: docs
+parent: "Configuration"
+grand_parent: "Telegen"
+nav_order: 3
+---
 # Agent Mode Configuration
 
 Detailed configuration guide for Telegen Agent mode.

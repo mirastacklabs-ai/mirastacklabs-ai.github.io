@@ -1,3 +1,10 @@
+---
+title: "Kubernetes"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 5
+---
 # Kubernetes Installation
 
 Deploy Telegen on Kubernetes using kubectl manifests.

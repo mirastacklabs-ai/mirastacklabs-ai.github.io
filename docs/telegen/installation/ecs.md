@@ -1,3 +1,10 @@
+---
+title: "Amazon ECS"
+layout: docs
+parent: "Installation"
+grand_parent: "Telegen"
+nav_order: 3
+---
 # AWS ECS Installation
 
 Deploy Telegen on Amazon Elastic Container Service (ECS).

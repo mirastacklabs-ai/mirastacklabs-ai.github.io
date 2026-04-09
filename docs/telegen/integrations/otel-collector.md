@@ -1,3 +1,10 @@
+---
+title: "OTel Collector"
+layout: docs
+parent: "Integrations"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # OpenTelemetry Collector Integration
 
 How to configure Telegen with OpenTelemetry Collector.

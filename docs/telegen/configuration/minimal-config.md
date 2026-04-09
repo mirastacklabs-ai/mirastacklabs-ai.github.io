@@ -1,3 +1,10 @@
+---
+title: "Minimal Configuration"
+layout: docs
+parent: "Configuration"
+grand_parent: "Telegen"
+nav_order: 1
+---
 # Minimal Configuration
 
 Get started with the absolute minimum configuration.

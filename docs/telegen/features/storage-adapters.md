@@ -1,3 +1,10 @@
+---
+title: "Storage Adapters"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 12
+---
 # Storage Adapters
 
 Telegen's storage adapters collect metrics from enterprise storage arrays via vendor APIs.

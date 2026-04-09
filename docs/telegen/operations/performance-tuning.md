@@ -1,3 +1,10 @@
+---
+title: "Performance Tuning"
+layout: docs
+parent: "Operations"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # Performance Tuning
 
 Optimize Telegen for your environment and workload.

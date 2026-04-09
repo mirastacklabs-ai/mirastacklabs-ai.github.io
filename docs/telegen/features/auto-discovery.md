@@ -1,3 +1,10 @@
+---
+title: "Auto-Discovery"
+layout: docs
+parent: "Features"
+grand_parent: "Telegen"
+nav_order: 2
+---
 # Auto-Discovery
 
 Telegen automatically discovers your infrastructure, cloud environment, and running applications.
