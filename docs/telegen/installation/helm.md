@@ -493,5 +493,5 @@ kubectl delete namespace telegen
 
 ## Next Steps
 
-- {doc}`../configuration/full-reference` - Complete configuration reference
-- {doc}`../features/index` - Explore features
+- [Full Reference](../configuration/full-reference) - Complete configuration reference
+- [Features](../features/index) - Explore features

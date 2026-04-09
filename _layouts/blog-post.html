@@ -178,6 +178,19 @@ layout: default
     });
 
     await mermaid.run({ nodes });
+
+    // Strip fixed pixel dimensions so CSS (width:100%/height:auto) takes over
+    document.querySelectorAll('.mermaid svg').forEach(svg => {
+      const w = parseFloat(svg.getAttribute('width') || '0');
+      const h = parseFloat(svg.getAttribute('height') || '0');
+      if (w > 0 && h > 0 && !svg.getAttribute('viewBox')) {
+        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      }
+      svg.removeAttribute('width');
+      svg.style.maxWidth = '100%';
+      svg.style.height   = 'auto';
+      svg.style.width    = '100%';
+    });
   }
 
 

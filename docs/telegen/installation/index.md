@@ -13,17 +13,21 @@ Comprehensive guides for deploying Telegen across all supported platforms.
 
 | Platform | Mode | Guide |
 |----------|------|-------|
-| **Unified Pipeline** | All Platforms | {doc}`deployment` |
-| **Kubernetes** | Agent (DaemonSet) | {doc}`kubernetes` |
-| **Helm** | Agent/Collector | {doc}`helm` |
-| **Docker** | Agent/Collector | {doc}`docker` |
-| **Linux** | systemd service | {doc}`linux` |
-| **OpenShift** | Agent (DaemonSet) | {doc}`openshift` |
-| **AWS ECS** | Agent (Daemon) | {doc}`ecs` |
+| **Unified Pipeline** | All Platforms | [Deployment](deployment) |
+| **Kubernetes** | Agent (DaemonSet) | [Kubernetes](kubernetes) |
+| **Helm** | Agent/Collector | [Helm](helm) |
+| **Docker** | Agent/Collector | [Docker](docker) |
+| **Linux** | systemd service | [Linux](linux) |
+| **OpenShift** | Agent (DaemonSet) | [Openshift](openshift) |
+| **AWS ECS** | Agent (Daemon) | [ECS](ecs) |
 
-```{tip}
+
+<div class="callout callout-tip">
+
 New deployments should use the **Unified Pipeline** guide which includes data quality controls, transformation, and PII redaction.
-```
+
+</div>
+
 
 ## Quick Reference
 
@@ -36,7 +40,7 @@ New deployments should use the **Unified Pipeline** guide which includes data qu
 
 ### Choosing a Deployment Mode
 
-```{mermaid}
+```mermaid
 graph TD
     A[What do you need to monitor?] --> B{Local hosts?}
     B -->|Yes| C[Agent Mode]
@@ -49,14 +53,3 @@ graph TD
     F --> I[DaemonSet + Deployment]
 ```
 
-```{toctree}
-:maxdepth: 2
-
-deployment
-kubernetes
-helm
-docker
-linux
-openshift
-ecs
-```

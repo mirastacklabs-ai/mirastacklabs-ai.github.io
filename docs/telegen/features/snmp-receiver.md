@@ -23,7 +23,7 @@ The SNMP receiver supports:
 
 ## Architecture
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Devices["Network Devices"]
         SW["Switches"]
@@ -508,6 +508,6 @@ collector:
 
 ## Next Steps
 
-- {doc}`storage-adapters` - Storage array monitoring
-- {doc}`../configuration/collector-mode` - Collector configuration
-- {doc}`network-observability` - Network flow analysis
+- [Storage Adapters](storage-adapters) - Storage array monitoring
+- [Collector Mode](../configuration/collector-mode) - Collector configuration
+- [Network Observability](network-observability) - Network flow analysis

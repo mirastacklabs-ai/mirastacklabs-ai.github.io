@@ -29,7 +29,7 @@ exporter configured in `exports.otlp`. This provides:
 - **Consistent config** - TLS, compression, timeouts configured once
 - **Simplified ops** - Change endpoint once, affects all signals
 
-See {doc}`full-reference` for the complete architecture diagram.
+See [Full Reference](full-reference) for the complete architecture diagram.
 
 ## Configuration Methods
 
@@ -41,13 +41,3 @@ See {doc}`full-reference` for the complete architecture diagram.
 
 ## Sections
 
-```{toctree}
-:maxdepth: 2
-
-minimal-config
-v3-pipeline
-full-reference
-agent-mode
-collector-mode
-environment-variables
-```

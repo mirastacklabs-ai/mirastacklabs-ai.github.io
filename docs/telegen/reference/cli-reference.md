@@ -392,6 +392,6 @@ docker run -d \
 
 ## Next Steps
 
-- {doc}`api-reference` - REST API endpoints
-- {doc}`../configuration/full-reference` - Configuration options
-- {doc}`../operations/troubleshooting` - Troubleshooting guide
+- [API Reference](api-reference) - REST API endpoints
+- [Full Reference](../configuration/full-reference) - Configuration options
+- [Troubleshooting](../operations/troubleshooting) - Troubleshooting guide

@@ -37,7 +37,7 @@ All profiles are automatically correlated with traces and metrics.
 
 ## How It Works
 
-```{mermaid}
+```mermaid
 flowchart TB
     subgraph Kernel["Linux Kernel"]
         P["perf_event"]
@@ -257,7 +257,7 @@ agent:
 
 Profiles are automatically linked to traces:
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Request["Slow Request"]
         T["Trace\nspan_id: abc123\nlatency: 2.3s"]
@@ -411,7 +411,7 @@ profiling:
 
 **How It Works:**
 
-```{mermaid}
+```mermaid
 sequenceDiagram
     participant JVM as Java App
     participant Agent as perf-map-agent
@@ -551,6 +551,6 @@ strip app
 
 ## Next Steps
 
-- {doc}`distributed-tracing` - Correlate profiles with traces
-- {doc}`security-observability` - Security event profiling
-- {doc}`../configuration/agent-mode` - Full profiling configuration
+- [Distributed Tracing](distributed-tracing) - Correlate profiles with traces
+- [Security Observability](security-observability) - Security event profiling
+- [Agent Mode](../configuration/agent-mode) - Full profiling configuration

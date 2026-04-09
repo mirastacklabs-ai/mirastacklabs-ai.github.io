@@ -13,7 +13,7 @@ Detailed configuration guide for Telegen Agent mode.
 
 **Agent Mode** is the default operating mode for Telegen. In this mode, Telegen runs directly on hosts, collects telemetry using eBPF, and exports data to your OTLP backend.
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Host["Host System"]
         K["Kernel"]
@@ -586,5 +586,5 @@ agent:
 
 ## Next Steps
 
-- {doc}`collector-mode` - Remote collection without eBPF
-- {doc}`environment-variables` - Environment variable reference
+- [Collector Mode](collector-mode) - Remote collection without eBPF
+- [Environment Variables](environment-variables) - Environment variable reference

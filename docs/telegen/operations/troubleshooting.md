@@ -508,6 +508,6 @@ When reporting issues, include:
 
 ## Next Steps
 
-- {doc}`monitoring` - Set up monitoring
-- {doc}`performance-tuning` - Optimize performance
-- {doc}`../configuration/full-reference` - Configuration options
+- [Monitoring](monitoring) - Set up monitoring
+- [Performance Tuning](performance-tuning) - Optimize performance
+- [Full Reference](../configuration/full-reference) - Configuration options

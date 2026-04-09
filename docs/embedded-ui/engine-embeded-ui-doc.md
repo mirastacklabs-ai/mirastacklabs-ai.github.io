@@ -2,7 +2,7 @@
 title: Engine Embedded UI
 description: The MIRASTACK Engine ships with a built-in web UI for managing workflows, monitoring agent health, reviewing approvals, and sending chat messages to the engine.
 layout: docs
-nav_order: 10
+nav_order: 7
 parent: MIRASTACK Documentation
 ---
 

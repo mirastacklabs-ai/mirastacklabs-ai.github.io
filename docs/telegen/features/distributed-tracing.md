@@ -21,22 +21,26 @@ Telegen automatically traces:
 
 No code changes or SDK integration required.
 
-:::{tip}
+
+<div class="callout callout-tip">
+
 For targeted tracing, use **port-based discovery** to instrument only specific services.
-See {doc}`auto-discovery` for details.
+See [Auto Discovery](auto-discovery) for details.
 
 ```yaml
 discovery:
   instrument:
     - open_ports: "8080-8089"  # Only trace these ports
 ```
-:::
+
+</div>
+
 
 ---
 
 ## How It Works
 
-```{mermaid}
+```mermaid
 flowchart TB
     subgraph Kernel["Linux Kernel"]
         K["eBPF Programs"]
@@ -197,7 +201,7 @@ Integration with JFR (Java Flight Recorder):
 
 Telegen automatically correlates:
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Request["Single Request"]
         T["Trace\n(span_id: abc123)"]
@@ -396,6 +400,6 @@ Telegen is designed for minimal overhead:
 
 ## Next Steps
 
-- {doc}`continuous-profiling` - Link profiles to traces
-- {doc}`database-tracing` - Deep database tracing
-- {doc}`../configuration/agent-mode` - Trace configuration options
+- [Continuous Profiling](continuous-profiling) - Link profiles to traces
+- [Database Tracing](database-tracing) - Deep database tracing
+- [Agent Mode](../configuration/agent-mode) - Trace configuration options

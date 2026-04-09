@@ -2,8 +2,9 @@
 title: Python Agent SDK
 description: Reference documentation for the MIRASTACK Agent SDK for Python.
 layout: docs
-nav_order: 7
-parent: MIRASTACK Documentation
+nav_order: 2
+parent: SDKs
+grand_parent: MIRASTACK Documentation
 ---
 
 # Python Agent SDK

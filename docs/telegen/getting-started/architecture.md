@@ -11,7 +11,7 @@ Deep dive into Telegen's internal architecture.
 
 ## High-Level Architecture
 
-```{mermaid}
+```mermaid
 graph TB
     subgraph "Telegen Agent"
         AD[Auto-Discovery Engine]
@@ -42,7 +42,7 @@ graph TB
 
 ## Data Flow
 
-```{mermaid}
+```mermaid
 sequenceDiagram
     participant K as Kernel
     participant E as eBPF Programs
@@ -66,7 +66,7 @@ sequenceDiagram
 
 ### Tracer Types
 
-```{mermaid}
+```mermaid
 graph LR
     subgraph "Network Tracers"
         HTTP[HTTP/gRPC Tracer]
@@ -103,7 +103,7 @@ graph LR
 
 ### Signal Processing Pipeline
 
-```{mermaid}
+```mermaid
 graph LR
     I[Ingestion] --> P[Processing]
     P --> E[Enrichment]
@@ -155,7 +155,7 @@ otlp:
 
 ### Buffer Management
 
-```{mermaid}
+```mermaid
 graph TB
     subgraph "Kernel Space"
         RB[Ring Buffer 16MB]
@@ -203,7 +203,7 @@ graph TB
 
 ### Privilege Separation
 
-```{mermaid}
+```mermaid
 graph TB
     subgraph "Privileged (root)"
         BPF[BPF Program Loader]
@@ -235,7 +235,7 @@ graph TB
 
 ### Collector Mode (HA)
 
-```{mermaid}
+```mermaid
 graph TB
     subgraph "Collector Pods (replicas=2)"
         C1[Collector 1]
@@ -279,5 +279,5 @@ graph TB
 
 ## Next Steps
 
-- {doc}`../installation/index` - Installation guides
-- {doc}`../configuration/index` - Configuration reference
+- [Installation](../installation/index) - Installation guides
+- [Configuration](../configuration/index) - Configuration reference

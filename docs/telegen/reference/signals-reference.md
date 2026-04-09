@@ -420,7 +420,7 @@ Understanding metric sentiments:
 
 ## Next Steps
 
-- {doc}`metrics-reference` - Simplified metrics catalog
-- {doc}`semantic-conventions` - OpenTelemetry naming conventions
-- {doc}`../operations/monitoring` - Using these signals for alerting
-- {doc}`../features/distributed-tracing` - Trace collection details
+- [Metrics Reference](metrics-reference) - Simplified metrics catalog
+- [Semantic Conventions](semantic-conventions) - OpenTelemetry naming conventions
+- [Monitoring](../operations/monitoring) - Using these signals for alerting
+- [Distributed Tracing](../features/distributed-tracing) - Trace collection details

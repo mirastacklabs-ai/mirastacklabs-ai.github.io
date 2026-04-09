@@ -2,8 +2,9 @@
 title: Building a Provider
 description: A complete guide to building your own MIRASTACK AI provider plugin using the Go or Python SDK.
 layout: docs
-nav_order: 8
-parent: MIRASTACK Documentation
+nav_order: 1
+parent: Providers
+grand_parent: MIRASTACK Documentation
 ---
 
 # Building a MIRASTACK Provider

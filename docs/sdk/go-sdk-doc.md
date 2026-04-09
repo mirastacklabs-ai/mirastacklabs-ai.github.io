@@ -2,8 +2,9 @@
 title: Go Agent SDK
 description: Reference documentation for the MIRASTACK Agent SDK for Go.
 layout: docs
-nav_order: 6
-parent: MIRASTACK Documentation
+nav_order: 1
+parent: SDKs
+grand_parent: MIRASTACK Documentation
 ---
 
 # Go Agent SDK

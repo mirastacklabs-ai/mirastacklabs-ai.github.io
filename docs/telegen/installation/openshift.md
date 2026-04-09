@@ -448,5 +448,5 @@ oc adm policy add-scc-to-user telegen-scc -z telegen -n telegen
 
 ## Next Steps
 
-- {doc}`../configuration/index` - Configuration reference
-- {doc}`../features/index` - Feature guides
+- [Configuration](../configuration/index) - Configuration reference
+- [Features](../features/index) - Feature guides

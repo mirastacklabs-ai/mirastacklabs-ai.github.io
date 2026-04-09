@@ -1,3 +1,10 @@
+---
+title: "Configuration Reference"
+layout: docs
+parent: "Configuration"
+grand_parent: "Telegen"
+nav_order: 8
+---
 # Telegen Configuration Reference
 
 Complete reference for all Telegen configuration options.

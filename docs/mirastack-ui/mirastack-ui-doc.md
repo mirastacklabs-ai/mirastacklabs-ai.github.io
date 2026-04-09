@@ -2,7 +2,7 @@
 title: MIRASTACK UI
 description: The full MIRASTACK web application — a purpose-built platform engineering console with multi-tenant support, advanced visualisations, SLO management, and collaborative agentic workflows.
 layout: docs
-nav_order: 11
+nav_order: 8
 parent: MIRASTACK Documentation
 ---
 

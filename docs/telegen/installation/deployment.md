@@ -1079,7 +1079,7 @@ journalctl -u telegen | grep -i error
 
 ## Next Steps
 
-- {doc}`/configuration/full-reference` - Complete configuration reference
-- {doc}`/features/index` - Feature documentation
-- {doc}`/operations/monitoring` - Monitoring Telegen itself
-- {doc}`/operations/performance-tuning` - Optimization guide
+- [Full Reference](/configuration/full-reference) - Complete configuration reference
+- [Features](/features/index) - Feature documentation
+- [Monitoring](/operations/monitoring) - Monitoring Telegen itself
+- [Performance Tuning](/operations/performance-tuning) - Optimization guide

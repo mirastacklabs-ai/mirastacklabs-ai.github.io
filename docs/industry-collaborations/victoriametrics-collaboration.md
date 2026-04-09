@@ -2,7 +2,7 @@
 title: VictoriaMetrics
 description: MIRASTACK's observability signal agents are built on the VictoriaMetrics ecosystem — VictoriaMetrics, VictoriaLogs, and VictoriaTraces.
 layout: docs
-nav_order: 12
+nav_order: 9
 parent: MIRASTACK Documentation
 ---
 

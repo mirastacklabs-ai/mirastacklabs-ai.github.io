@@ -434,5 +434,5 @@ kubectl exec -n telegen -it $(kubectl get pod -n telegen -l app.kubernetes.io/na
 
 ## Next Steps
 
-- {doc}`helm` - Simplified deployment with Helm
-- {doc}`../configuration/agent-mode` - Agent configuration options
+- [Helm](helm) - Simplified deployment with Helm
+- [Agent Mode](../configuration/agent-mode) - Agent configuration options

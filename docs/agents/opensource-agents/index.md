@@ -2,8 +2,9 @@
 title: Open-Source Agents
 description: The official MIRASTACK open-source observability agents — query metrics, logs, traces, discover services, and analyse TSDB health.
 layout: docs
-nav_order: 6
-parent: MIRASTACK Documentation
+nav_order: 2
+parent: Agents
+grand_parent: MIRASTACK Documentation
 ---
 
 # Open-Source Agents

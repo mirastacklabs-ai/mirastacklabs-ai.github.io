@@ -13,7 +13,7 @@ Detailed configuration guide for Telegen Collector mode.
 
 **Collector Mode** enables Telegen to collect telemetry from remote infrastructure without eBPF. This is ideal for network devices, storage arrays, and other infrastructure that cannot run agents.
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Remote["Remote Infrastructure"]
         SW["Switches"]
@@ -493,5 +493,5 @@ collector:
 
 ## Next Steps
 
-- {doc}`agent-mode` - eBPF-based collection
-- {doc}`environment-variables` - Environment variable reference
+- [Agent Mode](agent-mode) - eBPF-based collection
+- [Environment Variables](environment-variables) - Environment variable reference

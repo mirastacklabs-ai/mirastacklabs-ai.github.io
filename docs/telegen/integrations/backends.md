@@ -488,6 +488,6 @@ service:
 
 ## Next Steps
 
-- {doc}`otel-collector` - Configure OTel Collector
-- {doc}`../configuration/full-reference` - Full configuration options
-- {doc}`../operations/monitoring` - Monitor integrations
+- [OTel Collector](otel-collector) - Configure OTel Collector
+- [Full Reference](../configuration/full-reference) - Full configuration options
+- [Monitoring](../operations/monitoring) - Monitor integrations

@@ -598,6 +598,6 @@ curl http://localhost:19090/openapi.json
 
 ## Next Steps
 
-- {doc}`cli-reference` - CLI commands
-- {doc}`metrics-reference` - Metrics details
-- {doc}`../operations/monitoring` - Monitoring Telegen
+- [CLI Reference](cli-reference) - CLI commands
+- [Metrics Reference](metrics-reference) - Metrics details
+- [Monitoring](../operations/monitoring) - Monitoring Telegen

@@ -303,7 +303,7 @@ Every `execve`/`execveat` is captured:
 
 Security events are correlated with other telemetry:
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Timeline["Attack Timeline"]
         E1["HTTP Request\n(trace)"]
@@ -455,6 +455,6 @@ Telegen security monitoring supports:
 
 ## Next Steps
 
-- {doc}`network-observability` - Network security monitoring
-- {doc}`../configuration/agent-mode` - Security configuration
-- {doc}`../operations/troubleshooting` - Security event debugging
+- [Network Observability](network-observability) - Network security monitoring
+- [Agent Mode](../configuration/agent-mode) - Security configuration
+- [Troubleshooting](../operations/troubleshooting) - Security event debugging

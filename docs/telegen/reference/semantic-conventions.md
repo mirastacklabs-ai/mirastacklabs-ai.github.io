@@ -318,6 +318,6 @@ In addition to OTel conventions, Telegen adds:
 
 ## Next Steps
 
-- {doc}`metrics-reference` - Available metrics
-- {doc}`../features/distributed-tracing` - Tracing details
+- [Metrics Reference](metrics-reference) - Available metrics
+- [Distributed Tracing](../features/distributed-tracing) - Tracing details
 - [OTel Semantic Conventions](https://opentelemetry.io/docs/concepts/semantic-conventions/)

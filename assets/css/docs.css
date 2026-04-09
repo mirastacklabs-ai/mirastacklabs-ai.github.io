@@ -613,3 +613,215 @@
   .docs-pagination { flex-direction: column; }
   .docs-pagination a { max-width: 100%; }
 }
+
+/* --------------------------------------------------------------------------
+   Callout blocks (converted from Sphinx admonitions)
+   -------------------------------------------------------------------------- */
+.callout {
+  border-left: 3px solid var(--border-accent);
+  background: var(--bg-card);
+  border-radius: 0 4px 4px 0;
+  padding: 0.9rem 1.1rem;
+  margin: 1.5rem 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  position: relative;
+}
+
+.callout::before {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.callout-tip  { border-left-color: var(--accent); }
+.callout-tip::before  { content: "Tip"; color: var(--accent); }
+
+.callout-note { border-left-color: #5A9FD4; }
+.callout-note::before { content: "Note"; color: #5A9FD4; }
+
+.callout-warning { border-left-color: var(--accent-red); }
+.callout-warning::before { content: "Warning"; color: var(--accent-red); }
+
+.callout-important { border-left-color: #FF671F; }
+.callout-important::before { content: "Important"; color: #FF671F; }
+
+.callout-caution { border-left-color: #FF671F; }
+.callout-caution::before { content: "Caution"; color: #FF671F; }
+
+/* code inside callouts */
+.callout pre { margin: 0.75rem 0 0; }
+
+/* --------------------------------------------------------------------------
+   Feature grid (converted from Sphinx {grid} directives)
+   -------------------------------------------------------------------------- */
+.docs-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.docs-feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  transition: border-color 0.2s;
+}
+
+.docs-feature-card:hover { border-color: var(--border-accent); }
+
+.docs-feature-card__title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.45rem;
+}
+
+.docs-feature-card__body {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Mermaid diagrams
+   -------------------------------------------------------------------------- */
+.docs-content .mermaid {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 2rem 1rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background:
+    radial-gradient(circle at 20% 15%, var(--accent-glow), transparent 48%),
+    var(--bg-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  cursor: zoom-in;
+  text-align: center;
+}
+
+.docs-content .mermaid[data-lang]::before {
+  content: "DIAGRAM";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.08rem 0.4rem;
+  background: var(--bg-alt);
+}
+
+.docs-content .mermaid svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Node shapes */
+.docs-content .mermaid .node rect,
+.docs-content .mermaid .node polygon,
+.docs-content .mermaid .node circle,
+.docs-content .mermaid .node ellipse {
+  fill: var(--table-head-bg) !important;
+  stroke: var(--border-accent) !important;
+  stroke-width: 1.4px !important;
+}
+
+/* Node text */
+.docs-content .mermaid .node .label,
+.docs-content .mermaid .nodeLabel,
+.docs-content .mermaid .label text,
+.docs-content .mermaid text {
+  fill: var(--text) !important;
+  color: var(--text) !important;
+}
+
+/* Subgraph clusters */
+.docs-content .mermaid .cluster rect {
+  fill: var(--bg) !important;
+  stroke: var(--border-accent) !important;
+  stroke-width: 1.2px !important;
+}
+
+.docs-content .mermaid .cluster-label text,
+.docs-content .mermaid .cluster-label span {
+  fill: var(--text-muted) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Edges */
+.docs-content .mermaid .edgePath path,
+.docs-content .mermaid .flowchart-link {
+  stroke: var(--accent) !important;
+  stroke-width: 1.7px !important;
+}
+
+.docs-content .mermaid marker path {
+  fill: var(--accent) !important;
+  stroke: var(--accent) !important;
+}
+
+.docs-content .mermaid .edgeLabel,
+.docs-content .mermaid .edgeLabel rect {
+  background: var(--bg-card) !important;
+  fill: var(--bg-card) !important;
+}
+
+/* Mobile: ensure diagram fits in viewport */
+@media (max-width: 860px) {
+  .docs-content .mermaid {
+    padding: 1.8rem 0.6rem 0.8rem;
+  }
+}
+
+/* Zoom modal (shared with blog) */
+.mermaid-zoom-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+.mermaid-zoom-modal.active { display: flex; }
+
+.mermaid-zoom-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10000;
+  line-height: 1;
+}
+
+.mermaid-zoom-content {
+  overflow: auto;
+  max-width: 90vw;
+  max-height: 85vh;
+  cursor: grab;
+  background: var(--bg-card);
+  border-radius: 4px;
+  padding: 1.5rem;
+}

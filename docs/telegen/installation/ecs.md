@@ -16,9 +16,13 @@ Deploy Telegen on Amazon Elastic Container Service (ECS).
 - IAM permissions for ECS task creation
 - EC2 instances with Linux kernel 4.18+
 
-```{note}
+
+<div class="callout callout-note">
+
 Telegen requires EC2 launch type due to eBPF requirements. Fargate is not supported.
-```
+
+</div>
+
 
 ---
 
@@ -527,5 +531,5 @@ aws ecs describe-tasks --cluster your-cluster --tasks TASK_ARN
 
 ## Next Steps
 
-- {doc}`../configuration/index` - Configuration reference
-- {doc}`../features/index` - Feature guides
+- [Configuration](../configuration/index) - Configuration reference
+- [Features](../features/index) - Feature guides

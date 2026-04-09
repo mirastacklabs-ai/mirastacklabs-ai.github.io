@@ -443,6 +443,6 @@ agent:
 
 ## Next Steps
 
-- {doc}`continuous-profiling` - Profile GPU workloads
-- {doc}`../configuration/agent-mode` - GPU configuration
-- {doc}`../operations/monitoring` - GPU dashboards
+- [Continuous Profiling](continuous-profiling) - Profile GPU workloads
+- [Agent Mode](../configuration/agent-mode) - GPU configuration
+- [Monitoring](../operations/monitoring) - GPU dashboards

@@ -46,7 +46,6 @@ layout: default
 
       <div class="docs-footer">
         <div class="docs-pagination">
-          <!-- We will wire up JS to find prev/next based on the sidebar order -->
           <a href="#" class="docs-prev is-hidden" id="docs-prev">
             <span class="pagination-label">&laquo; Previous</span>
             <span class="pagination-title"></span>
@@ -64,3 +63,216 @@ layout: default
     </main>
   </div>
 </div>
+
+<script>
+(function () {
+  const html = document.documentElement;
+  const mermaid = window.mermaid;
+  const ARTICLE = 'article.docs-content';
+
+  function cssVar(name) {
+    return getComputedStyle(html).getPropertyValue(name).trim();
+  }
+
+  function buildThemeVariables() {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    return {
+      fontFamily: "'JetBrains Mono', 'Courier New', monospace",
+      fontSize: isMobile ? '11px' : '13px',
+      primaryColor: cssVar('--bg-alt'),
+      primaryTextColor: cssVar('--text'),
+      primaryBorderColor: cssVar('--border-accent'),
+      lineColor: cssVar('--accent'),
+      secondaryColor: cssVar('--bg-card'),
+      tertiaryColor: cssVar('--bg'),
+      background: cssVar('--bg'),
+      mainBkg: cssVar('--bg-alt'),
+      nodeBorder: cssVar('--border-accent'),
+      clusterBkg: cssVar('--bg'),
+      clusterBorder: cssVar('--border-accent'),
+      defaultLinkColor: cssVar('--accent'),
+      edgeLabelBackground: cssVar('--bg-card'),
+      noteBkgColor: cssVar('--bg-card'),
+      noteTextColor: cssVar('--text'),
+      tertiaryTextColor: cssVar('--text-muted')
+    };
+  }
+
+  function normalizeLanguage(raw) {
+    if (!raw) return 'text';
+    const lang = raw.toLowerCase();
+    if (lang === 'shell-session' || lang === 'terminal' || lang === 'console') return 'shell';
+    if (lang === 'plaintext') return 'text';
+    if (lang === 'zsh') return 'bash';
+    return lang;
+  }
+
+  function looksLikeShell(content) {
+    const sample = content.trim();
+    if (!sample) return false;
+    return /(^|\n)\s*(\$\s+|sudo\s+|curl\s+|docker\s+|kubectl\s+|npm\s+|yarn\s+|helm\s+)/.test(sample);
+  }
+
+  function setCodeLanguageBadges() {
+    document.querySelectorAll(ARTICLE + ' pre > code').forEach(code => {
+      const pre = code.parentElement;
+      if (!pre) return;
+      const cls =
+        Array.from(code.classList).find(c => c.startsWith('language-')) ||
+        Array.from(pre.classList).find(c => c.startsWith('language-')) || '';
+      let lang = normalizeLanguage(cls.replace('language-', '') || '');
+      if (lang === 'text' && looksLikeShell(code.textContent)) lang = 'bash';
+      pre.dataset.lang = lang;
+    });
+  }
+
+  function addLineNumbers() {
+    document.querySelectorAll(ARTICLE + ' pre > code').forEach(code => {
+      const pre = code.parentElement;
+      if (!pre || pre.dataset.lang === 'mermaid' || code.classList.contains('has-line-numbers')) return;
+      const html = code.innerHTML.replace(/\n$/, '');
+      const lines = html.split('\n');
+      code.innerHTML = lines.map(l => `<span class="code-line">${l.length ? l : ' '}</span>`).join('');
+      code.classList.add('has-line-numbers');
+    });
+  }
+
+  function enforceNewTabLinks() {
+    document.querySelectorAll(ARTICLE + ' a[href]').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href.startsWith('#') || href.startsWith('/') || href.startsWith('.')) return;
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    });
+  }
+
+  function hydrateMermaidBlocks() {
+    document.querySelectorAll(ARTICLE + ' pre > code.language-mermaid').forEach(code => {
+      const pre = code.parentElement;
+      if (!pre) return;
+      const container = document.createElement('div');
+      container.className = 'mermaid';
+      container.dataset.lang = 'mermaid';
+      container.dataset.mermaidSource = code.textContent.trim();
+      container.textContent = container.dataset.mermaidSource;
+      const highlight = pre.parentElement;
+      if (highlight && highlight.classList.contains('highlight')) {
+        highlight.replaceWith(container);
+      } else {
+        pre.replaceWith(container);
+      }
+    });
+  }
+
+  async function renderMermaid() {
+    const nodes = document.querySelectorAll('.mermaid');
+    if (!nodes.length || !mermaid) return;
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    nodes.forEach(node => {
+      if (node.dataset.mermaidSource) {
+        let src = node.dataset.mermaidSource;
+        if (isMobile) {
+          src = src.replace(/^(flowchart|graph)\s+LR/im, '$1 TD');
+          src = src.replace(/^(flowchart|graph)\s+RL/im, '$1 BT');
+        }
+        node.textContent = src;
+      }
+      node.removeAttribute('data-processed');
+    });
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        nodeSpacing: isMobile ? 40 : 80,
+        rankSpacing: isMobile ? 60 : 100,
+        padding: isMobile ? 12 : 20
+      },
+      themeVariables: buildThemeVariables()
+    });
+    await mermaid.run({ nodes });
+
+    // Strip fixed pixel dimensions so CSS (width:100%/height:auto) takes over
+    document.querySelectorAll('.mermaid svg').forEach(svg => {
+      const w = parseFloat(svg.getAttribute('width') || '0');
+      const h = parseFloat(svg.getAttribute('height') || '0');
+      if (w > 0 && h > 0 && !svg.getAttribute('viewBox')) {
+        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      }
+      svg.removeAttribute('width');
+      svg.style.maxWidth = '100%';
+      svg.style.height   = 'auto';
+      svg.style.width    = '100%';
+    });
+  }
+
+  function setupMermaidZoom() {
+    let modal = document.querySelector('.mermaid-zoom-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.className = 'mermaid-zoom-modal';
+      modal.innerHTML = `<button class="mermaid-zoom-close">&times;</button><div class="mermaid-zoom-content"></div>`;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', e => {
+        if (!e.target.closest('.mermaid-zoom-content') && !e.target.closest('svg')) {
+          modal.classList.remove('active');
+        }
+      });
+      const content = modal.querySelector('.mermaid-zoom-content');
+      let isDown = false, startX, startY, scrollLeft, scrollTop;
+      content.addEventListener('mousedown', e => {
+        isDown = true; content.style.cursor = 'grabbing';
+        startX = e.pageX - content.offsetLeft; startY = e.pageY - content.offsetTop;
+        scrollLeft = content.scrollLeft; scrollTop = content.scrollTop;
+      });
+      content.addEventListener('mouseleave', () => { isDown = false; content.style.cursor = 'grab'; });
+      content.addEventListener('mouseup', () => { isDown = false; content.style.cursor = 'grab'; });
+      content.addEventListener('mousemove', e => {
+        if (!isDown) return; e.preventDefault();
+        content.scrollLeft = scrollLeft - (e.pageX - content.offsetLeft - startX);
+        content.scrollTop = scrollTop - (e.pageY - content.offsetTop - startY);
+      });
+    }
+    const modalContent = modal.querySelector('.mermaid-zoom-content');
+    document.querySelectorAll('.docs-content .mermaid').forEach(container => {
+      const fresh = container.cloneNode(true);
+      container.parentNode.replaceChild(fresh, container);
+      fresh.addEventListener('click', function () {
+        const svg = this.querySelector('svg');
+        if (svg) {
+          modalContent.innerHTML = '';
+          const clone = svg.cloneNode(true);
+          clone.style.maxWidth = 'none';
+          clone.style.width = '100%';
+          clone.style.minWidth = window.innerWidth > 900 ? '1200px' : '800px';
+          modalContent.appendChild(clone);
+          modal.classList.add('active');
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setCodeLanguageBadges();
+    enforceNewTabLinks();
+    addLineNumbers();
+    hydrateMermaidBlocks();
+    renderMermaid().then(setupMermaidZoom);
+
+    const observer = new MutationObserver(mutations => {
+      if (mutations.some(m => m.type === 'attributes' && m.attributeName === 'data-theme')) {
+        renderMermaid().then(setupMermaidZoom);
+      }
+    });
+    observer.observe(html, { attributes: true });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => renderMermaid().then(setupMermaidZoom), 150);
+    });
+  });
+})();
+</script>

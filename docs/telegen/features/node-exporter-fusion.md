@@ -600,6 +600,6 @@ groups:
 
 ## Next Steps
 
-- {doc}`auto-discovery` - Automatic service detection
-- {doc}`distributed-tracing` - Application tracing
-- {doc}`../configuration/agent-mode` - Full configuration
+- [Auto Discovery](auto-discovery) - Automatic service detection
+- [Distributed Tracing](distributed-tracing) - Application tracing
+- [Agent Mode](../configuration/agent-mode) - Full configuration

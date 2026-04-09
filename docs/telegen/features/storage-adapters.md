@@ -411,6 +411,6 @@ collector:
 
 ## Next Steps
 
-- {doc}`snmp-receiver` - Network device monitoring
-- {doc}`../configuration/collector-mode` - Collector configuration
-- {doc}`../operations/monitoring` - Storage monitoring dashboards
+- [SNMP Receiver](snmp-receiver) - Network device monitoring
+- [Collector Mode](../configuration/collector-mode) - Collector configuration
+- [Monitoring](../operations/monitoring) - Storage monitoring dashboards

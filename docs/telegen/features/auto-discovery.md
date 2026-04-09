@@ -121,7 +121,7 @@ Telegen identifies database connections and auto-traces queries:
 
 Telegen builds a topology map of all services:
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph Discovery["Auto-Discovery"]
         A["Frontend\n(Node.js)"]
@@ -501,5 +501,5 @@ agent:
 
 ## Next Steps
 
-- {doc}`distributed-tracing` - How auto-discovered services are traced
-- {doc}`../configuration/agent-mode` - Full agent configuration
+- [Distributed Tracing](distributed-tracing) - How auto-discovered services are traced
+- [Agent Mode](../configuration/agent-mode) - Full agent configuration

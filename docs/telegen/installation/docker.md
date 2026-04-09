@@ -460,5 +460,5 @@ docker exec telegen wget -q -O- http://localhost:8080/healthz
 
 ## Next Steps
 
-- {doc}`linux` - systemd installation
-- {doc}`../configuration/index` - Configuration reference
+- [Linux](linux) - systemd installation
+- [Configuration](../configuration/index) - Configuration reference

@@ -21,15 +21,19 @@ Telegen's log pipeline offers:
 
 No sidecar containers. No separate log shippers. One unified agent.
 
-:::{tip}
+
+<div class="callout callout-tip">
+
 For full-stack observability, enable both `log_enricher` and `filelog` to correlate application logs with distributed traces automatically.
-:::
+
+</div>
+
 
 ---
 
 ## How It Works
 
-```{mermaid}
+```mermaid
 flowchart TB
     subgraph Sources["Log Sources"]
         A["Container Logs\n/var/log/containers/"]
@@ -154,7 +158,7 @@ The `log_enricher` uses eBPF to capture trace context at the moment of log emiss
 
 ### How It Works
 
-```{mermaid}
+```mermaid
 sequenceDiagram
     participant App as Application
     participant Kernel as Linux Kernel

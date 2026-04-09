@@ -168,7 +168,7 @@ agent:
 
 Telegen automatically builds a service dependency map:
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph External
         LB["Load Balancer"]
@@ -539,7 +539,7 @@ agent:
 
 Telegen parses the Cassandra Query Language binary protocol (CQL v3–v5) to capture query statements, keyspaces, batch operations, and prepared statement execution.
 
-See {doc}`database-tracing` for the full Cassandra tracing reference.
+See [Database Tracing](database-tracing) for the full Cassandra tracing reference.
 
 ---
 
@@ -612,6 +612,6 @@ agent:
 
 ## Next Steps
 
-- {doc}`database-tracing` - Deep database network tracing
-- {doc}`security-observability` - Network security events
-- {doc}`../configuration/agent-mode` - Network configuration
+- [Database Tracing](database-tracing) - Deep database network tracing
+- [Security Observability](security-observability) - Network security events
+- [Agent Mode](../configuration/agent-mode) - Network configuration

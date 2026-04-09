@@ -449,6 +449,6 @@ Required actions:
 
 ## Next Steps
 
-- {doc}`monitoring` - Monitor the upgrade
-- {doc}`troubleshooting` - Fix any issues
-- {doc}`../configuration/full-reference` - Review new config options
+- [Monitoring](monitoring) - Monitor the upgrade
+- [Troubleshooting](troubleshooting) - Fix any issues
+- [Full Reference](../configuration/full-reference) - Review new config options

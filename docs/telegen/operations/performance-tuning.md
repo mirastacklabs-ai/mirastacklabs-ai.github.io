@@ -466,6 +466,6 @@ watch -n 1 'curl -s http://localhost:19090/metrics | grep -E "cpu|memory|lost"'
 
 ## Next Steps
 
-- {doc}`monitoring` - Set up performance monitoring
-- {doc}`troubleshooting` - Diagnose performance issues
-- {doc}`../configuration/full-reference` - All configuration options
+- [Monitoring](monitoring) - Set up performance monitoring
+- [Troubleshooting](troubleshooting) - Diagnose performance issues
+- [Full Reference](../configuration/full-reference) - All configuration options

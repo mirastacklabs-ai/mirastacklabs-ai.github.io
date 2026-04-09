@@ -2,8 +2,9 @@
 title: Open-Source Providers
 description: The official MIRASTACK open-source AI providers — connect the engine to OpenAI and Anthropic.
 layout: docs
-nav_order: 9
-parent: MIRASTACK Documentation
+nav_order: 2
+parent: Providers
+grand_parent: MIRASTACK Documentation
 ---
 
 # Open-Source Providers

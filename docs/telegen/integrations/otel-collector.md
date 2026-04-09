@@ -529,6 +529,6 @@ extensions:
 
 ## Next Steps
 
-- {doc}`backends` - Configure specific backends
-- {doc}`../operations/monitoring` - Monitor the collector
-- {doc}`../operations/performance-tuning` - Tune collector performance
+- [Backends](backends) - Configure specific backends
+- [Monitoring](../operations/monitoring) - Monitor the collector
+- [Performance Tuning](../operations/performance-tuning) - Tune collector performance

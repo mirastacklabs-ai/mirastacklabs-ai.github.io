@@ -21,42 +21,15 @@ Telegen provides comprehensive observability through:
 
 ### Core Observability
 
-```{toctree}
-:maxdepth: 1
-
-auto-discovery
-distributed-tracing
-log-collection
-continuous-profiling
-```
 
 ### Security & Network
 
-```{toctree}
-:maxdepth: 1
-
-security-observability
-network-observability
-```
 
 ### Infrastructure
 
-```{toctree}
-:maxdepth: 1
-
-database-tracing
-snmp-receiver
-storage-adapters
-```
 
 ### Specialized
 
-```{toctree}
-:maxdepth: 1
-
-aiml-observability
-node-exporter-fusion
-```
 
 ## Feature Matrix
 

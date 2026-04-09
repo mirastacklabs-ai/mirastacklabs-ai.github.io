@@ -2,8 +2,9 @@
 title: Building an Agent
 description: A complete guide to building your own MIRASTACK agent using the Go or Python SDK.
 layout: docs
-nav_order: 5
-parent: MIRASTACK Documentation
+nav_order: 1
+parent: Agents
+grand_parent: MIRASTACK Documentation
 ---
 
 # Building a MIRASTACK Agent

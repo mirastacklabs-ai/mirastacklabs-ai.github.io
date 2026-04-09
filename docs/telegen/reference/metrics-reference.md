@@ -358,6 +358,6 @@ Telegen follows these conventions:
 
 ## Next Steps
 
-- {doc}`semantic-conventions` - OpenTelemetry naming
-- {doc}`../operations/monitoring` - Using these metrics
-- {doc}`../features/node-exporter-fusion` - node_exporter compatibility
+- [Semantic Conventions](semantic-conventions) - OpenTelemetry naming
+- [Monitoring](../operations/monitoring) - Using these metrics
+- [Node Exporter Fusion](../features/node-exporter-fusion) - node_exporter compatibility

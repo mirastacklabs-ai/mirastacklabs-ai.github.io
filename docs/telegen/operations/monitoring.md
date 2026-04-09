@@ -366,5 +366,5 @@ This creates traces for Telegen's internal operations, useful for debugging perf
 
 ## Next Steps
 
-- {doc}`troubleshooting` - Common issues and solutions
-- {doc}`performance-tuning` - Optimize resource usage
+- [Troubleshooting](troubleshooting) - Common issues and solutions
+- [Performance Tuning](performance-tuning) - Optimize resource usage

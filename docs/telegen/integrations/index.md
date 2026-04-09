@@ -15,12 +15,6 @@ Telegen exports telemetry data using the OpenTelemetry Protocol (OTLP). This sec
 
 ## Topics
 
-```{toctree}
-:maxdepth: 2
-
-otel-collector
-backends
-```
 
 ## Supported Backends
 
@@ -43,5 +37,5 @@ Telegen can export to any OTLP-compatible backend:
 
 | Topic | Description |
 |-------|-------------|
-| {doc}`otel-collector` | OpenTelemetry Collector setup |
-| {doc}`backends` | Configure various backends |
+| [OTel Collector](otel-collector) | OpenTelemetry Collector setup |
+| [Backends](backends) | Configure various backends |

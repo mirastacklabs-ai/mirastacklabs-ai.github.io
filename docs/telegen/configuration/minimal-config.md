@@ -198,6 +198,6 @@ agent:
 
 ## Next Steps
 
-- {doc}`full-reference` - Complete configuration reference
-- {doc}`agent-mode` - Agent mode options
-- {doc}`collector-mode` - Collector mode options
+- [Full Reference](full-reference) - Complete configuration reference
+- [Agent Mode](agent-mode) - Agent mode options
+- [Collector Mode](collector-mode) - Collector mode options

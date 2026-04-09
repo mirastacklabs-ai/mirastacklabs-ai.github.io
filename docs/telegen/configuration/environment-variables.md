@@ -368,5 +368,5 @@ collector:
 
 ## Next Steps
 
-- {doc}`minimal-config` - Getting started with minimal config
-- {doc}`full-reference` - Complete configuration reference
+- [Minimal Config](minimal-config) - Getting started with minimal config
+- [Full Reference](full-reference) - Complete configuration reference

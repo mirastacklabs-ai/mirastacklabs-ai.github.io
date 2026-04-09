@@ -23,29 +23,28 @@ It is built specifically for **data centers, private clouds, and sovereign envir
 
 ## The Big Picture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        YOU                                      │
-│  Platform Engineer · SRE · DevOps · CI/CD Pipeline             │
-└──────────┬──────────────────────────────┬───────────────────────┘
-           │                              │
-    ┌──────▼──────┐                ┌──────▼──────┐
-    │   miractl   │                │  Web UI     │
-    │   (CLI)     │                │  (Console)  │
-    └──────┬──────┘                └──────┬──────┘
-           └──────────────┬───────────────┘
-                          │
-          ┌───────────────▼───────────────┐
-          │       MIRASTACK ENGINE        │
-          │  Intent · Workflow · Approval │
-          │  LLM Router · State Machine   │
-          └─────┬────────────────┬────────┘
-                │                │
-         ┌──────▼──────┐  ┌──────▼──────┐
-         │   Agents    │  │  Providers  │
-         │  (your      │  │  (AI model  │
-         │  tools)     │  │  backends)  │
-         └─────────────┘  └─────────────┘
+```mermaid
+flowchart TB
+    YOU["👤 YOU\nPlatform Engineer · SRE · DevOps · CI/CD"]
+
+    subgraph interfaces["Interfaces"]
+        CLI["miractl\n(CLI)"]
+        WEB["Web UI\n(Console)"]
+    end
+
+    ENGINE["⚙️ MIRASTACK ENGINE\nIntent · Workflow · Approval\nLLM Router · State Machine"]
+
+    subgraph runtime["Runtime"]
+        AGENTS["🤖 Agents\n(your tools)"]
+        PROVIDERS["🔌 Providers\n(AI model backends)"]
+    end
+
+    YOU --> CLI
+    YOU --> WEB
+    CLI --> ENGINE
+    WEB --> ENGINE
+    ENGINE --> AGENTS
+    ENGINE --> PROVIDERS
 ```
 
 ---

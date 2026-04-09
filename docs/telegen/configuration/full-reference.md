@@ -656,6 +656,6 @@ exports:
 
 ## Next Steps
 
-- {doc}`agent-mode` - Agent-specific configuration
-- {doc}`collector-mode` - Collector-specific configuration
-- {doc}`environment-variables` - Environment variable reference
+- [Agent Mode](agent-mode) - Agent-specific configuration
+- [Collector Mode](collector-mode) - Collector-specific configuration
+- [Environment Variables](environment-variables) - Environment variable reference

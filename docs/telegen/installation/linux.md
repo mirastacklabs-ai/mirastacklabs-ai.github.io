@@ -414,5 +414,5 @@ sudo iptables -L -n | grep 4317
 
 ## Next Steps
 
-- {doc}`../configuration/index` - Configuration reference
-- {doc}`../features/index` - Feature guides
+- [Configuration](../configuration/index) - Configuration reference
+- [Features](../features/index) - Feature guides

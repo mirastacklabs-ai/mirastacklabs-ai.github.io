@@ -60,25 +60,24 @@ mount | grep bpf
 
 ### Kubernetes (Recommended)
 
-::::{tab-set}
 
-:::{tab-item} Helm
+**Helm**
+
 ```bash
 helm install telegen oci://ghcr.io/mirastacklabs-ai/charts/telegen \
   --namespace telegen --create-namespace \
   --set otlp.endpoint="otel-collector.observability:4317"
 ```
-:::
 
-:::{tab-item} kubectl
+
+**kubectl**
+
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/mirastacklabs-ai/telegen/main/deployments/kubernetes/rbac.yaml
 kubectl apply -f https://raw.githubusercontent.com/mirastacklabs-ai/telegen/main/deployments/kubernetes/configmap.yaml
 kubectl apply -f https://raw.githubusercontent.com/mirastacklabs-ai/telegen/main/deployments/kubernetes/daemonset.yaml
 ```
-:::
 
-::::
 
 ### Linux
 
@@ -100,7 +99,7 @@ echo 'otlp:
 sudo telegen --config /etc/telegen/config.yaml
 ```
 
-See {doc}`../installation/linux` for systemd service setup.
+See [Linux](../installation/linux) for systemd service setup.
 
 ### Docker
 
@@ -168,7 +167,7 @@ discovery:
     - open_ports: "3000,5000"
 ```
 
-See {doc}`../features/auto-discovery` for more options including Kubernetes-aware targeting.
+See [Auto Discovery](../features/auto-discovery) for more options including Kubernetes-aware targeting.
 
 ---
 
@@ -196,6 +195,6 @@ Telegen automatically enriches all signals with:
 
 ## Next Steps
 
-- {doc}`../installation/index` - Detailed installation guides
-- {doc}`../configuration/index` - Configuration options
-- {doc}`../features/index` - Explore all features
+- [Installation](../installation/index) - Detailed installation guides
+- [Configuration](../configuration/index) - Configuration options
+- [Features](../features/index) - Explore all features

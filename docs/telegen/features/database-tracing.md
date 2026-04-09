@@ -41,7 +41,7 @@ No database configuration or driver changes required.
 
 ## How It Works
 
-```{mermaid}
+```mermaid
 flowchart LR
     subgraph App["Application"]
         C["DB Client"]
@@ -594,6 +594,6 @@ agent:
 
 ## Next Steps
 
-- {doc}`distributed-tracing` - Correlate DB queries with traces
-- {doc}`snmp-receiver` - Database appliance monitoring
-- {doc}`../configuration/agent-mode` - Database configuration
+- [Distributed Tracing](distributed-tracing) - Correlate DB queries with traces
+- [SNMP Receiver](snmp-receiver) - Database appliance monitoring
+- [Agent Mode](../configuration/agent-mode) - Database configuration

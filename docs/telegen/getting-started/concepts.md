@@ -17,7 +17,7 @@ Telegen operates in two distinct modes:
 
 **Agent mode** is for local host/container observability. Deploy directly on each node you want to monitor.
 
-```{mermaid}
+```mermaid
 graph LR
     A[Host/Container] --> B[Telegen Agent]
     B --> C[eBPF Instrumentation]
@@ -43,7 +43,7 @@ graph LR
 
 **Collector mode** is for remote device monitoring. Deploy on a separate node to collect telemetry from remote systems.
 
-```{mermaid}
+```mermaid
 graph LR
     A[Network Devices] -->|SNMP| B[Telegen Collector]
     C[Storage Arrays] -->|REST API| B
@@ -126,7 +126,7 @@ Telegen automatically detects and enriches telemetry with:
 
 Telegen uses eBPF (Extended Berkeley Packet Filter) for kernel-level instrumentation:
 
-```{mermaid}
+```mermaid
 graph TB
     subgraph Kernel
         A[eBPF Programs]
@@ -183,5 +183,5 @@ resource:
 
 ## Next Steps
 
-- {doc}`architecture` - Deep dive into architecture
-- {doc}`../configuration/index` - Configuration options
+- [Architecture](architecture) - Deep dive into architecture
+- [Configuration](../configuration/index) - Configuration options

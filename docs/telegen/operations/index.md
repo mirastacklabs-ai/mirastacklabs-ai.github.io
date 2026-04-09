@@ -20,20 +20,12 @@ This section covers:
 
 ## Topics
 
-```{toctree}
-:maxdepth: 2
-
-monitoring
-troubleshooting
-upgrading
-performance-tuning
-```
 
 ## Quick Links
 
 | Topic | Description |
 |-------|-------------|
-| {doc}`monitoring` | Self-telemetry, metrics, health checks |
-| {doc}`troubleshooting` | Common issues and solutions |
-| {doc}`upgrading` | Upgrade procedures |
-| {doc}`performance-tuning` | Resource optimization |
+| [Monitoring](monitoring) | Self-telemetry, metrics, health checks |
+| [Troubleshooting](troubleshooting) | Common issues and solutions |
+| [Upgrading](upgrading) | Upgrade procedures |
+| [Performance Tuning](performance-tuning) | Resource optimization |
