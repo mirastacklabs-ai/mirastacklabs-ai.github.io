@@ -5,51 +5,91 @@
 
   var lunrIndex, pagesIndex;
 
-  // Initialize lunr
+  // Determine the correct path to search.json relative to the current origin
   function initLunr() {
     var request = new XMLHttpRequest();
     request.open('GET', '/search.json', true);
 
     request.onload = function() {
       if (request.status >= 200 && request.status < 400) {
-        pagesIndex = JSON.parse(request.responseText);
+        try {
+          pagesIndex = JSON.parse(request.responseText);
+        } catch (e) {
+          console.error('search.json parse error:', e);
+          return;
+        }
 
-        lunrIndex = lunr(function() {
-          this.field('title');
-          this.field('content');
-          this.ref('url');
+        try {
+          lunrIndex = lunr(function() {
+            this.field('title', { boost: 10 });
+            this.field('content');
+            this.ref('url');
 
-          pagesIndex.forEach(function (page) {
-            this.add(page);
-          }, this);
-        });
+            pagesIndex.forEach(function(page) {
+              this.add(page);
+            }, this);
+          });
+        } catch (e) {
+          console.error('Lunr index build error:', e);
+        }
       }
     };
+
+    request.onerror = function() {
+      console.error('Could not fetch search.json');
+    };
+
     request.send();
   }
 
-  // Handle Search Input
-  searchInput.addEventListener('keyup', function(e) {
-    if (!lunrIndex) return;
-    
-    var query = e.target.value;
+  function displayResults(results) {
     searchResults.innerHTML = '';
-
-    if (query.length < 2) {
+    if (!results || results.length === 0) {
+      var li = document.createElement('li');
+      li.className = 'no-results';
+      li.textContent = 'No results found';
+      searchResults.appendChild(li);
       return;
     }
 
-    var results = lunrIndex.search(query + '^100 ' + query + '*^10 *' + query + '*^1');
+    results.slice(0, 12).forEach(function(result) {
+      var page = pagesIndex.find(function(p) { return p.url === result.ref; });
+      if (!page) return;
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = page.url;
+      a.textContent = page.title;
+      li.appendChild(a);
+      searchResults.appendChild(li);
+    });
+  }
 
-    if (results.length > 0) {
-      results.forEach(function(result) {
-        var page = pagesIndex.find(function(p) { return p.url === result.ref; });
-        var li = document.createElement('li');
-        li.innerHTML = '<a href="' + page.url + '">' + page.title + '</a>';
-        searchResults.appendChild(li);
-      });
-    } else {
-      searchResults.innerHTML = '<li class="no-results">No results found</li>';
+  searchInput.addEventListener('input', function() {
+    var query = this.value.trim();
+    searchResults.innerHTML = '';
+
+    if (query.length < 2 || !lunrIndex) return;
+
+    try {
+      // Trailing wildcard only — Lunr does not support leading wildcards
+      var results = lunrIndex.search(query + '^10 ' + query + '*');
+      displayResults(results);
+    } catch (e) {
+      // If the query itself has special chars, fall back to a plain search
+      try {
+        var results = lunrIndex.search(query);
+        displayResults(results);
+      } catch (e2) {
+        // query invalid, silently clear
+        searchResults.innerHTML = '';
+      }
+    }
+  });
+
+  // Hide results when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+      searchResults.innerHTML = '';
     }
   });
 

@@ -1,16 +1,16 @@
 ---
 layout: none
 ---
+{%- assign docs_pages = site.pages | where_exp: "item", "item.url contains '/docs/'" -%}
 [
-  {% for page in site.pages %}
-    {% if page.url contains '/docs/' and page.title %}
-    {
-      "title": {{ page.title | jsonify }},
-      "url": {{ page.url | relative_url | jsonify }},
-      "content": {{ page.content | markdownify | strip_html | strip_newlines | jsonify }},
-      "directory": "{{ page.url | remove_first: '/' | split: '/' | first }}"
-    }
-    {% unless forloop.last %},{% endunless %}
-    {% endif %}
-  {% endfor %}
+  {%- for page in docs_pages -%}
+    {%- if page.title -%}
+      {%- unless forloop.first and forloop.last -%}{%- unless forloop.first -%},{%- endunless -%}{%- endunless -%}
+  {
+    "title": {{ page.title | jsonify }},
+    "url": {{ page.url | relative_url | jsonify }},
+    "content": {{ page.content | markdownify | strip_html | strip_newlines | jsonify }}
+  }
+    {%- endif -%}
+  {%- endfor -%}
 ]
