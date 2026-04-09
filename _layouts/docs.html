@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<div class="docs-wrapper">
+  
+  <!-- Sidebar Navigation -->
+  <aside class="docs-sidebar" id="docs-sidebar">
+    <div class="docs-search">
+      <input type="text" id="search-input" class="search-input" placeholder="Search the docs..." autocomplete="off">
+      <ul id="search-results" class="search-results"></ul>
+    </div>
+    
+    <nav class="docs-nav" aria-label="Documentation Navigation">
+      {% include docs-sidebar.html %}
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="docs-main-container">
+    <main class="docs-main" id="main-content">
+      
+      {% if page.url != '/docs/' and page.url != '/docs/docs-landing-page.html' %}
+      <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ '/docs/' | relative_url }}">Docs</a></li>
+          {% assign crumbs = page.url | split: '/' %}
+          {% assign path = '' %}
+          {% for crumb in crumbs offset: 2 %}
+            {% if forloop.last %}
+              <li aria-current="page">{{ page.title | default: crumb | capitalize | replace: '-', ' ' }}</li>
+            {% else %}
+              {% assign path = path | append: '/' | append: crumb %}
+              <li><a href="{{ '/docs' | append: path | relative_url }}">{{ crumb | capitalize | replace: '-', ' ' }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+      {% endif %}
+
+      <article class="docs-content">
+        {{ content }}
+      </article>
+
+      <hr class="docs-separator">
+
+      <div class="docs-footer">
+        <div class="docs-pagination">
+          <!-- We will wire up JS to find prev/next based on the sidebar order -->
+          <a href="#" class="docs-prev is-hidden" id="docs-prev">
+            <span class="pagination-label">&laquo; Previous</span>
+            <span class="pagination-title"></span>
+          </a>
+          <a href="#" class="docs-next is-hidden" id="docs-next">
+            <span class="pagination-label">Next &raquo;</span>
+            <span class="pagination-title"></span>
+          </a>
+        </div>
+        
+        <p class="docs-back-to-top">
+          <a href="#main-content">Back to top &#8593;</a>
+        </p>
+      </div>
+    </main>
+  </div>
+</div>

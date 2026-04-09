@@ -26,6 +26,11 @@ defaults:
     values:
       image: /assets/img/mirastack-devops.png
       robots: index,follow
+  -
+    scope:
+      path: "docs"
+    values:
+      layout: "docs"
 
 plugins:
   - jekyll-seo-tag

@@ -16,6 +16,14 @@
   <link rel="icon" href="{{ '/favicon.svg?v=20260327' | relative_url }}" type="image/svg+xml" />
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
+  {% if page.url contains '/docs/' or page.layout == 'docs' %}
+  <!-- Just-the-Docs Style & JS Overrides for Brand matching -->
+  <link rel="stylesheet" href="{{ '/assets/css/docs.css' | relative_url }}" />
+  <script src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/docs.js' | relative_url }}" defer></script>
+  {% endif %}
+
   {% seo %}
 </head>
 <body>
@@ -37,6 +45,7 @@
         <a class="nav__link" href="{{ '/#approach' | relative_url }}">Approach</a>
         <a class="nav__link" href="{{ '/#miradorstack' | relative_url }}">Platform</a>
         <a class="nav__link{% if page.url contains '/blog/' %} is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
+        <a class="nav__link{% if page.url contains '/docs/' or page.layout == 'docs' %} is-active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a>
 
         <div class="nav__item nav__item--dropdown">
           <a class="nav__link nav__link--dropdown{% if page.url contains '/products' %} is-active{% endif %}" href="{{ '/products/' | relative_url }}" aria-haspopup="true">Products</a>
@@ -70,6 +79,7 @@
     <div class="nav__mobile" id="navMobile">
       <a href="{{ '/#approach' | relative_url }}">Approach</a>
       <a href="{{ '/#miradorstack' | relative_url }}">Platform</a>
+      <a href="{{ '/docs/' | relative_url }}">Docs</a>
       <a href="{{ '/blog/' | relative_url }}">Blog</a>
       <a href="{{ '/products/' | relative_url }}">Products</a>
       <a href="{{ '/products/telegen/' | relative_url }}">Telegen</a>

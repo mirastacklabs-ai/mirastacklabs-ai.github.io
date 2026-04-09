@@ -1,0 +1,48 @@
+{% comment %}
+  This include builds a collapsible nested list of documentation pages.
+  It relies on pages having the `parent`, `grand_parent`, or general URL structure to nest them.
+  For a simple folder-based approach, we sort by URL or `nav_order`.
+{% endcomment %}
+
+{% assign docs_pages = site.pages | where_exp: "item", "item.url contains '/docs/'" | sort: "nav_order" %}
+
+<!-- Top level docs elements -->
+<ul class="nav-list">
+  {% for p in docs_pages %}
+    {% if p.parent == nil and p.title %}
+      <li class="nav-list-item {% if page.url == p.url %}active{% endif %}">
+        
+        <!-- Parent Link -->
+        <a href="{{ p.url | relative_url }}" class="nav-list-link {% if page.url == p.url %}active{% endif %}">{{ p.title }}</a>
+        
+        <!-- Child Elements -->
+        {% assign children = docs_pages | where: "parent", p.title %}
+        {% if children.size > 0 %}
+          <button class="nav-list-expander" aria-label="Toggle {{ p.title }}" aria-expanded="{% if page.url contains p.url %}true{% else %}false{% endif %}">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          
+          <ul class="nav-list-child" style="{% if page.url contains p.url or page.parent == p.title %}display: block;{% else %}display: none;{% endif %}">
+            {% for child in children %}
+              <li class="nav-list-item {% if page.url == child.url %}active{% endif %}">
+                <a href="{{ child.url | relative_url }}" class="nav-list-link {% if page.url == child.url %}active{% endif %}">{{ child.title }}</a>
+                
+                <!-- Grandchild Elements -->
+                {% assign grandchildren = docs_pages | where: "parent", child.title | where: "grand_parent", p.title %}
+                {% if grandchildren.size > 0 %}
+                <ul class="nav-list-grandchild" style="{% if page.url contains child.url or page.parent == child.title %}display: block;{% else %}display: none;{% endif %}">
+                  {% for gc in grandchildren %}
+                    <li class="nav-list-item {% if page.url == gc.url %}active{% endif %}">
+                      <a href="{{ gc.url | relative_url }}" class="nav-list-link {% if page.url == gc.url %}active{% endif %}">{{ gc.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
