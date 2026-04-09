@@ -121,7 +121,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text);
+  color: #CED4DA;
   padding: 0.55rem 0;
   display: block;
   text-decoration: none;
@@ -151,14 +151,14 @@
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: var(--text-muted);
+  color: #CED4DA;
   text-decoration: none;
   transition: color 0.15s;
   border-left: 2px solid transparent;
   margin-left: -1px;
 }
 
-.nav-list-child .nav-list-link:hover { color: var(--text); opacity: 1; }
+.nav-list-child .nav-list-link:hover { color: var(--accent); opacity: 1; }
 
 .nav-list-child .nav-list-item.active > .nav-list-link,
 .nav-list-child .nav-list-link.active {
@@ -178,14 +178,14 @@
   display: block;
   padding: 0.3rem 0.5rem;
   font-size: 0.76rem;
-  color: var(--text-muted);
+  color: #CED4DA;
   text-decoration: none;
   transition: color 0.15s;
   border-left: 2px solid transparent;
   margin-left: -1px;
 }
 
-.nav-list-grandchild .nav-list-link:hover { color: var(--text); opacity: 1; }
+.nav-list-grandchild .nav-list-link:hover { color: var(--accent); opacity: 1; }
 
 .nav-list-grandchild .nav-list-item.active > .nav-list-link,
 .nav-list-grandchild .nav-list-link.active {
