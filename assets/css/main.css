@@ -218,6 +218,17 @@ p {
   gap: 1rem;
 }
 
+.nav__github {
+  display: flex;
+  align-items: center;
+  color: var(--fg);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.nav__github:hover {
+  opacity: 1;
+}
+
 .nav__links {
   display: flex;
   align-items: center;
