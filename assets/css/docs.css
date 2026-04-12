@@ -444,14 +444,72 @@
 
 .docs-content pre {
   position: relative;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--accent);
-  padding: 1.25rem 1.5rem;
   overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card);
+  padding: 2.1rem 1rem 0.9rem;
   margin: 0 0 1.5rem;
   font-size: 0.85rem;
   line-height: 1.6;
+  --code-lang-accent: var(--border-accent);
+}
+
+.docs-content pre[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.38rem;
+  right: 2.6rem;
+  font-size: 0.68rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--code-lang-accent);
+  border: 1px solid var(--code-lang-accent);
+  border-radius: 6px;
+  padding: 0.08rem 0.4rem;
+  background: var(--bg-alt);
+  z-index: 2;
+}
+
+.docs-content pre::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.6rem;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 0.9rem 0.8rem, #ff5f56 0.18rem, transparent 0.2rem),
+    radial-gradient(circle at 1.55rem 0.8rem, #ffbd2e 0.18rem, transparent 0.2rem),
+    radial-gradient(circle at 2.2rem 0.8rem, #27c93f 0.18rem, transparent 0.2rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.05));
+  border-radius: 4px 4px 0 0;
+  pointer-events: none;
+}
+
+.docs-content pre[data-lang="javascript"],
+.docs-content pre[data-lang="js"],
+.docs-content pre[data-lang="typescript"],
+.docs-content pre[data-lang="ts"] {
+  --code-lang-accent: #eab308;
+}
+
+.docs-content pre[data-lang="python"],
+.docs-content pre[data-lang="py"] {
+  --code-lang-accent: #22d3ee;
+}
+
+.docs-content pre[data-lang="go"],
+.docs-content pre[data-lang="golang"] {
+  --code-lang-accent: #38bdf8;
+}
+
+.docs-content pre[data-lang="bash"],
+.docs-content pre[data-lang="shell"],
+.docs-content pre[data-lang="sh"] {
+  --code-lang-accent: #f43f5e;
 }
 
 .docs-content pre code {
@@ -476,14 +534,16 @@
 /* Copy button */
 .copy-code-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 3px;
+  right: 6px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
   color: var(--text-dim);
-  width: 30px;
-  height: 30px;
-  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  padding: 3px;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
