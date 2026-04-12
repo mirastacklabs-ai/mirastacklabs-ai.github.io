@@ -117,11 +117,16 @@ layout: default
     document.querySelectorAll(ARTICLE + ' pre > code').forEach(code => {
       const pre = code.parentElement;
       if (!pre) return;
-      const cls =
+      const languageClass =
         Array.from(code.classList).find(c => c.startsWith('language-')) ||
-        Array.from(pre.classList).find(c => c.startsWith('language-')) || '';
-      let lang = normalizeLanguage(cls.replace('language-', '') || '');
-      if (lang === 'text' && looksLikeShell(code.textContent)) lang = 'bash';
+        Array.from(pre.classList).find(c => c.startsWith('language-')) ||
+        Array.from((pre.parentElement && pre.parentElement.classList) || []).find(c => c.startsWith('language-')) ||
+        Array.from((pre.closest("[class*='language-']")?.classList) || []).find(c => c.startsWith('language-'));
+
+      let lang = normalizeLanguage(languageClass ? languageClass.replace('language-', '') : 'text');
+      if (lang === 'text' && looksLikeShell(code.textContent)) {
+        lang = 'bash';
+      }
       pre.dataset.lang = lang;
     });
   }
