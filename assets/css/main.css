@@ -2120,6 +2120,26 @@ p {
 }
 
 @media (max-width: 600px) {
+  .nav__inner {
+    padding: 0 1rem;
+  }
+
+  .nav__wordmark {
+    font-size: 1.2rem;
+  }
+
+  .nav__controls {
+    gap: 0.5rem;
+  }
+
+  .nav__github {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .hero__title {
     font-size: 2.2rem;
   }
