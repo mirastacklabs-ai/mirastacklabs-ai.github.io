@@ -478,6 +478,82 @@ Action{
 
 ---
 
+## Contributing Prompt Templates to the Engine
+
+Every prompt in MIRASTACK lives in the Kine-backed **Prompt Template Store** — never hardcoded in Go or Python source files. When your agent registers with the engine, the SDK sends the `PromptTemplates` declared in `Info()` and the engine auto-ingests them into Kine. Templates are idempotent: if a template with the same name already exists, the engine skips it.
+
+Agent-contributed templates are tracked with source `agent:{plugin-name}` so operators can tell which agent contributed which template when browsing via the Console or `miractl prompt list`.
+
+### Go
+
+```go
+func (p *MyPlugin) Info() *mirastack.PluginInfo {
+    return &mirastack.PluginInfo{
+        Name:    "mirastack-plugin-my-agent",
+        Version: "1.0.0",
+        // ... other fields ...
+        PromptTemplates: []mirastack.PromptTemplate{
+            {
+                Name:        "my_agent_analysis",
+                Description: "Context and guidelines for the LLM when analysing my-agent results",
+                Content: `You have access to my-agent observation tools.
+Follow these guidelines:
+1. Always include the service name and time window in results.
+2. Prefer structured output over prose.
+3. When errors are found, include the raw error message.`,
+            },
+        },
+    }
+}
+```
+
+### Python
+
+```python
+def info(self) -> PluginInfo:
+    return PluginInfo(
+        name="mirastack-plugin-my-agent",
+        version="1.0.0",
+        # ... other fields ...
+        prompt_templates=[
+            PromptTemplate(
+                name="my_agent_analysis",
+                description="Context and guidelines for the LLM when analysing my-agent results",
+                content=(
+                    "You have access to my-agent observation tools.\n"
+                    "Follow these guidelines:\n"
+                    "1. Always include the service name and time window in results.\n"
+                    "2. Prefer structured output over prose.\n"
+                    "3. When errors are found, include the raw error message."
+                ),
+            ),
+        ],
+    )
+```
+
+### Template Content Guidelines
+
+| Rule | Rationale |
+|------|-----------|
+| Use Go `text/template` syntax (`{{ .Variable }}`) | The engine validates and renders templates with the Go template engine |
+| Keep templates under 2 KB | Large templates waste LLM context window tokens |
+| Focus on **what the agent does** and **how to interpret results** | The engine handles persona, identity, and capabilities separately |
+| Do not include MIRA identity statements | Persona is handled by the engine's `chat_system` template |
+| Use action-specific template names (e.g., `query_metrics_guide`) | Avoids namespace collisions with other agents |
+
+### How It Works Under the Hood
+
+1. Agent starts → calls `mirastack.Serve()` / `serve()`
+2. SDK connects to the engine and calls `RegisterPlugin` RPC
+3. Engine calls back to the agent's `Info()` RPC
+4. Engine extracts `prompt_templates` from the `InfoResponse`
+5. Engine calls `IngestPluginTemplates()` → validates template syntax → stores in Kine as v1 under `/mirastack/prompts/default/{name}/v1`
+6. Templates are available immediately via the Prompt Template Store (Valkey cache → Kine)
+
+Templates contributed by agents can be viewed and potentially customised by operators at runtime (via the Console or `miractl`), but agents cannot override engine-owned templates that were seeded on startup.
+
+---
+
 ## Directory Structure
 
 Keep your agent's files organised like this:
@@ -575,12 +651,61 @@ When the agent process receives SIGINT or SIGTERM, the SDK automatically deregis
 
 ---
 
+## Quality Gates — What the SDK and Engine Enforce
+
+When your agent starts, the SDK validates your `Info()` return value **before** the gRPC server even starts. If any rule fails, the agent exits immediately with a clear error listing every violation. This gives you instant feedback during local development.
+
+If the agent passes the SDK check, the engine performs a second validation at registration time (defense-in-depth for older SDKs or direct gRPC clients). Both layers enforce the same rules:
+
+### Plugin-level rules (all required)
+
+| Field | Rule |
+|-------|------|
+| `Name` | Must not be empty |
+| `Version` | Must not be empty |
+| `Description` | Must not be empty or whitespace-only |
+| `Permission` | Must be explicitly set (READ, MODIFY, or ADMIN) — engine rejects UNSPECIFIED |
+| `DevOpsStages` | At least one stage must be declared |
+| `Actions` | At least one action must be declared |
+
+### Per-action rules
+
+| Field | Rule |
+|-------|------|
+| `Id` / `Name` | Must not be empty |
+| `Id` / `Name` | Must be unique across all actions in the agent |
+| `Description` | Must not be empty |
+| `Permission` | Engine requires non-UNSPECIFIED (READ, MODIFY, or ADMIN) |
+| `Stages` | At least one DevOps stage must be declared |
+
+### Per-config-param rules
+
+| Field | Rule |
+|-------|------|
+| `Key` | Must not be empty |
+| `Description` | Must not be empty |
+
+### What a validation failure looks like
+
+```
+FATAL: plugin quality gate failed:
+  - description must not be empty (whitespace-only is not allowed)
+  - at least one action must be declared
+  - at least one DevOps stage must be declared
+```
+
+All violations are reported at once so you can fix everything in a single pass.
+
+---
+
 ## Checklist Before Publishing
 
 Before sharing your agent with the community, go through this checklist:
 
-- [ ] `Info()` has a clear, accurate description
-- [ ] `DevOpsStages` are correctly declared (do not leave this empty)
+- [ ] `Info()` has a clear, accurate description (not empty, not whitespace-only)
+- [ ] `Permission` is explicitly set to READ, MODIFY, or ADMIN
+- [ ] `DevOpsStages` are correctly declared (at least one — do not leave this empty)
+- [ ] At least one action is declared with a unique ID, description, permission, and stages
 - [ ] All action descriptions are written for an LLM audience — plain English, intent-focused
 - [ ] Required vs optional parameters are correctly marked in `Schema()`
 - [ ] `TimeRange` is used for all time-related queries (no manual time parsing)

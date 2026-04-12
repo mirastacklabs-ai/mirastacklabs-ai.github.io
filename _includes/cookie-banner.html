@@ -1,0 +1,110 @@
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    color: #f8f9fa;
+    padding: 1.5rem;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+    font-family: inherit;
+    border-top: 1px solid #333;
+  }
+  .cookie-banner.is-visible {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .cookie-banner__text {
+    flex: 1 1 300px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .cookie-banner__actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .cookie-btn {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+  }
+  .cookie-btn:hover {
+    opacity: 0.8;
+  }
+  .cookie-btn--accept {
+    background-color: #FF671F; /* MIRASTACK LABS orange */
+    color: #ffffff;
+  }
+  .cookie-btn--decline {
+    background-color: transparent;
+    color: #ced4da;
+    border: 1px solid #555;
+  }
+</style>
+
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-banner__text">
+    <strong>We value your privacy</strong><br>
+    We use cookies to analyze site traffic and optimize your experience. By accepting our use of cookies, your data will be aggregated with all other user data.
+  </div>
+  <div class="cookie-banner__actions">
+    <button id="cookie-decline" class="cookie-btn cookie-btn--decline">Decline</button>
+    <button id="cookie-accept" class="cookie-btn cookie-btn--accept">Accept Analytics</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const banner = document.getElementById('cookie-banner');
+    const btnAccept = document.getElementById('cookie-accept');
+    const btnDecline = document.getElementById('cookie-decline');
+    const GA_ID = 'G-7KP18R5Z6Y';
+
+    function loadGoogleAnalytics() {
+      // Create and inject the GA script tag dynamically
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    }
+
+    // Check localStorage for prior consent
+    const consent = localStorage.getItem('cookie_consent');
+
+    if (consent === 'granted') {
+      // If already accepted previously, proceed to load GA silently
+      loadGoogleAnalytics();
+    } else if (consent !== 'denied') {
+      // If no response has been made, show the banner
+      banner.classList.add('is-visible');
+    }
+
+    // Handle Accept
+    btnAccept.addEventListener('click', function() {
+      localStorage.setItem('cookie_consent', 'granted');
+      banner.classList.remove('is-visible');
+      loadGoogleAnalytics();
+    });
+
+    // Handle Decline
+    btnDecline.addEventListener('click', function() {
+      localStorage.setItem('cookie_consent', 'denied');
+      banner.classList.remove('is-visible');
+    });
+  })();
+</script>

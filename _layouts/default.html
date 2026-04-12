@@ -25,6 +25,8 @@
   <script src="{{ '/assets/js/docs.js' | relative_url }}" defer></script>
   {% endif %}
 
+  <!-- Google Analytics removed from head and moved to cookie-banner include -->
+
   {% seo %}
 </head>
 <body>
@@ -118,6 +120,8 @@
       </div>
     </div>
   </footer>
+
+  {% include cookie-banner.html %}
 
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
