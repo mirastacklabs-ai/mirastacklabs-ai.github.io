@@ -518,12 +518,43 @@
   padding: 0;
   color: var(--text);
   font-size: inherit;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  white-space: pre;
+}
+
+.docs-content pre code.has-line-numbers {
+  display: block;
+  counter-reset: code-line;
+}
+
+.docs-content pre code.has-line-numbers .code-line {
+  display: block;
+  position: relative;
+  padding-left: 3rem;
+  min-height: 1.28em;
+}
+
+.docs-content pre code.has-line-numbers .code-line::before {
+  counter-increment: code-line;
+  content: counter(code-line);
+  position: absolute;
+  left: 0;
+  width: 2.2rem;
+  text-align: right;
+  color: var(--text-dim);
+  opacity: 0.85;
+  user-select: none;
 }
 
 .docs-content .highlighter-rouge,
 .docs-content figure.highlight {
   position: relative;
   margin: 0 0 1.5rem;
+  border-radius: 4px;
+}
+
+.docs-content .highlight {
+  background: transparent;
 }
 
 .docs-content .highlighter-rouge pre,
