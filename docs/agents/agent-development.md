@@ -486,48 +486,125 @@ Agent-contributed templates are tracked with source `agent:{plugin-name}` so ope
 
 ### Go
 
+**Step 1 — Create the template file** in `templates/my_agent_analysis.tmpl`:
+
+```text
+You have access to my-agent observation tools.
+Follow these guidelines:
+1. Always include the service name and time window in results.
+2. Prefer structured output over prose.
+3. When errors are found, include the raw error message.
+```
+
+**Step 2 — Create `embed.go`** to embed the templates directory:
+
 ```go
+package main
+
+import "embed"
+
+//go:embed templates/*.tmpl
+var embeddedTemplates embed.FS
+```
+
+**Step 3 — Load templates from the embedded FS** in `plugin.go`:
+
+```go
+import (
+    "io/fs"
+    "strings"
+
+    mirastack "github.com/mirastacklabs-ai/mirastack-agents-sdk-go"
+)
+
 func (p *MyPlugin) Info() *mirastack.PluginInfo {
     return &mirastack.PluginInfo{
         Name:    "mirastack-plugin-my-agent",
         Version: "1.0.0",
         // ... other fields ...
-        PromptTemplates: []mirastack.PromptTemplate{
-            {
-                Name:        "my_agent_analysis",
-                Description: "Context and guidelines for the LLM when analysing my-agent results",
-                Content: `You have access to my-agent observation tools.
-Follow these guidelines:
-1. Always include the service name and time window in results.
-2. Prefer structured output over prose.
-3. When errors are found, include the raw error message.`,
-            },
-        },
+        PromptTemplates: loadEmbeddedPromptTemplates(),
     }
+}
+
+// loadEmbeddedPromptTemplates reads every .tmpl file from the embedded
+// templates/ directory. The filename (minus extension) becomes the template Name.
+func loadEmbeddedPromptTemplates() []mirastack.PromptTemplate {
+    templateDescriptions := map[string]string{
+        "my_agent_analysis": "Context and guidelines for the LLM when analysing my-agent results",
+    }
+
+    entries, err := fs.ReadDir(embeddedTemplates, "templates")
+    if err != nil {
+        return nil
+    }
+
+    var templates []mirastack.PromptTemplate
+    for _, entry := range entries {
+        if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".tmpl") {
+            continue
+        }
+        name := strings.TrimSuffix(entry.Name(), ".tmpl")
+        data, err := fs.ReadFile(embeddedTemplates, "templates/"+entry.Name())
+        if err != nil {
+            continue
+        }
+        desc := templateDescriptions[name]
+        if desc == "" {
+            desc = name
+        }
+        templates = append(templates, mirastack.PromptTemplate{
+            Name:        name,
+            Description: desc,
+            Content:     string(data),
+        })
+    }
+    return templates
 }
 ```
 
 ### Python
 
+**Step 1 — Create the template file** in `templates/my_agent_analysis.tmpl`:
+
+```text
+You have access to my-agent observation tools.
+Follow these guidelines:
+1. Always include the service name and time window in results.
+2. Prefer structured output over prose.
+3. When errors are found, include the raw error message.
+```
+
+**Step 2 — Load templates from the templates directory** in `plugin.py`:
+
 ```python
+from pathlib import Path
+from mirastack_sdk.plugin import PromptTemplate
+
+TEMPLATE_DIR = Path(__file__).parent / "templates"
+
+TEMPLATE_DESCRIPTIONS = {
+    "my_agent_analysis": "Context and guidelines for the LLM when analysing my-agent results",
+}
+
+def load_prompt_templates() -> list[PromptTemplate]:
+    """Load all .tmpl files from the templates/ directory."""
+    templates = []
+    if not TEMPLATE_DIR.is_dir():
+        return templates
+    for tmpl_file in sorted(TEMPLATE_DIR.glob("*.tmpl")):
+        name = tmpl_file.stem
+        content = tmpl_file.read_text(encoding="utf-8")
+        desc = TEMPLATE_DESCRIPTIONS.get(name, name)
+        templates.append(PromptTemplate(name=name, description=desc, content=content))
+    return templates
+
+
 def info(self) -> PluginInfo:
     return PluginInfo(
         name="mirastack-plugin-my-agent",
         version="1.0.0",
         # ... other fields ...
-        prompt_templates=[
-            PromptTemplate(
-                name="my_agent_analysis",
-                description="Context and guidelines for the LLM when analysing my-agent results",
-                content=(
-                    "You have access to my-agent observation tools.\n"
-                    "Follow these guidelines:\n"
-                    "1. Always include the service name and time window in results.\n"
-                    "2. Prefer structured output over prose.\n"
-                    "3. When errors are found, include the raw error message."
-                ),
-            ),
-        ],
+        prompt_templates=load_prompt_templates(),
     )
 ```
 
@@ -540,6 +617,7 @@ def info(self) -> PluginInfo:
 | Focus on **what the agent does** and **how to interpret results** | The engine handles persona, identity, and capabilities separately |
 | Do not include MIRA identity statements | Persona is handled by the engine's `chat_system` template |
 | Use action-specific template names (e.g., `query_metrics_guide`) | Avoids namespace collisions with other agents |
+| **Never hardcode template content in Go or Python source files** | Use `//go:embed templates/*.tmpl` (Go) or `pathlib` directory reads (Python) |
 
 ### How It Works Under the Hood
 
@@ -563,8 +641,11 @@ mirastack-plugin-my-agent/
 ├── go.mod          (or pyproject.toml)
 ├── main.go         (or main.py)    — reads env vars, starts the agent
 ├── plugin.go       (or plugin.py)  — implements the Plugin interface
+├── embed.go                        — //go:embed directive for templates (Go only)
 ├── client.go       (or client.py)  — HTTP/gRPC client for your backend
 ├── actions.go      (or actions.py) — one function per action
+├── templates/                      — prompt template .tmpl files (never inline in code)
+│   └── my_agent_guide.tmpl
 ├── LICENSE                         — AGPL v3 for OSS, Proprietary for enterprise
 └── README.md
 ```
@@ -712,5 +793,7 @@ Before sharing your agent with the community, go through this checklist:
 - [ ] `HealthCheck()` actually tests the backend connection
 - [ ] `ConfigUpdated()` handles config changes without requiring a restart
 - [ ] No hardcoded URLs, credentials, or environment-specific values
+- [ ] Prompt templates live in `templates/*.tmpl` files — not hardcoded as string literals in Go or Python source
+- [ ] `embed.go` exists with `//go:embed templates/*.tmpl` (Go) or templates loaded via `pathlib` (Python)
 - [ ] `LICENSE` file is present (`AGPLv3-LICENSE` for OSS contributions)
 - [ ] `README.md` explains what the agent does, what environment variable it needs, and what actions it offers

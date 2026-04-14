@@ -80,7 +80,7 @@ Retrieves and searches distributed traces from VictoriaTraces via the Jaeger-com
 **Required configuration**
 
 ```bash
-miractl agent config-set query_vtraces endpoint http://victoriatraces:9411
+miractl agent config-set query_vtraces endpoint http://victoriatraces:10428
 ```
 
 **Example conversation trigger:**
@@ -140,24 +140,25 @@ miractl agent config-set cardinality endpoint http://victoriametrics:8428
 
 ## `service_graph` — Service Graph Agent
 
-Maps the real-time topology of your distributed system. Derives service-to-service communication graphs from `service_graph_*` metrics and from distributed trace data, and identifies blast radius for a given service.
+Maps the real-time topology of your distributed system. Derives service-to-service communication graphs from OpenTelemetry `service_graph_*` metrics, builds trace-based dependency graphs, calculates blast radius for failure impact analysis, and reports OTel pipeline data quality.
 
 | Action | Description |
 |--------|-------------|
-| `topology` | Get the full service topology graph from `service_graph_*` metrics. Filter by service to see direct neighbours. |
-| `trace_dependencies` | Build a runtime dependency graph from distributed trace data |
-| `blast_radius` | Identify which upstream services are affected if a given service degrades |
+| `topology` | Get the full service topology graph from `service_graph_*` metrics. Filter by service to see direct neighbours. Includes request rates, error rates, and latency per edge. |
+| `dependencies` | Build a runtime dependency graph from distributed trace data revealing actual call chains and volumes between services. |
+| `blast_radius` | Calculate which upstream and downstream services are affected if a target service fails — with per-service error rates. |
+| `data_quality` | Report OTel service-graph pipeline health: unpaired spans (sampling asymmetry) and dropped spans (collector overflow) per service edge. |
 
 **Required configuration**
 
 ```bash
 miractl agent config-set service_graph endpoint http://victoriametrics:8428
-miractl agent config-set service_graph traces_endpoint http://victoriatraces:9411
 ```
 
 **Example conversation trigger:**
 > "Show me the service topology for the platform."
 > "What services would be impacted if the inventory service went down?"
+> "Are there any missing edges in the service graph? Check data quality."
 
 ---
 
