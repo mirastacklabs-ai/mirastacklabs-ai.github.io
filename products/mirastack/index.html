@@ -1,0 +1,760 @@
+---
+layout: default
+title: MIRASTACK Platform | Enterprise Sovereign AI-Native Control Plane
+description: "The MIRASTACK Platform unifies technology observability and business analytics into a single, sovereign, air-gapped control plane on your own infrastructure."
+image: /assets/img/mirastack-devops.png
+keywords: "MIRASTACK Platform, sovereign observability, air-gapped AI, business analytics, 5-Why RCA, Data Studio, Alertmanager, OpenTelemetry"
+permalink: /products/mirastack/
+---
+
+<style>
+  /* Page-specific styles for screenshots and layout enhancements */
+  .screenshot-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .screenshot-card__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border);
+    background: #0d1117;
+  }
+  .screenshot-card__caption {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg-alt);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .screenshot-card__tag {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .section-intro {
+    margin-bottom: 3rem;
+  }
+  .section-intro p {
+    max-width: 72ch;
+    margin-top: 0.8rem;
+  }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    margin-top: 3rem;
+  }
+  .pillar-item {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (max-width: 992px) {
+    .pillar-item {
+      grid-template-columns: 1fr;
+    }
+  }
+  .pillar-item:nth-child(even) {
+    direction: rtl;
+  }
+  .pillar-item:nth-child(even) .pillar-content {
+    direction: ltr;
+  }
+  .pillar-item:nth-child(even) .screenshot-card {
+    direction: ltr;
+  }
+  .pillar-content h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .pillar-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+  .pillar-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .pillar-features li {
+    font-size: 0.88rem;
+    color: var(--text);
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .pillar-features li::before {
+    content: "→";
+    color: var(--accent);
+    font-weight: bold;
+  }
+  .feature-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  @media (max-width: 768px) {
+    .feature-showcase-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .feature-showcase-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .feature-showcase-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+    color: var(--text);
+  }
+  .feature-showcase-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+  .feature-showcase-card .screenshot-card {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+  .hero-showcase {
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    background: #0d1117;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .hero-showcase img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .hero-showcase__footer {
+    padding: 1rem 1.5rem;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+
+<!-- ======================================================
+     HERO SECTION
+     ====================================================== -->
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Product / MIRASTACK Platform</div>
+
+    <h1 class="product-hero__title reveal reveal--delay-1">The MIRASTACK Platform</h1>
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      The sovereign, AI-native platform that unifies technology observability and business analytics. 
+      Run entirely on your infrastructure — on-premises or air-gapped — to consolidate your monitoring 
+      and BI tools into a single, governed control plane.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="#contact">Book Architecture Briefing</a>
+      <a class="btn btn--outline" href="#pillars">Explore Key Pillars</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="MIRASTACK Platform key tags">
+      <span class="product-badge product-badge--accent">Sovereign & Air-Gapped</span>
+      <span class="product-badge product-badge--accent">AI-Native (BYO-LLM)</span>
+      <span class="product-badge">Unified Observability + BI</span>
+      <span class="product-badge">Data Studio (No-Code)</span>
+      <span class="product-badge">Hardened Security (CBOM)</span>
+    </div>
+
+    <!-- Hero Screenshot Showcase -->
+    <div class="hero-showcase reveal reveal--delay-4">
+      <img src="{{ '/assets/img/mirastack/image9.png' | relative_url }}" alt="MIRASTACK Data Studio 3-Pane Workspace" loading="lazy" />
+      <div class="hero-showcase__footer">
+        <span><span>SYSTEM:</span> Data Studio No-Code Composer</span>
+        <span style="color: var(--accent);">[Active Session]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     MARKET POSITIONING SECTION
+     ====================================================== -->
+<section class="telegen-layout" id="positioning">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">market.positioning</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">One Platform for Technology and Business Signals</h2>
+      <p class="lead reveal reveal--delay-2">
+        Traditional monitoring vendors optimize for a single dimension — metrics, logs, or traces — and treat business data as somebody else's problem. 
+        Business-intelligence vendors do the inverse, remaining blind to the systems that generate the revenue. 
+        MIRASTACK collapses that divide into a single, self-hosted platform where operational telemetry and business data live side by side.
+      </p>
+    </div>
+
+    <div class="pillar-item" style="margin-top: 2rem;">
+      <div class="pillar-content reveal reveal--delay-1">
+        <h3>Unifying the Operational and Commercial Divide</h3>
+        <p>
+          MIRASTACK is engineered as the consolidation point. It connects to purpose-built observability stores and to SQL-warehouse-class business backends through the same integration model, renders both through a single visual experience, and lets an AI assistant investigate across every signal without the analyst ever writing a query.
+        </p>
+        <ul class="pillar-features">
+          <li><strong>Open Data Foundation</strong>: Standardized on VictoriaMetrics, VictoriaLogs, and VictoriaTraces for telemetry, with ClickHouse, OpenSearch, and S3 for analytical workloads.</li>
+          <li><strong>Autonomous Intelligence (MIRA)</strong>: Investigation, root-cause analysis, correlation, prediction, and SLO reasoning accessible in natural language.</li>
+          <li><strong>Generative UI</strong>: Bring your own model on-premises (Ollama, vLLM) or use commercial APIs; results render as interactive React components.</li>
+        </ul>
+      </div>
+      <div class="reveal reveal--delay-2">
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image15.png' | relative_url }}" alt="Unified Data Platform Multi-Datasource Architecture" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span><span>DIAGRAM:</span> Unified Data Platform Architecture</span>
+            <span class="screenshot-card__tag">Pillar 1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     THE FOUR KEY PILLARS
+     ====================================================== -->
+<section class="section section--alt" id="pillars">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">platform.pillars</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">The Architecture of Sovereignty</h2>
+      <p class="lead reveal reveal--delay-2">
+        Four tightly integrated pillars define the MIRASTACK Platform, enabling high-performance telemetry collection, no-code visualization, agentic AI reasoning, and a hardened alerting plane.
+      </p>
+    </div>
+
+    <div class="pillar-grid">
+      <!-- Pillar 1 -->
+      <div class="pillar-item">
+        <div class="pillar-content">
+          <h3>Pillar 1: Unified Data Platform & BI Consolidation</h3>
+          <p>
+            A data source is a first-class, pluggable concept rather than a hard-wired assumption. Connect many data sources centrally and combine technical and business signals on a single canvas, positioning MIRASTACK as a direct consolidation path for standalone BI tools.
+          </p>
+          <ul class="pillar-features">
+            <li>Per-widget source binding: metrics, logs, traces, and SQL co-exist</li>
+            <li>Sovereign by construction: no data round-trip to a vendor cloud</li>
+            <li>Cost-efficient storage: VictoriaMetrics compresses metrics 10–20× better than alternatives</li>
+          </ul>
+        </div>
+        <div>
+          <div class="screenshot-card">
+            <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image8.png' | relative_url }}" alt="VictoriaMetrics, VictoriaLogs, and VictoriaTraces Storage Architecture" loading="lazy" />
+            <div class="screenshot-card__caption">
+              <span><span>DIAGRAM:</span> Open, Interoperable, Cost-Effective Storage</span>
+              <span class="screenshot-card__tag">Pillar 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="pillar-item">
+        <div class="pillar-content">
+          <h3>Pillar 2: Data Studio No-Code Composer</h3>
+          <p>
+            The operator-facing composer that sits upstream of everything visual in MIRASTACK. Deliberately designed so that the learning curve is flat: an analyst who understands the question can build the visual without first learning a query language.
+          </p>
+          <ul class="pillar-features">
+            <li>No-code visual builders for metrics, logs, traces, and ClickHouse SQL</li>
+            <li>Ten visualization types: time series, bar, single-value, tables, log views, and more</li>
+            <li>Live preview, autosaved drafts, and guided onboarding tours</li>
+          </ul>
+        </div>
+        <div>
+          <div class="screenshot-card">
+            <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image9.png' | relative_url }}" alt="Data Studio 3-Pane Workspace" loading="lazy" />
+            <div class="screenshot-card__caption">
+              <span><span>SCREENSHOT:</span> Data Studio 3-Pane Workspace</span>
+              <span class="screenshot-card__tag">Pillar 2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="pillar-item">
+        <div class="pillar-content">
+          <h3>Pillar 3: MIRA Agentic Intelligence</h3>
+          <p>
+            Every observability query is accessible through natural language via MIRA. Ask in English; MIRA routes your query through appropriate agents, correlates signals, and synthesizes answers with evidence.
+          </p>
+          <ul class="pillar-features">
+            <li>7+ specialized agents: failure detection, correlation, RCA, service graph, and more</li>
+            <li>Three execution lanes (Conversational, Workflow DAG, and Augmented)</li>
+            <li>Generative UI: 18 component kinds streamed in real-time (charts, tables, DAGs, traces)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="screenshot-card">
+            <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image5.png' | relative_url }}" alt="Three Execution Lanes Visualized in Real Time" loading="lazy" />
+            <div class="screenshot-card__caption">
+              <span><span>SCREENSHOT:</span> Three Execution Lanes UI</span>
+              <span class="screenshot-card__tag">Pillar 3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="pillar-item">
+        <div class="pillar-content">
+          <h3>Pillar 4: Alerting & Operate Control Plane</h3>
+          <p>
+            A complete alerting and on-call control plane built on a hardened fork of Prometheus Alertmanager v0.32.x. Alerting configurations are governed, versioned, and testable as application code.
+          </p>
+          <ul class="pillar-features">
+            <li>Multi-tenancy: each tenant owns its own alertmanager configuration</li>
+            <li>Sealed secrets: AES-256-GCM encrypted receiver credentials</li>
+            <li>Operate Portal: live stream, escalation policies, rotations, and SLO management</li>
+          </ul>
+        </div>
+        <div>
+          <div class="screenshot-card">
+            <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image13.png' | relative_url }}" alt="Operate Portal Alert Stream and SLO Management" loading="lazy" />
+            <div class="screenshot-card__caption">
+              <span><span>SCREENSHOT:</span> Operate Portal Control Plane</span>
+              <span class="screenshot-card__tag">Pillar 4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     OBSERVE PORTAL FEATURES
+     ====================================================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">portal.observe</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">Observe Portal: Your Observability Nerve Center</h2>
+      <p class="lead reveal reveal--delay-2">
+        The Observe portal is the comprehensive observability experience, built on the three VictoriaStack data stores. 
+        It ships with 1,200+ pre-built dashboard widgets, 15+ native integrations, and full parity with legacy observability UIs.
+      </p>
+    </div>
+
+    <div class="feature-showcase-grid">
+      <!-- Metrics -->
+      <div class="feature-showcase-card reveal reveal--delay-1">
+        <h4>Metrics Exploration</h4>
+        <p>
+          Query PromQL/MetricsQL with syntax highlighting, live autocomplete, and instant results. 
+          Visualize multi-series ECharts with thresholds, confidence bands, and anomaly detection.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image10.png' | relative_url }}" alt="Metrics Explorer" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Metrics Explorer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logs -->
+      <div class="feature-showcase-card reveal reveal--delay-2">
+        <h4>Logs Exploration</h4>
+        <p>
+          LogSQL query builder with stream filters, field faceting, and regex search. 
+          Stream logs in real-time with filters and view time-bucket distributions.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image2.png' | relative_url }}" alt="Logs Explorer" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Logs Explorer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Traces -->
+      <div class="feature-showcase-card reveal reveal--delay-3">
+        <h4>Traces Exploration</h4>
+        <p>
+          Query traces by service, operation, error status, or latency. 
+          Visualize waterfall span causality on a timeline, Gantt charts, and service dependency graphs.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image1.png' | relative_url }}" alt="Trace Workbench" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Trace Workbench</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Observability -->
+      <div class="feature-showcase-card reveal reveal--delay-4">
+        <h4>Service Observability</h4>
+        <p>
+          Auto-discovered service dependency graph. Zoom to nodes, inspect RED health metrics 
+          (Rate / Errors / Duration), and drill directly into traces.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image4.png' | relative_url }}" alt="Service Observability" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Service Topology & RED Metrics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     MIRA INTELLIGENCE WORKBENCH
+     ====================================================== -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">mira.intelligence</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">MIRA: Agentic Observability Workbench</h2>
+      <p class="lead reveal reveal--delay-2">
+        MIRA (MirastackLabs Intelligent Research Assistant) provides a chat-first interface to ask complex operational questions, 
+        orchestrating specialized agents to correlate signals and perform root cause analysis.
+      </p>
+    </div>
+
+    <div class="feature-showcase-grid">
+      <!-- Conversational Workbench -->
+      <div class="feature-showcase-card reveal reveal--delay-1">
+        <h4>Conversational Workbench</h4>
+        <p>
+          Ask MIRA questions like "Why are errors increasing?" or "What happened between 3 and 4 PM?". 
+          MIRA auto-correlates metrics, logs, and traces, providing a detailed timeline and hypothesis.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image7.png' | relative_url }}" alt="Ask MIRA Conversational Workbench" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Ask MIRA Chat Interface</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Capabilities -->
+      <div class="feature-showcase-card reveal reveal--delay-2">
+        <h4>AI Capabilities & 5-Why RCA</h4>
+        <p>
+          Autonomous 5YRCA (Five-Why Root Cause Analysis) engine. Correlates failures with infrastructure, 
+          application metrics, logs, traces, and business metrics, citing specific changes as potential causes.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image6.png' | relative_url }}" alt="AI Capabilities" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>AI Correlation & RCA Engine</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model & Provider Control -->
+      <div class="feature-showcase-card reveal reveal--delay-3">
+        <h4>Model & Provider Control</h4>
+        <p>
+          Bring-Your-Own LLM: run on your own infrastructure with Ollama, LM Studio, or vLLM. 
+          Choose lightweight models for cost-sensitive queries, and track token usage and cost in real-time.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image3.png' | relative_url }}" alt="Model and Provider Control" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>BYO-LLM & Cost Tracking</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generative UI Components -->
+      <div class="feature-showcase-card reveal reveal--delay-4">
+        <h4>Generative UI (18 Component Kinds)</h4>
+        <p>
+          MIRA streams UI frames to the browser as a stream of 18 component kinds, all rendered as first-class 
+          React components (charts, tables, KPI cards, trace timelines, and React Flow DAGs).
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image14.png' | relative_url }}" alt="MIRA Generative UI Components" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Interactive UI Component Showcase</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     ALERTING & OPERATE PORTAL
+     ====================================================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">portal.operate</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">Alerting & On-Call Control Plane</h2>
+      <p class="lead reveal reveal--delay-2">
+        MIRASTACK's Operate portal is a complete alerting and on-call control plane built on a hardened fork of Prometheus Alertmanager, 
+        adding multi-tenancy, sealed secrets, and GitOps configuration workflows.
+      </p>
+    </div>
+
+    <div class="feature-showcase-grid" style="grid-template-columns: 1fr 1fr;">
+      <!-- Alertmanager Integration -->
+      <div class="feature-showcase-card reveal reveal--delay-1">
+        <h4>Hardened Alertmanager Core</h4>
+        <p>
+          100% upstream Alertmanager compatibility with tree-based routing, silences, inhibitions, and clustering. 
+          Adds tenant-scoped runtime configuration stored in MariaDB and AES-256-GCM encrypted receiver credentials.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image16.png' | relative_url }}" alt="Alertmanager Integration" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Alert Routing & Silences</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Operate Portal Features -->
+      <div class="feature-showcase-card reveal reveal--delay-2">
+        <h4>Operate Portal Features</h4>
+        <p>
+          Real-time alert stream with drill-down, silencing, and acknowledgment. 
+          On-call management with schedules, escalation policies, rotations, and SLO error budget tracking.
+        </p>
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image13.png' | relative_url }}" alt="Operate Portal Features" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span>Live Alert Stream & SLOs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FEATURE MATRIX SECTION
+     ====================================================== -->
+<section class="section section--alt" id="tiers">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">feature.matrix</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">Feature Availability by License Tier</h2>
+      <p class="lead reveal reveal--delay-2">
+        MIRASTACK comes in four license tiers, unlocking features progressively to match your operating scale.
+      </p>
+    </div>
+
+    <div class="matrix-wrap reveal reveal--delay-3">
+      <table class="feature-matrix" aria-label="MIRASTACK Platform feature availability by license tier">
+        <thead>
+          <tr>
+            <th scope="col">Feature / Capability</th>
+            <th scope="col">Neo (PoV)</th>
+            <th scope="col">Pro (Entry)</th>
+            <th scope="col">Max (Mid)</th>
+            <th scope="col">Ultra (Top)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Observe Portal (Metrics, Logs, Traces, Service Topology)</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>eBPF Continuous Profiling (Linux)</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>MIRA Conversational Chat (Read-Only)</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>BYO-LLM / On-Premises AI Inference (Ollama, vLLM)</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Multi-Tenancy & Air-Gapped Deployment</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Statistical Correlation Engine & Early Warning</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>AI-Driven 5YRCA (Five-Why Root Cause Analysis)</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Agentic Workflows (Lane 1/2/3 Execution Model)</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Custom Dashboards & Dashboard Marketplace</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Data Studio (No-Code Composer)</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Unified Multi-Datasource (Tech + Business)</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Business Analytics (ClickHouse SQL Warehouse)</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Scheduled Reports & Automated Distribution</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>On-Call & SLO Management Control Plane</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>CBOM Scanning (CycloneDX / ECMA-424 Cryptography)</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Network Discovery & Passive TLS Posture Analysis</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Business Flow & Customer Journey Analysis</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     OPEN STANDARDS & ECOSYSTEM
+     ====================================================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">ecosystem.standards</span>
+      <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem;">Open Standards & Collaborations</h2>
+      <p class="lead reveal reveal--delay-2">
+        MIRASTACK is built on open standards to prevent vendor lock-in and ensure data portability. 
+        We actively collaborate with open-source ecosystems like VictoriaMetrics.
+      </p>
+    </div>
+
+    <div class="pillar-item" style="margin-top: 2rem;">
+      <div class="pillar-content reveal reveal--delay-1">
+        <h3>Interoperable and Future-Proof</h3>
+        <p>
+          Our telemetry ingestion is 100% OpenTelemetry-native, and our metrics engine is fully Prometheus PromQL compatible. 
+          We contribute back to the open-source community, licensing our core observability agents under AGPL v3.
+        </p>
+        <ul class="pillar-features">
+          <li><strong>OpenTelemetry Ingest</strong>: Native support for OTLP metrics, logs, and traces.</li>
+          <li><strong>Prometheus & Jaeger APIs</strong>: 100% compatible with existing dashboards and Jaeger clients.</li>
+          <li><strong>AGPL v3 Agents</strong>: Open-source agents for correlation, RCA, anomaly detection, and service graphs.</li>
+        </ul>
+      </div>
+      <div class="reveal reveal--delay-2">
+        <div class="screenshot-card">
+          <img class="screenshot-card__img" src="{{ '/assets/img/mirastack/image17.png' | relative_url }}" alt="Open Standards Compliance Matrix" loading="lazy" />
+          <div class="screenshot-card__caption">
+            <span><span>SCREENSHOT:</span> Open Standards Compliance Matrix</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     BOTTOM CALL TO ACTION
+     ====================================================== -->
+<section class="section section--alt" id="contact">
+  <div class="container" style="text-align: center; max-width: 800px; margin: 0 auto;">
+    <span class="label reveal">deploy.sovereignty</span>
+    <h2 class="reveal reveal--delay-1" style="margin-top: 0.5rem; font-size: clamp(1.8rem, 4vw, 2.8rem);">Deploy Sovereign Intelligence. Consolidate Your Stack.</h2>
+    <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; margin-bottom: 2rem; color: var(--text-muted);">
+      Start with any tier; scale to Enterprise as your needs grow. Remove vendor lock-in, eliminate cloud egress fees, 
+      and retire separate business intelligence licenses.
+    </p>
+    <div class="reveal reveal--delay-3" style="display: inline-flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a class="btn btn--primary" href="mailto:hello@MIRASTACKLABS.ai">Schedule an Architecture Briefing</a>
+      <a class="btn btn--outline" href="{{ '/docs/' | relative_url }}">Explore the Documentation</a>
+    </div>
+  </div>
+</section>
