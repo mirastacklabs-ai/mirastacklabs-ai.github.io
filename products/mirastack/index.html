@@ -322,14 +322,15 @@ permalink: /products/mirastack/
       <!-- Pillar 3 -->
       <div class="pillar-item">
         <div class="pillar-content">
-          <h3>Pillar 3: MIRA Agentic Intelligence</h3>
+          <h3>Pillar 3: MIRA Agentic Intelligence (EGA-Governed)</h3>
           <p>
-            Every observability query is accessible through natural language via MIRA. Ask in English; MIRA routes your query through appropriate agents, correlates signals, and synthesizes answers with evidence.
+            Every observability query is accessible through natural language via MIRA. Powered by <strong>EGAProtocol</strong>, 
+            MIRA acts as a governed agentic plane that orchestrates specialized agents under strict wire-level security rules.
           </p>
           <ul class="pillar-features">
-            <li>7+ specialized agents: failure detection, correlation, RCA, service graph, and more</li>
-            <li>Three execution lanes (Conversational, Workflow DAG, and Augmented)</li>
-            <li>Generative UI: 18 component kinds streamed in real-time (charts, tables, DAGs, traces)</li>
+            <li><strong>EGAProtocol Core</strong>: Authoring the open standard for wire-level 5AG agent governance</li>
+            <li><strong>Three Execution Lanes</strong>: Pre-defined (Lane 1), Autonomous DAG (Lane 2), and AI-Improvised (Lane 3)</li>
+            <li><strong>Generative UI</strong>: 18 component kinds streamed in real-time (charts, tables, DAGs, traces)</li>
           </ul>
         </div>
         <div>
@@ -773,6 +774,88 @@ permalink: /products/mirastack/
             <span><span>SCREENSHOT:</span> Open Standards Compliance Matrix</span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     TECHNICAL DEEP DIVES SECTION
+     ====================================================== -->
+<section class="section" id="deep-dives">
+  <div class="container">
+    <div class="section-intro">
+      <span class="label reveal">technical.deepdives</span>
+      <h2 class="reveal reveal--delay-1 heading-with-bullet" style="margin-top: 0.5rem;">
+        <img src="{{ '/assets/img/mirastack/image11.png' | relative_url }}" class="heading-bullet" alt="" />
+        Technical Deep Dives & Architectural Comparisons
+      </h2>
+      <p class="lead reveal reveal--delay-2">
+        Explore detailed technical specifications of the MIRASTACK Platform's capabilities or see how our sovereign architecture compares to legacy SaaS platforms.
+      </p>
+    </div>
+
+    <style>
+      .deep-dives-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 2.5rem;
+      }
+      @media (max-width: 768px) {
+        .deep-dives-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .deep-dive-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .deep-dive-card:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 15px var(--accent-glow);
+      }
+      .deep-dive-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: var(--text);
+      }
+      .deep-dive-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+    </style>
+
+    <div class="deep-dives-grid">
+      <!-- Card 1: Features List -->
+      <div class="deep-dive-card reveal reveal--delay-1">
+        <div>
+          <h3>Observability Features List</h3>
+          <p>
+            A highly detailed technical catalog of the MIRASTACK Platform's capabilities across metrics, logs, traces, 
+            continuous profiling, MIRA AI, alerting, and scheduled reporting.
+          </p>
+        </div>
+        <a class="product-card__link" href="{{ '/products/mirastack/features/' | relative_url }}">Explore Features List →</a>
+      </div>
+
+      <!-- Card 2: Comparison Matrix -->
+      <div class="deep-dive-card reveal reveal--delay-2">
+        <div>
+          <h3>Sovereign vs. SaaS Architectural Comparison</h3>
+          <p>
+            A paradigm-focused comparison matrix highlighting the core structural advantages of the MIRASTACK Platform 
+            (Sovereignty, Cost-Efficiency, Agentic AI, and BI Consolidation) against standard SaaS-only monitoring platforms.
+          </p>
+        </div>
+        <a class="product-card__link" href="{{ '/products/mirastack/comparison/' | relative_url }}">Explore Architectural Comparison →</a>
       </div>
     </div>
   </div>

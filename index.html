@@ -323,6 +323,199 @@ image: /assets/img/mirastack-devops.png
 </section>
 
 <!-- ======================================================
+     AI GOVERNANCE GAP SECTION
+     ====================================================== -->
+<section class="section section--alt" id="ai-governance">
+  <div class="container">
+    <div class="section__header reveal">
+      <span class="label">ai.governance</span>
+      <h2>The AI Governance Gap</h2>
+      <p style="margin-top: 1rem; max-width: 72ch; color: var(--text-muted);">
+        Deploying un-governed AI agents into production infrastructure is a major security and operational risk. 
+        MIRASTACK LABS authored the open-standard <strong>EGAProtocol</strong> to enforce strict, wire-level discipline on every agentic action.
+      </p>
+    </div>
+
+    <style>
+      .gov-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        margin-top: 3rem;
+      }
+      @media (max-width: 992px) {
+        .gov-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .gov-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+      }
+      .gov-card--secure {
+        border-color: var(--accent);
+        box-shadow: 0 0 20px var(--accent-glow);
+      }
+      .gov-card__badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.65rem;
+        font-weight: bold;
+        padding: 0.25rem 0.6rem;
+        border: 1px solid var(--border);
+      }
+      .gov-card__badge--risk {
+        color: var(--accent-red);
+        border-color: rgba(232, 69, 106, 0.3);
+        background: rgba(232, 69, 106, 0.05);
+      }
+      .gov-card__badge--secure {
+        color: var(--accent);
+        border-color: var(--border-accent);
+        background: var(--accent-glow);
+      }
+      .gov-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--text);
+      }
+      .gov-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+      .gov-flow {
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        padding: 1.2rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-bottom: 2rem;
+      }
+      .gov-flow-step {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.4rem 0.8rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+      }
+      .gov-flow-step--risk {
+        border-color: var(--accent-red);
+        color: var(--accent-red);
+      }
+      .gov-flow-step--secure {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .gov-flow-arrow {
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 0.8rem;
+        line-height: 1;
+      }
+      .gov-bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 0.85rem;
+      }
+      .gov-bullet-list li {
+        margin-bottom: 0.6rem;
+        padding-left: 1.5rem;
+        position: relative;
+        line-height: 1.5;
+      }
+      .gov-bullet-list li::before {
+        position: absolute;
+        left: 0;
+      }
+      .gov-bullet-list--risk li::before {
+        content: "✕";
+        color: var(--accent-red);
+        font-weight: bold;
+      }
+      .gov-bullet-list--secure li::before {
+        content: "✓";
+        color: var(--accent);
+        font-weight: bold;
+      }
+    </style>
+
+    <div class="gov-grid">
+      <!-- Card 1: Consumer-Grade Agentic AI (The Risky Path) -->
+      <div class="gov-card reveal reveal--delay-1">
+        <span class="gov-card__badge gov-card__badge--risk">UNGOVERNED RISK</span>
+        <div>
+          <h3>Consumer-Grade Agentic AI</h3>
+          <p>
+            Standard agentic frameworks (LangGraph, AutoGen, direct LLM tool calling) lack intermediate governance. 
+            The LLM issues direct tool calls that execute raw code, database updates, or system modifications without validation.
+          </p>
+          
+          <div class="gov-flow">
+            <div class="gov-flow-step">1. SRE Prompt</div>
+            <div class="gov-flow-arrow">↓</div>
+            <div class="gov-flow-step">2. LLM Provider (Inference)</div>
+            <div class="gov-flow-arrow">↓</div>
+            <div class="gov-flow-step gov-flow-step--risk">3. Direct tool_call (Un-governed)</div>
+            <div class="gov-flow-arrow">↓</div>
+            <div class="gov-flow-step gov-flow-step--risk">4. Execution on Production Ecosystem</div>
+          </div>
+        </div>
+        
+        <ul class="gov-bullet-list gov-bullet-list--risk">
+          <li>No wire-level identity propagation or authentication.</li>
+          <li>Bypassable, application-level approval checks.</li>
+          <li>No immutable audit trails for regulatory compliance.</li>
+          <li>High risk of runaway, destructive loops on databases, Kafka, and servers.</li>
+        </ul>
+      </div>
+
+      <!-- Card 2: EGAProtocol Governed Architecture (The Safe Path) -->
+      <div class="gov-card gov-card--secure reveal reveal--delay-2">
+        <span class="gov-card__badge gov-card__badge--secure">EGA-GOVERNED</span>
+        <div>
+          <h3>EGAProtocol Governed Architecture</h3>
+          <p>
+            MIRASTACK is the reference implementation of <strong>EGAProtocol</strong>. 
+            The MIRA Engine acts as a stateless security proxy, intercepting and validating every agentic action at the wire level.
+          </p>
+          
+          <div class="gov-flow">
+            <div class="gov-flow-step">1. SRE Prompt</div>
+            <div class="gov-flow-arrow">↓</div>
+            <div class="gov-flow-step gov-flow-step--secure">2. MIRA Engine (EGA Interceptor)</div>
+            <div class="gov-flow-arrow">↓</div>
+            <div class="gov-flow-step gov-flow-step--secure">3. Governed LLM / Agents SDK Dispatch</div>
+            <div class="gov-flow-arrow">↓</div>
+            <div class="gov-flow-step">4. Secure Execution on Production Ecosystem</div>
+          </div>
+        </div>
+        
+        <ul class="gov-bullet-list gov-bullet-list--secure">
+          <li>Cryptographically verifiable identity on every message envelope.</li>
+          <li>Mandatory human-in-the-loop approval primitives built into the wire protocol.</li>
+          <li>Immutable audit trails following OpenTelemetry semantic conventions.</li>
+          <li>Strict permission scopes (READ, MODIFY, DESTROY, ADMIN) enforced on every action.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
      OPEN FOUNDATION — MIRA Framework
      ====================================================== -->
 <section class="foundation section" id="foundation">

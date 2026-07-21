@@ -1,0 +1,476 @@
+---
+layout: default
+title: Sovereign Observability vs. Legacy SaaS Architectural Comparison
+description: "A secure, paradigm-focused architectural comparison between the MIRASTACK Platform and standard Legacy SaaS APM platforms."
+image: /assets/img/mirastack-devops.png
+keywords: "Sovereign observability, Legacy SaaS, BYOC, Bring Your Own Cloud, comparison matrix, data sovereignty, cost efficiency, agentic AI"
+permalink: /products/mirastack/comparison/
+---
+
+<style>
+  /* Page-specific styles for comparison matrix and layout */
+  .comparison-hero {
+    padding: 6rem 0 4rem;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-hero__meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .comparison-hero__title {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .comparison-hero__subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 72ch;
+    line-height: 1.7;
+  }
+  .heading-with-bullet {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .heading-bullet {
+    height: 1.1em;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .comparison-section {
+    padding: 5rem 0;
+  }
+  .comparison-section__header {
+    margin-bottom: 3rem;
+  }
+  .comparison-section__header h2 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    margin-bottom: 1rem;
+  }
+  .comparison-section__header p {
+    max-width: 72ch;
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  /* BYOC Callout Box */
+  .byoc-callout {
+    border-left: 3px solid var(--accent);
+    background: var(--bg-alt);
+    padding: 1.8rem;
+    margin: 2.5rem 0;
+  }
+  .byoc-callout h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .byoc-callout p {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Comparison Matrix Table */
+  .matrix-container {
+    overflow-x: auto;
+    margin: 3rem 0;
+    border: 1px solid var(--border);
+  }
+  .comparison-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+  .comparison-matrix th, .comparison-matrix td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .comparison-matrix th {
+    background: var(--table-head-bg);
+    color: var(--text);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .comparison-matrix tr:last-child th, .comparison-matrix tr:last-child td {
+    border-bottom: none;
+  }
+  .comparison-matrix tr:nth-child(even) td {
+    background: var(--table-row-alt);
+  }
+  
+  /* Column widths */
+  .col-dimension { width: 20%; font-weight: bold; color: var(--text); }
+  .col-mirastack { width: 40%; border-right: 1px solid var(--border); }
+  .col-legacy { width: 40%; color: var(--text-muted); }
+
+  /* Custom SVG Icons */
+  .icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .icon-wrap--mirastack {
+    color: var(--accent);
+  }
+  .icon-wrap--legacy {
+    color: var(--text-dim);
+  }
+  .svg-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* Themes and Typography */
+  .dim-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .header-wordmark {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .header-wordmark span {
+    color: var(--accent);
+  }
+</style>
+
+<!-- ======================================================
+     HERO SECTION
+     ====================================================== -->
+<section class="comparison-hero">
+  <div class="container">
+    <div class="comparison-hero__meta">Architecture / Paradigm Comparison</div>
+    <h1 class="comparison-hero__title heading-with-bullet">
+      <img src="{{ '/assets/img/mirastack/image11.png' | relative_url }}" class="heading-bullet" alt="" />
+      Sovereign Observability vs. Legacy SaaS
+    </h1>
+    <p class="comparison-hero__subtitle">
+      Comparing platforms feature-by-feature is necessary but insufficient. The larger question enterprises are really asking is architectural: 
+      <em>how many tools, contracts, and data pipelines do I need to run in order to both keep my systems healthy and understand my business?</em>
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================
+     COMPARISON MATRIX SECTION
+     ====================================================== -->
+<section class="comparison-section">
+  <div class="container">
+    <div class="comparison-section__header">
+      <span class="label">architectural.paradigms</span>
+      <h2>The Paradigm Shift: Governed Sovereignty vs. Black-Box Ingestion</h2>
+      <p>
+        Traditional monitoring vendors expect you to exfiltrate all your telemetry to their cloud, charging you by the gigabyte and locking you into proprietary query languages. 
+        MIRASTACK inverts this posture entirely.
+      </p>
+    </div>
+
+    <!-- BYOC Callout Box -->
+    <div class="byoc-callout">
+      <h4>[DEPLOYMENT.MODEL] Bring Your Own Cloud (BYOC) / Sovereign SaaS</h4>
+      <p>
+        While MIRASTACK supports 100% self-hosted and air-gapped deployments, we also offer a unique <strong>Sovereign SaaS / BYOC</strong> model. 
+        In this model, customers get the convenience of a managed SaaS control plane, but <strong>all telemetry, databases, and LLM compute remain inside the customer's own cloud perimeter</strong>. 
+        No data exfiltration, zero egress fees, and absolute compliance.
+      </p>
+    </div>
+
+    <!-- Comparison Matrix Table -->
+    <div class="matrix-container">
+      <table class="comparison-matrix">
+        <thead>
+          <tr>
+            <th scope="col" class="col-dimension">Dimension</th>
+            <th scope="col" class="col-mirastack">
+              <div class="header-wordmark">
+                MIRASTACK<span>LABS</span> / Platform
+              </div>
+            </th>
+            <th scope="col" class="col-legacy">Standard Legacy SaaS APM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Deployment Model -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[DEPLOYMENT]</span>
+              Deployment Model
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <!-- Custom Geometric Double-Check SVG -->
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Sovereign & Flexible
+              </div>
+              <p>Fully <strong>Self-Hosted</strong> (On-Prem / Air-Gapped) or <strong>Sovereign SaaS / BYOC</strong> (Bring Your Own Cloud). All data and compute stay inside your perimeter.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <!-- Minimalist Diagonal Cross SVG -->
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Vendor-Hosted SaaS
+              </div>
+              <p>Cloud-only. Telemetry must be exfiltrated to the vendor's cloud, creating security risks and compliance overhead.</p>
+            </td>
+          </tr>
+
+          <!-- Cost Model -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[ECONOMICS]</span>
+              Cost Model
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Fixed Capacity-Based
+              </div>
+              <p>Predictable licensing based on tenant capacity, integrations, and agents. Decoupled from ingestion volume. Run local LLM (Ollama) for zero-cost AI inference.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Metered Per-GB Ingest
+              </div>
+              <p>Variable and punitive pricing based on data volume. Punishes you for instrumenting more systems or retaining logs longer. High exfiltration/egress fees.</p>
+            </td>
+          </tr>
+
+          <!-- Data Ownership -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[SOVEREIGNTY]</span>
+              Data Ownership
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Absolute Sovereignty
+              </div>
+              <p>You own 100% of your data. It resides entirely on storage you control (VictoriaMetrics, ClickHouse, S3). Zero exfiltration or "phoning home" by the engine.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Vendor Custody
+              </div>
+              <p>Data is stored in the vendor's multi-tenant databases. Subject to vendor's security posture, regional outages, and policy changes.</p>
+            </td>
+          </tr>
+
+          <!-- AI Sovereignty -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[INTELLIGENCE]</span>
+              AI Sovereignty
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Bring Your Own LLM
+              </div>
+              <p>Run powerful open-source models (Ollama, vLLM) on-premises or connect to secure commercial APIs. You are never locked into a single AI provider.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Closed Proprietary AI
+              </div>
+              <p>Forced to use the vendor's proprietary, closed-source AI models running in their cloud. No visibility into reasoning or data handling.</p>
+            </td>
+          </tr>
+
+          <!-- Agentic AI & Lanes -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[ORCHESTRATION]</span>
+              Agentic AI & Lanes
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                EGAProtocol Core
+              </div>
+              <p>Stateless engine orchestrating 7+ specialized agents across <strong>Three Execution Lanes</strong> (Pre-defined, Autonomous DAG, AI-Improvised). Wire-level 5AG governance prevents runaway loops.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Static Text Outputs
+              </div>
+              <p>Limited to basic, single-baseline anomaly alerts and static text summaries. No workflow orchestration, execution lanes, or protocol-level governance.</p>
+            </td>
+          </tr>
+
+          <!-- Data Ingestion -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[STANDARDS]</span>
+              Data Ingestion
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Standards-First
+              </div>
+              <p>100% native support for OpenTelemetry (OTLP), PromQL/MetricsQL, and Jaeger. Existing dashboards and collectors work out of the box with zero modifications.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Proprietary Lock-In
+              </div>
+              <p>Bespoke query languages and proprietary agents designed to maximize switching costs. Limited or bolt-on support for open standards.</p>
+            </td>
+          </tr>
+
+          <!-- Platform Scope -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[CONSOLIDATION]</span>
+              Platform Scope
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Observability + BI
+              </div>
+              <p>Collapses the divide between technical telemetry and business analytics. Bind ClickHouse SQL data directly to widgets next to VictoriaMetrics metrics on a single canvas.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Technology Only
+              </div>
+              <p>Restricted to technology monitoring (CPU, memory, traces). Requires a separate, expensive BI suite (Tableau, Power BI) and data pipelines to analyze business impact.</p>
+            </td>
+          </tr>
+
+          <!-- Extensibility -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[EXTENSIBILITY]</span>
+              Extensibility
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Open SDKs & MCP
+              </div>
+              <p>Extend the platform with custom agents, LLM providers, and auth connectors using gRPC SDKs. Connect external Model Context Protocol (MCP) servers as engine tools.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Closed Ecosystem
+              </div>
+              <p>Restricted to vendor-approved integrations and limited app marketplaces. No support for custom agent orchestration or open protocol bridges.</p>
+            </td>
+          </tr>
+
+          <!-- Multi-Tenancy -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[GOVERNANCE]</span>
+              Multi-Tenancy
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                  <polyline points="16 6 9 13 7 11"></polyline>
+                </svg>
+                Native UUID5 Isolation
+              </div>
+              <p>Built-in multi-tenancy with deterministic UUID5 slug-based isolation, per-tenant plugins, and a flexible membership model where users hold different roles per tenant.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Bolt-On Accounts
+              </div>
+              <p>Account and team hierarchies bolted onto a fundamentally single-tenant core. Weak isolation guarantees across business units.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
