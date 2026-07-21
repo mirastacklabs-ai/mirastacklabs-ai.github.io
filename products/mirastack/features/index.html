@@ -471,6 +471,131 @@ permalink: /products/mirastack/features/
     color: var(--accent);
     font-weight: 600;
   }
+
+  /* Comparison Matrix Table */
+  .matrix-container {
+    overflow-x: auto;
+    margin: 3rem 0;
+    border: 1px solid var(--border);
+  }
+  .comparison-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+  .comparison-matrix th, .comparison-matrix td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .comparison-matrix th {
+    background: var(--table-head-bg);
+    color: var(--text);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .comparison-matrix tr:last-child th, .comparison-matrix tr:last-child td {
+    border-bottom: none;
+  }
+  .comparison-matrix tr:nth-child(even) td {
+    background: var(--table-row-alt);
+  }
+  
+  /* Column widths */
+  .col-dimension { width: 22%; font-weight: bold; color: var(--text); }
+  .col-mirastack { width: 39%; border-right: 1px solid var(--border); }
+  .col-legacy { width: 39%; color: var(--text-muted); }
+
+  /* Custom SVG Icons */
+  .icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .icon-wrap--mirastack {
+    color: var(--accent);
+  }
+  .icon-wrap--legacy {
+    color: var(--text-dim);
+  }
+  .svg-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
+  }
+  .badge-svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    background: var(--accent-glow);
+    border-radius: 50%;
+    padding: 2px;
+  }
+  .icon-wrap--legacy .badge-svg {
+    background: rgba(122, 134, 148, 0.1);
+  }
+  
+  .dim-icon-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+  .dim-svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  /* BYOC Callout Box */
+  .byoc-callout {
+    border-left: 3px solid var(--accent);
+    background: var(--bg-alt);
+    padding: 1.8rem;
+    margin: 2.5rem 0;
+  }
+  .byoc-callout h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .byoc-callout p {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .header-wordmark {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .header-wordmark span {
+    color: var(--accent);
+  }
+  .dim-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .panel-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-bottom: 1.2rem;
+    color: var(--accent);
+  }
 </style>
 
 <!-- ======================================================
@@ -725,6 +850,11 @@ permalink: /products/mirastack/features/
     <!-- Core AI Capabilities Grid -->
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="9" r="2" stroke="var(--accent-red)"></circle>
+          <path d="M14 11l3 3" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Autonomous Investigation</h3>
         <p>Chat-driven multi-signal analysis that orchestrates specialized agents.</p>
         <ul class="feature-panel__list">
@@ -736,6 +866,12 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+          <path d="M3 12a9 9 0 0 1 15 0" stroke="var(--accent-red)" stroke-dasharray="2 2"></path>
+        </svg>
         <h3>AI Analytical Capabilities</h3>
         <p>Advanced statistical and causal reasoning across all telemetry streams.</p>
         <ul class="feature-panel__list">
@@ -748,6 +884,10 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+          <path d="M12 6V12M12 12h4" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Model & Provider Control</h3>
         <p>Complete sovereignty over your choice of Large Language Models.</p>
         <ul class="feature-panel__list">
@@ -777,6 +917,10 @@ permalink: /products/mirastack/features/
 
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3v18h18"></path>
+          <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>VictoriaMetrics (Metrics TSDB)</h3>
         <p>A high-performance, cost-efficient time-series database compatible with Prometheus APIs.</p>
         <ul class="feature-panel__list">
@@ -788,6 +932,12 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="9" x2="15" y2="9" stroke="var(--accent-red)"></line>
+          <line x1="9" y1="13" x2="15" y2="13"></line>
+          <line x1="9" y1="17" x2="13" y2="17"></line>
+        </svg>
         <h3>VictoriaLogs (JSON-Native Logs)</h3>
         <p>A purpose-built log store that treats logs as structured JSON records, not text blobs.</p>
         <ul class="feature-panel__list">
@@ -799,6 +949,12 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path>
+          <path d="M5.5 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path>
+          <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+          <path d="M7.8 9.2l1.9-1.4M14.3 11l1.9 1.4" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>VictoriaTraces (Distributed Tracing)</h3>
         <p>A distributed tracing backend that stores OpenTelemetry spans and Jaeger traces.</p>
         <ul class="feature-panel__list">
@@ -837,6 +993,10 @@ permalink: /products/mirastack/features/
 
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Centrally Governed Integrations</h3>
         <p>Connect multiple data sources securely under a single administrative model.</p>
         <ul class="feature-panel__list">
@@ -848,6 +1008,10 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <path d="M10 10l4 4m0-4l-4 4" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Per-Widget Source Binding</h3>
         <p>Technical and business signals coexist on the same board, in the same visual experience.</p>
         <ul class="feature-panel__list">
@@ -886,6 +1050,11 @@ permalink: /products/mirastack/features/
 
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="3" x2="9" y2="21" stroke="var(--accent-red)"></line>
+          <line x1="16" y1="3" x2="16" y2="21"></line>
+        </svg>
         <h3>Three-Pane Workspace</h3>
         <p>A highly intuitive layout that guides the user from raw data to rich visualization.</p>
         <ul class="feature-panel__list">
@@ -897,6 +1066,9 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>No-Code Query Builders</h3>
         <p>Assemble complex queries for metrics, logs, traces, and SQL without writing code.</p>
         <ul class="feature-panel__list">
@@ -935,6 +1107,10 @@ permalink: /products/mirastack/features/
 
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3v18h18"></path>
+          <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Metrics Exploration</h3>
         <p>Query PromQL/MetricsQL with syntax highlighting and live autocomplete.</p>
         <ul class="feature-panel__list">
@@ -945,6 +1121,12 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="9" x2="15" y2="9" stroke="var(--accent-red)"></line>
+          <line x1="9" y1="13" x2="15" y2="13"></line>
+          <line x1="9" y1="17" x2="13" y2="17"></line>
+        </svg>
         <h3>Logs & Traces Exploration</h3>
         <p>Deep-dive analysis of structured JSON logs and distributed traces.</p>
         <ul class="feature-panel__list">
@@ -955,6 +1137,10 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+          <path d="M12 6V12M12 12h4" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Continuous Profiling</h3>
         <p>Kernel-level eBPF instrumentation for deep system insight without code changes.</p>
         <ul class="feature-panel__list">
@@ -983,6 +1169,10 @@ permalink: /products/mirastack/features/
 
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="var(--accent-red)"></path>
+        </svg>
         <h3>Hardened Alertmanager Fork</h3>
         <p>Battle-tested routing core with enterprise-grade security extensions.</p>
         <ul class="feature-panel__list">
@@ -994,6 +1184,12 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="4" stroke="var(--accent-red)"></line>
+          <line x1="8" y1="2" x2="8" y2="4"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
         <h3>Operate Portal Features</h3>
         <p>The operational control plane for incident response and on-call rotations.</p>
         <ul class="feature-panel__list">
@@ -1032,6 +1228,13 @@ permalink: /products/mirastack/features/
 
     <div class="feature-panel-grid">
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8" stroke="var(--accent-red)"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
         <h3>Headless Reporting Engine</h3>
         <p>Headless-Chromium rendering producing publication-quality documents.</p>
         <ul class="feature-panel__list">
@@ -1043,6 +1246,11 @@ permalink: /products/mirastack/features/
       </div>
 
       <div class="feature-panel">
+        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12" stroke="var(--accent-red)"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
         <h3>Open Standards Alignment</h3>
         <p>Protecting your organization from vendor lock-in with open specifications.</p>
         <ul class="feature-panel__list">
@@ -1052,6 +1260,359 @@ permalink: /products/mirastack/features/
           <li>SBOM Compliance: generates CycloneDX BOMs for security audits</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     DEPLOYMENT OPTIONS & SOVEREIGN COMPARISON
+     ====================================================== -->
+<section class="features-section" id="deployment-options">
+  <div class="container">
+    <div class="features-section__header">
+      <span class="label">deployment.options</span>
+      <h2>Deployment Options & Sovereign Comparison</h2>
+      <p>
+        MIRASTACK offers flexible deployment topologies designed to meet the most stringent security, compliance, and budget requirements. 
+        Whether you run fully air-gapped on-premises or leverage our Sovereign SaaS / BYOC model, your data never leaves your control.
+      </p>
+    </div>
+
+    <!-- BYOC Callout Box -->
+    <div class="byoc-callout">
+      <h4>[DEPLOYMENT.MODEL] Bring Your Own Cloud (BYOC) / Sovereign SaaS</h4>
+      <p>
+        While MIRASTACK supports 100% self-hosted and air-gapped deployments, we also offer a unique <strong>Sovereign SaaS / BYOC</strong> model. 
+        In this model, customers get the convenience of a managed SaaS control plane, but <strong>all telemetry, databases, and LLM compute remain inside the customer's own cloud perimeter</strong>. 
+        No data exfiltration, zero egress fees, and absolute compliance.
+      </p>
+    </div>
+
+    <!-- Comparison Matrix Table -->
+    <div class="matrix-container">
+      <table class="comparison-matrix">
+        <thead>
+          <tr>
+            <th scope="col" class="col-dimension">Dimension</th>
+            <th scope="col" class="col-mirastack">
+              <div class="header-wordmark">
+                MIRASTACK<span>LABS</span> / Platform
+              </div>
+            </th>
+            <th scope="col" class="col-legacy">Standard Legacy SaaS APM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Deployment Model -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[DEPLOYMENT]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="6" rx="1" style="stroke: var(--accent);"></rect>
+                  <rect x="2" y="15" width="20" height="6" rx="1" style="stroke: var(--accent);"></rect>
+                  <path d="M6 6h.01M6 18h.01" stroke-width="3" stroke="var(--accent)"></path>
+                  <path d="M10 6h4M10 18h4" stroke="var(--text-muted)"></path>
+                  <path d="M12 9v6" stroke="var(--accent)" stroke-dasharray="2 2"></path>
+                </svg>
+                Deployment Model
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Sovereign & Flexible
+              </div>
+              <p>Fully <strong>Self-Hosted</strong> (On-Prem / Air-Gapped) or <strong>Sovereign SaaS / BYOC</strong> (Bring Your Own Cloud). All data and compute stay inside your perimeter.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Vendor-Hosted SaaS
+              </div>
+              <p>Cloud-only. Telemetry must be exfiltrated to the vendor's cloud, creating security risks and compliance overhead.</p>
+            </td>
+          </tr>
+
+          <!-- Cost Model -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[ECONOMICS]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="var(--accent)"></path>
+                  <circle cx="12" cy="12" r="10" stroke="var(--text-dim)" stroke-dasharray="3 3"></circle>
+                </svg>
+                Cost Model
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Fixed Capacity-Based
+              </div>
+              <p>Predictable licensing based on tenant capacity, integrations, and agents. Decoupled from ingestion volume. Run local LLM (Ollama) for zero-cost AI inference.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Metered Per-GB Ingest
+              </div>
+              <p>Variable and punitive pricing based on data volume. Punishes you for instrumenting more systems or retaining logs longer. High exfiltration/egress fees.</p>
+            </td>
+          </tr>
+
+          <!-- Data Ownership -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[SOVEREIGNTY]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" stroke="var(--accent)"></ellipse>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" stroke="var(--accent)"></path>
+                  <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" stroke="var(--accent)" stroke-dasharray="3 3"></path>
+                  <rect x="9" y="10" width="6" height="8" rx="1" fill="var(--bg-card)" stroke="var(--accent-red)"></rect>
+                  <circle cx="12" cy="13" r="1" fill="var(--accent-red)"></circle>
+                </svg>
+                Data Ownership
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Absolute Sovereignty
+              </div>
+              <p>You own 100% of your data. It resides entirely on storage you control (VictoriaMetrics, ClickHouse, S3). Zero exfiltration or "phoning home" by the engine.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Vendor Custody
+              </div>
+              <p>Data is stored in the vendor's multi-tenant databases. Subject to vendor's security posture, regional outages, and policy changes.</p>
+            </td>
+          </tr>
+
+          <!-- AI Sovereignty -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[INTELLIGENCE]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="var(--text-dim)"></path>
+                  <path d="M12 6v12M6 12h12" stroke="var(--accent)"></path>
+                  <circle cx="12" cy="12" r="4" fill="var(--bg-card)" stroke="var(--accent)"></circle>
+                  <path d="M12 10v4M10 12h4" stroke="var(--accent-red)"></path>
+                </svg>
+                AI Sovereignty
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Bring Your Own LLM
+              </div>
+              <p>Run powerful open-source models (Ollama, vLLM) on-premises or connect to secure commercial APIs. You are never locked into a single AI provider.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Closed Proprietary AI
+              </div>
+              <p>Forced to use the vendor's proprietary, closed-source AI models running in their cloud. No visibility into reasoning or data handling.</p>
+            </td>
+          </tr>
+
+          <!-- Agentic AI & Lanes -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[ORCHESTRATION]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 12h18M3 6h18M3 18h18" stroke="var(--text-dim)"></path>
+                  <circle cx="6" cy="6" r="2" fill="var(--accent)" stroke="var(--accent)"></circle>
+                  <circle cx="12" cy="12" r="2" fill="var(--accent-red)" stroke="var(--accent-red)"></circle>
+                  <circle cx="18" cy="18" r="2" fill="var(--accent)" stroke="var(--accent)"></circle>
+                </svg>
+                Agentic AI & Lanes
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                EGAProtocol Core
+              </div>
+              <p>Stateless engine orchestrating 7+ specialized agents across <strong>Three Execution Lanes</strong> (Pre-defined, Autonomous DAG, AI-Improvised). Wire-level 5AG governance prevents runaway loops.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Static Text Outputs
+              </div>
+              <p>Limited to basic, single-baseline anomaly alerts and static text summaries. No workflow orchestration, execution lanes, or protocol-level governance.</p>
+            </td>
+          </tr>
+
+          <!-- Data Ingestion -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[STANDARDS]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="var(--accent)"></path>
+                </svg>
+                Data Ingestion
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Standards-First
+              </div>
+              <p>100% native support for OpenTelemetry (OTLP), PromQL/MetricsQL, and Jaeger. Existing dashboards and collectors work out of the box with zero modifications.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Proprietary Lock-In
+              </div>
+              <p>Bespoke query languages and proprietary agents designed to maximize switching costs. Limited or bolt-on support for open standards.</p>
+            </td>
+          </tr>
+
+          <!-- Platform Scope -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[CONSOLIDATION]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="12" r="6" stroke="var(--accent)" fill="var(--accent-glow)"></circle>
+                  <circle cx="15" cy="12" r="6" stroke="var(--accent-red)" fill="rgba(232, 69, 106, 0.05)"></circle>
+                </svg>
+                Platform Scope
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Observability + BI
+              </div>
+              <p>Collapses the divide between technical telemetry and business analytics. Bind ClickHouse SQL data directly to widgets next to VictoriaMetrics metrics on a single canvas.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Technology Only
+              </div>
+              <p>Restricted to technology monitoring (CPU, memory, traces). Requires a separate, expensive BI suite (Tableau, Power BI) and data pipelines to analyze business impact.</p>
+            </td>
+          </tr>
+
+          <!-- Extensibility -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[EXTENSIBILITY]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v4M12 18v4M4 12H2M18 12h4" stroke="var(--accent)"></path>
+                  <rect x="6" y="6" width="12" height="12" rx="2" stroke="var(--accent)" fill="var(--bg-card)"></rect>
+                  <path d="M10 12h4M12 10v4" stroke="var(--accent-red)"></path>
+                </svg>
+                Extensibility
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Open SDKs & MCP
+              </div>
+              <p>Extend the platform with custom agents, LLM providers, and auth connectors using gRPC SDKs. Connect external Model Context Protocol (MCP) servers as engine tools.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Closed Ecosystem
+              </div>
+              <p>Restricted to vendor-approved integrations and limited app marketplaces. No support for custom agent orchestration or open protocol bridges.</p>
+            </td>
+          </tr>
+
+          <!-- Multi-Tenancy -->
+          <tr>
+            <td class="col-dimension">
+              <span class="dim-label">[GOVERNANCE]</span>
+              <div class="dim-icon-title">
+                <svg class="svg-icon dim-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" stroke="var(--accent)"></rect>
+                  <rect x="14" y="3" width="7" height="7" stroke="var(--text-dim)"></rect>
+                  <rect x="3" y="14" width="7" height="7" stroke="var(--text-dim)"></rect>
+                  <rect x="14" y="14" width="7" height="7" stroke="var(--accent)"></rect>
+                </svg>
+                Multi-Tenancy
+              </div>
+            </td>
+            <td class="col-mirastack">
+              <div class="icon-wrap icon-wrap--mirastack">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Native UUID5 Isolation
+              </div>
+              <p>Built-in multi-tenancy with deterministic UUID5 slug-based isolation, per-tenant plugins, and a flexible membership model where users hold different roles per tenant.</p>
+            </td>
+            <td class="col-legacy">
+              <div class="icon-wrap icon-wrap--legacy">
+                <svg class="svg-icon badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Bolt-On Accounts
+              </div>
+              <p>Account and team hierarchies bolted onto a fundamentally single-tenant core. Weak isolation guarantees across business units.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
