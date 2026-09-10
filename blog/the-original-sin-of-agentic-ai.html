@@ -1,0 +1,241 @@
+---
+layout: blog-post
+title: The Original Sin of Agentic AI
+description: Agentic AI has a governance problem baked into its architecture. We gave LLMs the ability to instruct tool calls before we defined who governs those calls. Here is why that is the original sin — and how EGAProtocol fixes it.
+image: /assets/img/mirastack-devops.png
+permalink: /blog/the-original-sin-of-agentic-ai/
+---
+
+# The Original Sin of Agentic AI
+
+*By Shiva Kumar RV — Founder & Architect, MIRASTACK LABS*
+
+*Published in: The Governed Machine | Issue #01*
+
+---
+
+> *"Every major technology wave has an original sin — an architectural decision that seemed fine early and caused a decade of pain later. We are living through agentic AI's right now."*
+
+---
+
+## A Short History of Sins We've Seen Before
+
+The web was born stateless. Tim Berners-Lee designed HTTP to be simple — request, response, forget. No identity. No session. No memory of who you were or what you did.
+
+That was fine when the web was documents.
+
+It became the original sin when the web became commerce, banking, healthcare, and critical infrastructure. We spent the next twenty years bolting on cookies, sessions, OAuth, JWTs, and zero-trust architectures to fix what should have been designed in from the start.
+
+Cloud computing made the same mistake with credentials. The early AWS model was: here are your access keys, put them in your application, and we'll log what you do. Simple. Fast. It worked for startups.
+
+Then enterprises moved in. Shared credentials. Root accounts used for everything. S3 buckets with public read access because IAM was too complicated. We spent a decade inventing IAM roles, SCPs, VPC endpoints, and PrivateLink to paper over what should have been built correctly from day one.
+
+Microservices did it with networking. The promise was small, independent services. The sin was assuming the network was reliable, observable, and secure. We got cascading failures, impossible-to-trace distributed bugs, and security perimeters that were impossible to enforce. The industry invented service meshes — Istio, Linkerd, Consul Connect — to put back the governance layer that was stripped out in the race to decompose monoliths.
+
+Each time, the pattern is identical:
+
+```mermaid
+flowchart LR
+    A[New Paradigm\nEmerges] --> B[Early Adopters\nMove Fast]
+    B --> C[Governance\nIgnored]
+    C --> D[Enterprise\nAdoption]
+    D --> E[Production\nIncidents]
+    E --> F[Compliance\nProblems]
+    F --> G[Industry Scrambles\nto Retrofit Governance]
+    G --> H[Decade of\nPainful Fixes]
+    H --> A
+
+    style C fill:#E8456A,color:#fff
+    style G fill:#FF671F,color:#fff
+    style H fill:#4A5563,color:#fff
+```
+
+We are at step C right now. For agentic AI.
+
+---
+
+## What the Original Sin Actually Is
+
+Let me be precise. The original sin of agentic AI is not that we built AI agents. It is not that we gave them tools. It is not even that we connected them to enterprise systems.
+
+The sin is this:
+
+**We gave LLMs the ability to instruct tool calls before we defined who governs those calls.**
+
+That sentence is worth sitting with for a moment.
+
+In every previous software paradigm, when a piece of software wanted to take an action on a system — write to a database, deploy a service, send an email, modify a file — it had to pass through a layer that asked: *is this action permitted, by whom, for what reason, and what is the audit record?*
+
+Sometimes that layer was thin. Sometimes it was poorly implemented. But it existed. It was an architectural assumption.
+
+Agentic AI removed that assumption.
+
+When an LLM decides a tool should be called, the call happens. The LLM does not have permissions in any meaningful sense. It has access to a list of tools and instructions on how to use them. The governance — if it exists at all — is bolted on at the edges: API rate limits, network-level controls, the scoped credentials of the service account running the agent.
+
+These are not governance. These are constraints. Governance is intentional. Constraints are incidental.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant LLM as LLM Provider
+    participant Agent as Agent Process
+    participant Tool as Tool / API
+    participant System as Enterprise System
+
+    User->>LLM: "Fix the payment service latency issue"
+    LLM->>Agent: tool_call: query_metrics(service="payment")
+    Agent->>Tool: HTTP GET /metrics?service=payment
+    Tool->>System: SELECT * FROM metrics...
+    System-->>Tool: 847 rows returned
+    Tool-->>Agent: data
+    Agent->>LLM: here is the data
+    LLM->>Agent: tool_call: scale_deployment(service="payment", replicas=10)
+    Agent->>Tool: HTTP PATCH /deployments/payment
+    Note over Agent,Tool: No approval. No audit. No permission check.
+    Tool->>System: kubectl scale deployment payment --replicas=10
+    System-->>Tool: scaled
+    Note over System: Production just changed.<br/>Nobody authorized this.
+```
+
+The diagram above is not a theoretical attack. It is a description of how most production agentic deployments work today, including some that are live in financial institutions right now.
+
+---
+
+## The Three Lies We Tell Ourselves
+
+When I show this to platform engineers and CTOs, I hear three responses. All of them are rationalizations.
+
+### Lie #1: "Our IAM controls handle this"
+
+Your IAM controls govern what the service account can do. They do not govern what the LLM decides to do. These are different problems.
+
+If the agent's service account has write access to your deployment API — which it must, in order to do its job — then IAM cannot distinguish between "the LLM decided to scale to 10 replicas after careful analysis" and "the LLM hallucinated a tool call with wrong parameters and is about to take down your payment service."
+
+IAM answers: *can this identity perform this action?*
+
+Agent governance answers: *should this agent perform this action, right now, for this reason, with this authorization, and how do we prove it?*
+
+These are not the same question.
+
+### Lie #2: "We have human oversight"
+
+Do you? Really?
+
+When your agent makes 40 tool calls in a session, do you have a human reviewing each one? When it runs on a schedule at 03:00 AM, is there a human in the loop? When it chains five tool calls to resolve an incident — query metrics, correlate logs, identify root cause, patch a config, restart a service — which of those five actions had explicit human authorization?
+
+"Human oversight" in most agentic deployments means: a human set the agent up, and a human can see what it did after the fact.
+
+That is not oversight. That is log review.
+
+### Lie #3: "The LLM is smart enough to make good decisions"
+
+This is the most dangerous lie.
+
+The LLM is extraordinarily capable at reasoning about what action to take. It is not capable of knowing whether it is authorized to take that action. It does not have access to your change management policy, your regulatory obligations, your blast radius calculations, or your on-call escalation tree. It has a system prompt and a list of tools.
+
+Capability and authorization are entirely different properties. A highly capable agent acting without authorization is not safer than a less capable one. It is more dangerous — because it can cause more sophisticated damage before anyone notices.
+
+---
+
+## What Governance Actually Means
+
+Before we can fix the original sin, we need a shared definition of what agent governance actually is. Not what we wish it were. Not what vendors claim it is. What it actually requires.
+
+```mermaid
+mindmap
+  root((Agent\nGovernance))
+    Identity
+      Who is the agent acting as?
+      Cryptographic session binding
+      Non-repudiation of actions
+    Permission
+      What is the agent permitted to do?
+      Tiered action classification
+      Scope bounded to declared intent
+    Validation
+      Is this specific action permitted right now?
+      Schema validation of tool calls
+      Budget and iteration bounds
+    Human Gates
+      Which actions require sign-off?
+      Who can authorize what tier?
+      Timeout and escalation handling
+    Audit
+      Immutable record of every decision
+      Reasoning chain preserved
+      Exportable for compliance
+    Revocation
+      Can permissions be withdrawn mid-session?
+      How fast does revocation propagate?
+      What happens to in-flight actions?
+```
+
+Six properties. Most current agentic deployments partially implement two or three of them. None implement all six consistently, across all agent sessions, with enforcement guaranteed at the execution layer rather than assumed at the application layer.
+
+That gap — between what governance requires and what we currently have — is the original sin made concrete.
+
+---
+
+## Why This Moment Matters
+
+I want to push back on something you might be thinking: *"We can fix this later. We did it with the web, with cloud, with microservices. We'll do it with agents."*
+
+We can. But the cost of doing it later is rising, not falling. Here is why:
+
+**Regulatory latency is closing.** When the web had its original sin, regulators took fifteen years to catch up. When cloud had its original sin, it took seven years. The EU AI Act, the RBI cloud outsourcing guidelines, DORA, and the US Executive Order on AI in critical infrastructure all dropped within the last eighteen months. The window to establish architectural patterns before regulators mandate specific ones is narrow.
+
+**The blast radius is different.** When a misconfigured IAM role exposes an S3 bucket, the damage is data exposure — serious, but bounded. When an ungoverned AI agent takes actions in a production system, the damage can be operational: services down, transactions corrupted, deployment state inconsistent. The incident response playbooks for "AI agent caused this" do not exist yet at most organizations.
+
+**Agents are compounding.** When one agent can spawn other agents, call agent-to-agent APIs (as A2A envisions), and chain actions across multiple systems, ungoverned behavior does not stay local. It propagates. The blast radius of a single ungoverned decision in an agentic mesh is orders of magnitude larger than in a single-agent system.
+
+```mermaid
+graph TD
+    A[Single Ungoverned Agent\nDecision] --> B[Modifies Config A]
+    A --> C[Calls Agent B via A2A]
+    A --> D[Triggers Workflow W]
+    
+    B --> E[Service Restart]
+    C --> F[Agent B calls 3 more tools]
+    D --> G[Workflow modifies 6 systems]
+    
+    F --> H[Production DB updated]
+    F --> I[Notification sent to 400 users]
+    G --> J[Deployment rolled back]
+    G --> K[Cache invalidated]
+    G --> L[Config pushed to CDN]
+
+    style A fill:#E8456A,color:#fff
+    style H fill:#E8456A,color:#fff
+    style I fill:#E8456A,color:#fff
+    style J fill:#FF671F,color:#fff
+```
+
+One ungoverned decision. Eleven production changes across six systems. No audit trail. No authorization record. No way to explain to your regulator what happened and why.
+
+---
+
+## The Protocol Layer That Is Missing
+
+Every infrastructure paradigm that reached enterprise maturity had to develop a protocol layer — a shared, implementation-independent specification for how governance works.
+
+HTTP gave the web a request-response protocol. OAuth gave it an authorization protocol. TLS gave it a trust protocol. These are not the same as the applications that implement them. The protocol defines the contract. Applications implement it.
+
+Agentic AI has protocols for capability (MCP — how agents discover tools) and for communication (A2A — how agents talk to each other). It does not have a protocol for governance — for how an enterprise specifies and enforces the rules under which agents act.
+
+That is the gap we are working to address with **EGAProtocol — the Engine Governed Agents Protocol**.
+
+Not as a product. As a specification. One that any agent runtime can implement, any enterprise can configure to match their policy, and any regulator can audit against.
+
+The details of the protocol are for a later article. The point I want to leave you with today is simpler:
+
+**The original sin is fixable. But only if we name it correctly, understand it deeply, and build the governance layer as an architectural primitive — not an afterthought.**
+
+The web retrofitted identity for fifteen years. We do not need to spend fifteen years retrofitting agent governance. The pattern is clear. The cost of inaction is quantifiable. The technical building blocks exist.
+
+What has been missing is the will to treat governance as a first-class concern before the incidents force our hand.
+
+---
+
+*Shiva Kumar RV is the Founder and Architect of MIRASTACK LABS, building sovereign agentic AI infrastructure for regulated enterprises. The EGAProtocol is an open specification for enterprise agent governance.*
+
+*Follow this publication for fortnightly articles on the discipline of agentic AI in production environments.*

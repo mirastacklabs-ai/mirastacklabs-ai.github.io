@@ -9,6 +9,33 @@
 {% assign docs_pages = site.pages | where_exp: "item", "item.url contains '/docs/'" | sort: "nav_order" %}
 
 <ul class="nav-list">
+  <li class="nav-list-item{% if page.url contains '/platform' %} active{% endif %}">
+    <a href="{{ '/platform/' | relative_url }}" class="nav-list-link{% if page.url == '/platform/' %} active{% endif %}">Platform</a>
+    <button class="nav-list-expander" aria-label="Toggle Platform" aria-expanded="{% if page.url contains '/platform' %}true{% else %}false{% endif %}">
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </button>
+    <ul class="nav-list-l2" style="{% if page.url contains '/platform' %}display:block{% else %}display:none{% endif %}">
+      <li class="nav-list-item{% if page.url == '/platform/' %} active{% endif %}">
+        <a href="{{ '/platform/' | relative_url }}" class="nav-list-link{% if page.url == '/platform/' %} active{% endif %}">Overview</a>
+      </li>
+      <li class="nav-list-item{% if page.url contains '/platform/governance' %} active{% endif %}">
+        <a href="{{ '/platform/governance/' | relative_url }}" class="nav-list-link{% if page.url contains '/platform/governance' %} active{% endif %}">Governance</a>
+      </li>
+      <li class="nav-list-item{% if page.url contains '/platform/mcp' %} active{% endif %}">
+        <a href="{{ '/platform/mcp/' | relative_url }}" class="nav-list-link{% if page.url contains '/platform/mcp' %} active{% endif %}">MCP Harness</a>
+      </li>
+      <li class="nav-list-item{% if page.url contains '/platform/models' %} active{% endif %}">
+        <a href="{{ '/platform/models/' | relative_url }}" class="nav-list-link{% if page.url contains '/platform/models' %} active{% endif %}">Models &amp; Routing</a>
+      </li>
+      <li class="nav-list-item{% if page.url contains '/platform/identity' %} active{% endif %}">
+        <a href="{{ '/platform/identity/' | relative_url }}" class="nav-list-link{% if page.url contains '/platform/identity' %} active{% endif %}">Identity &amp; RBAC</a>
+      </li>
+      <li class="nav-list-item{% if page.url contains '/platform/observability' %} active{% endif %}">
+        <a href="{{ '/platform/observability/' | relative_url }}" class="nav-list-link{% if page.url contains '/platform/observability' %} active{% endif %}">Observability</a>
+      </li>
+    </ul>
+  </li>
+
   {% for p in docs_pages %}
     {% unless p.parent or p.title == nil %}
 

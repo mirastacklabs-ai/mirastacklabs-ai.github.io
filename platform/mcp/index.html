@@ -1,0 +1,210 @@
+---
+layout: default
+title: MCP Harness — Servers that never touch a laptop | MIRASTACK
+description: The MIRASTACK MCP Harness runs MCP servers as governed runtimes inside your network. Credentials never leave the platform's secret store. Every tool classified READ, WRITE, MODIFY, or ADMIN by an operator.
+keywords: MCP harness, MCP server governance, governed MCP, air-gapped MCP, MCP security, tool classification, loopback containment, sovereign ai
+image: /assets/img/mirastack-devops.png
+permalink: /platform/mcp/
+---
+
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Platform / MCP Harness</div>
+
+    <h1 class="product-hero__title reveal reveal--delay-1">MCP servers that never touch a laptop</h1>
+
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      MCP servers run as governed runtimes inside your network. Credentials never leave
+      the platform's secret store. Every dispatch is ledgered with the human actor who
+      authorised it. Runs in networks with no internet route at all.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+      <a class="btn btn--outline" href="{{ '/platform/' | relative_url }}">Back to Platform Overview →</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="MCP Harness key tags">
+      <span class="product-badge product-badge--accent">Governed Runtimes</span>
+      <span class="product-badge">Loopback Containment</span>
+      <span class="product-badge">Tool Classification</span>
+      <span class="product-badge">Air-Gapped</span>
+      <span class="product-badge">Secret Store</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">the.endpoint.problem</span>
+    <h2 class="reveal reveal--delay-1">The endpoint problem</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Today, MCP servers run as processes on developer workstations. Credentials sit in
+      local config files. Tool annotations are trusted as written. The audit trail is the
+      developer's shell history. Every server requires internet egress from the machine
+      that runs it.
+    </p>
+
+    <div class="gov-grid" style="margin-top: 3rem;">
+
+      <div class="gov-card reveal reveal--delay-2">
+        <span class="gov-card__badge gov-card__badge--risk">TODAY</span>
+        <h3>MCP on the endpoint</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          MCP servers run as processes on developer workstations. Credentials sit in local
+          config files. No classification — tool annotations are trusted as written. No audit
+          trail beyond the developer's shell history. Requires internet egress from an endpoint
+          machine.
+        </p>
+      </div>
+
+      <div class="gov-card gov-card--secure reveal reveal--delay-3">
+        <span class="gov-card__badge gov-card__badge--secure">MIRASTACK</span>
+        <h3>MCP inside the perimeter</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          MCP servers run as governed runtimes inside your network. Credentials never leave
+          the platform's secret store. Every tool classified READ / WRITE / MODIFY / ADMIN
+          by an operator. Every dispatch ledgered with the human actor who authorised it.
+          Runs in networks with no internet route at all.
+        </p>
+      </div>
+
+    </div>
+
+    <p class="reveal reveal--delay-4" style="margin-top: 3rem; max-width: 72ch; color: var(--text-muted);">
+      The containment invariant is enforced, not documented: the child MCP process must
+      bind loopback. Never 0.0.0.0. There is no configuration that turns that off.
+    </p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">runtime.lifecycle</span>
+    <h2 class="reveal reveal--delay-1">Runtime registration lifecycle</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      The MCP Harness manages the full lifecycle of every server: registration, classification,
+      secret injection, dispatch, and teardown. The operator defines what each server is
+      allowed to do. The runtime enforces it.
+    </p>
+
+    <div class="gov-flow" style="margin-top: 2rem;">
+      <div class="gov-flow-step reveal reveal--delay-2">1. Operator registers MCP server</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-2">2. Credentials injected from secret store</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-3">3. Tools classified by operator</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-3">4. Child process binds loopback only</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step reveal reveal--delay-4">5. Agent dispatch through governance gate</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-4">6. Result ledgered and returned</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">classification.model</span>
+    <h2 class="reveal reveal--delay-1">The classification model</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Every tool exposed by an MCP server is classified by the operator, not inferred from
+      the payload. The classification determines whether the dispatch proceeds immediately,
+      requires approval, or is refused outright.
+    </p>
+
+    <div class="gov-grid" style="margin-top: 3rem;">
+
+      <div class="gov-card reveal reveal--delay-2">
+        <span class="gov-card__badge gov-card__badge--secure">READ</span>
+        <h3>Read</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Queries, lookups, and metadata retrieval. No state modification. Proceeds
+          without approval unless the target is classified as sensitive by policy.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-3">
+        <span class="gov-card__badge gov-card__badge--secure">WRITE</span>
+        <h3>Write</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Create and append operations. Existing state is not altered. Actor and content
+          hash recorded on the ledger. May require approval depending on target sensitivity.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-4">
+        <span class="gov-card__badge gov-card__badge--risk">MODIFY</span>
+        <h3>Modify</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Updates to existing state. Always requires explicit operator approval unless a
+          standing rule exists for this actor-target pair.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-5">
+        <span class="gov-card__badge gov-card__badge--risk">ADMIN</span>
+        <h3>Admin</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Structural changes: schema, accounts, access control. Always requires a
+          single-use, signature-verified approval bound to the exact action hash.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">loopback.containment</span>
+    <h2 class="reveal reveal--delay-1">Loopback containment</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      The child MCP process must bind loopback. Never 0.0.0.0. There is no configuration
+      that turns that off. This is enforced by the runtime before the first tool call is
+      accepted, and verified on every restart.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      Containment is not a network policy you write. It is a property of the runtime. If
+      the child process cannot bind loopback, it does not start. If it loses loopback
+      binding after start, the runtime tears it down and refuses further dispatches until
+      the operator re-registers it.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">air.gapped.deployment</span>
+    <h2 class="reveal reveal--delay-1">Air-gapped deployment</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      The MCP Harness runs in networks with no internet route at all. Model weights, tool
+      runtimes, and the governance engine are all deployed inside the perimeter. No outbound
+      call is required for the platform to function.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      Air-gapped deployment is not a deployment option — it is the design baseline. Every
+      component is resolvable from internal registries. Every secret is injected at runtime
+      from the platform's secret store. No hardcoded endpoints, no embedded API keys, no
+      phone-home telemetry.
+    </p>
+    <div class="reveal reveal--delay-4" style="margin-top: 2rem;">
+      <a class="btn btn--outline" href="{{ '/platform/' | relative_url }}">See the full platform →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">private.preview</span>
+    <h2 class="reveal reveal--delay-1">Run your first governed agent</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
+      MIRASTACK is in private preview with enterprises running governed AI inside
+      regulated and air-gapped environments. Tell us where you plan to run it.
+    </p>
+    <div class="reveal reveal--delay-3" style="margin-top: 2rem;">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+    </div>
+  </div>
+</section>

@@ -8,7 +8,7 @@ parent: MIRASTACK Documentation
 
 # MIRASTACK Engine
 
-> **License:** Proprietary — free to use for development and testing environments. A commercial license is required for production deployments. [Contact MIRASTACK LABS](https://mirastacklabs.ai/contact) to get started.
+> **License:** Proprietary — free to use for development and testing environments. A commercial license is required for production deployments. [Contact MIRASTACK LABS](https://mirastacklabs.ai/company/) to get started.
 
 The **MIRASTACK Engine** is the core of the platform. It is the piece that understands your intent, plans workflows, calls agents, routes LLM requests, manages human approvals, and keeps track of all execution state.
 

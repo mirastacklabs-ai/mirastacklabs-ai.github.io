@@ -1,0 +1,174 @@
+---
+layout: default
+title: Models and Routing — Self-Hosted and Frontier Models | MIRASTACK
+description: The MIRASTACK platform routes self-hosted open-weight models and frontier APIs through one router, one RBAC, and one audit trail. Policy-defined escalation ensures regulated payloads never leave the perimeter.
+keywords: self-hosted llm, frontier models, model routing, AI routing, LLM routing, data classification routing, token accounting, cost ledger, air-gapped ai, sovereign ai
+image: /assets/img/mirastack-devops.png
+permalink: /platform/models/
+---
+
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Platform / Models &amp; Routing</div>
+
+    <h1 class="product-hero__title reveal reveal--delay-1">Models and Routing</h1>
+
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      Self-host open-weight models. Reach frontier APIs through the same router, RBAC,
+      and audit trail. One provider process, one tenant, for its entire lifetime.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+      <a class="btn btn--outline" href="{{ '/platform/' | relative_url }}">Back to Platform Overview →</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="Models and Routing key tags">
+      <span class="product-badge product-badge--accent">Self-Hosted LLM</span>
+      <span class="product-badge">Frontier APIs</span>
+      <span class="product-badge">Policy Routing</span>
+      <span class="product-badge">Token Accounting</span>
+      <span class="product-badge">Cost Ledger</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">self.hosted.providers</span>
+    <h2 class="reveal reveal--delay-1">Self-hosted providers</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Run open-weight models on your GPUs inside your network. The platform supports
+      vLLM, llama.cpp, Ollama, and any OpenAI-compatible inference endpoint. Model weights
+      never leave your perimeter.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      Each self-hosted provider runs as a tenant-isolated process. It is discovered by
+      the router at startup and registered with its capabilities, context window, and
+      cost basis. The provider process remains alive for the entire tenant lifetime — no
+      per-request construction, no shared state across tenants.
+    </p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">frontier.providers</span>
+    <h2 class="reveal reveal--delay-1">Frontier providers</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Frontier model APIs are reachable through the same router, the same RBAC, and the
+      same audit trail as self-hosted models. The difference is the policy — not the path.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      Frontier providers are configured by the operator, not by the end user. The routing
+      decision applies data-classification rules before the call leaves the perimeter.
+      Regulated payloads never leave the perimeter, by rule rather than by convention.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">resolution.order</span>
+    <h2 class="reveal reveal--delay-1">Resolution order</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      The router resolves every request through a deterministic order: policy first,
+      then availability, then cost. The operator defines the policy. The router enforces it.
+    </p>
+
+    <div class="gov-flow" style="margin-top: 2rem;">
+      <div class="gov-flow-step reveal reveal--delay-2">1. Request enters router</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-2">2. Data classification evaluated</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-3">3. Policy decides target provider</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step reveal reveal--delay-3">4. Provider availability checked</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-4">5. Dispatch executed</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step reveal reveal--delay-4">6. Token and cost recorded</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">data.classification.routing</span>
+    <h2 class="reveal reveal--delay-1">Data-classification routing</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Every payload is classified before it leaves the router. The classification is set
+      by the operator and cannot be overridden by the agent or the user.
+    </p>
+
+    <div class="gov-grid" style="margin-top: 3rem;">
+
+      <div class="gov-card reveal reveal--delay-2">
+        <span class="gov-card__badge gov-card__badge--secure">PUBLIC</span>
+        <h3>Public</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          May route to self-hosted or frontier models. No additional restrictions.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-3">
+        <span class="gov-card__badge gov-card__badge--risk">INTERNAL</span>
+        <h3>Internal</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Routes to self-hosted models by default. Frontier escalation requires explicit
+          policy approval and logged justification.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-4">
+        <span class="gov-card__badge gov-card__badge--risk">CONFIDENTIAL</span>
+        <h3>Confidential</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Must route to self-hosted models only. Frontier APIs are blocked at the router
+          level. Approval required for any model access.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-5">
+        <span class="gov-card__badge gov-card__badge--risk">RESTRICTED</span>
+        <h3>Restricted</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Highest classification. Requires dual approval and is restricted to designated
+          model endpoints only. Full audit trail generated.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">token.and.cost.ledger</span>
+    <h2 class="reveal reveal--delay-1">The token and cost ledger</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Prompt and completion tokens, cost, and latency are recorded per turn — whether
+      the response streamed or buffered. Both paths report through a single accounting
+      chokepoint, so they can never diverge.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      The ledger is attached to the same immutable audit trail as the governance event.
+      An auditor can reconstruct the full cost of any agentic workflow — per model,
+      per tenant, per action — without exporting logs or joining tables.
+    </p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">private.preview</span>
+    <h2 class="reveal reveal--delay-1">Run your first governed agent</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
+      MIRASTACK is in private preview with enterprises running governed AI inside
+      regulated and air-gapped environments. Tell us where you plan to run it.
+    </p>
+    <div class="reveal reveal--delay-3" style="margin-top: 2rem;">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,311 @@
+---
+layout: blog-post
+title: 'The Protocol Layer That Agentic AI Is Missing'
+description: Every mature infrastructure paradigm developed a governance protocol layer, but agentic AI has protocols only for capability and communication. This essay introduces EGAProtocol, an open specification with five primitives that lets any enterprise define and technically enforce how agents may act.
+image: /assets/img/mirastack-devops.png
+permalink: /blog/the-protocol-layer-agentic-ai-is-missing/
+---
+# The Protocol Layer That Agentic AI Is Missing
+
+*By Shiva Kumar RV — Founder & Architect, MIRASTACK LABS*
+
+*Published in: The Governed Machine | Issue #07*
+
+---
+
+> *"Every infrastructure paradigm that reached enterprise maturity developed a protocol layer. HTTP for the web. gRPC for microservices. OCI for containers. Agentic AI has protocols for capability and communication. It does not have one for governance. That is the gap EGAProtocol addresses."*
+
+---
+
+## How Infrastructure Matures
+
+There is a pattern to how technology infrastructure matures from experimental to enterprise-grade. It is not a straight line and it does not happen automatically. But looking back at the web, cloud computing, containers, and microservices, the pattern is consistent enough to learn from.
+
+```mermaid
+flowchart TD
+    subgraph "Stage 1: Experimentation"
+        A[Technology emerges\nCapability proven in demos]
+        B[Early adopters build\npoint solutions]
+        C[Integration is custom\nGovernance is absent]
+    end
+
+    subgraph "Stage 2: Adoption Without Standards"
+        D[Broader adoption\nMore production deployments]
+        E[Incompatibility problems emerge\nEach implementation is a silo]
+        F[Security incidents surface\nCompliance requirements arrive]
+    end
+
+    subgraph "Stage 3: Protocol Emergence"
+        G[Industry recognizes\nprotocol-shaped problem]
+        H[Standard specification\ndeveloped — often by one\norganization, adopted by many]
+        I[Multiple implementations\nof the same protocol]
+    end
+
+    subgraph "Stage 4: Enterprise Maturity"
+        J[Protocol is assumed\nCompliance is automated\nAudit is trivial]
+    end
+
+    A --> B --> C --> D --> E --> F --> G --> H --> I --> J
+
+    style F fill:#FF671F,color:#fff
+    style H fill:#00C9B1,color:#000
+```
+
+The web: HTTP → SSL → OAuth → TLS 1.3. Each protocol layer added a dimension of trust, identity, and security that the previous layer lacked.
+
+Containers: Docker format → OCI image spec → OCI runtime spec → OCI distribution spec. Each specification standardized one dimension of how containers work, enabling a diverse ecosystem of tools to interoperate.
+
+Microservices: gRPC for transport → Envoy for proxying → Istio for mesh → OPA for policy. Each layer added governance over a different dimension of service-to-service interaction.
+
+---
+
+## Where Agentic AI Is in This Cycle
+
+Agentic AI has protocol infrastructure for two of the three dimensions that matter:
+
+```mermaid
+mindmap
+  root((Agentic AI\nProtocol Space))
+    Capability Discovery
+      MCP — Model Context Protocol
+      How agents discover and invoke tools
+      Anthropic stewardship
+      Growing ecosystem adoption
+      ✅ Problem being solved
+    Agent Communication
+      A2A — Agent-to-Agent Protocol
+      How agents communicate with other agents
+      Google stewardship → Linux Foundation
+      ✅ Problem being addressed
+    Governance
+      How enterprises specify and enforce
+      rules under which agents act
+      Permission taxonomy
+      Approval workflows
+      Audit requirements
+      Budget controls
+      ❌ THIS IS THE GAP
+```
+
+MCP solved the capability problem — how does an agent know what tools are available and how to call them? This was a real problem and MCP is a good solution. Adoption is growing.
+
+A2A is solving the communication problem — how do agents talk to each other, delegate subtasks, and compose capabilities? Also a real problem, also a reasonable solution.
+
+Neither of these addresses governance. Neither specifies how an enterprise should define what agents are permitted to do, how that permission is enforced, what the approval workflow looks like, or how the resulting audit trail is structured.
+
+**This is the gap that EGAProtocol addresses.**
+
+---
+
+## What EGAProtocol Is (And Is Not)
+
+Let me be precise about what we are proposing.
+
+EGAProtocol — the Engine Governed Agents Protocol — is a **specification** for the governance interface between an enterprise policy layer and an agent execution engine. It is not:
+
+- A product (though MIRASTACK LABS publishes a reference implementation)
+- A replacement for MCP or A2A (it complements them)
+- A framework (it specifies interfaces, not implementation)
+- A proprietary standard (it is published as an open specification)
+
+It is a definition of: what information must flow between an agent and a governance engine, what decisions the governance engine must make, what record must be created for each decision, and what the interface for human-in-the-loop interactions must support.
+
+```mermaid
+flowchart LR
+    subgraph "Agent Runtime"
+        A[Agent Session] --> B[Proposed Action]
+    end
+
+    subgraph "EGAProtocol Interface"
+        C[Action Classification\nRequest]
+        D[Permission Validation\nRequest]
+        E[Human Gate\nRequest if required]
+        F[Audit Record\nPublication]
+    end
+
+    subgraph "Enterprise Policy Layer"
+        G[Permission Policy\nREAD/MODIFY/DESTROY/ADMIN]
+        H[Approval Workflow\nHuman gates]
+        I[Audit Store\nImmutable records]
+        J[Budget Controller\nIteration limits]
+    end
+
+    B --> C
+    C --> D
+    D --> E
+    E --> G
+    G --> D
+    D --> F
+    E --> H
+    H --> E
+    F --> I
+    B --> J
+    J --> B
+
+    style C fill:#00C9B1,color:#000
+    style D fill:#00C9B1,color:#000
+    style E fill:#00C9B1,color:#000
+    style F fill:#00C9B1,color:#000
+```
+
+Any agent runtime that implements this interface is EGAProtocol-compliant. The enterprise can then configure the policy layer once — permission policies, approval workflows, budget limits, audit requirements — and have that governance apply consistently regardless of which agent, which LLM, or which tool is being used.
+
+---
+
+## The Five Primitives of EGAProtocol
+
+The specification is organized around five governance primitives. Each primitive defines a specific interface between the agent runtime and the governance layer.
+
+### Primitive 1: Action Classification
+
+Every proposed agent action must be classified before execution. The classification determines what happens next.
+
+```mermaid
+flowchart LR
+    A[Proposed Action] --> B{Classifier}
+    
+    B -->|"READ\nNo state change\nReversible by definition"| C[Auto-approve\nAudit log only]
+    B -->|"MODIFY\nState change\nGenerally reversible"| D[Policy check\nPre-approved or gate]
+    B -->|"DESTROY\nIrreversible\nPermanent state change"| E[Human gate\nRequired always]
+    B -->|"ADMIN\nPermission change\nSystem-level impact"| F[Human gate\nDual approval]
+
+    style C fill:#4A5563,color:#fff
+    style D fill:#FF671F,color:#fff
+    style E fill:#E8456A,color:#fff
+    style F fill:#E8456A,color:#fff
+```
+
+The classification is deterministic — based on the tool's declared action type, not on the LLM's assessment. The LLM cannot reclassify a DESTROY action as a READ to bypass the gate.
+
+### Primitive 2: Permission Validation
+
+Once classified, the action is validated against the permission policy for the current session's identity and scope.
+
+```mermaid
+flowchart TD
+    A[Action: scale_deployment\nClassified: MODIFY] --> B{User Role?}
+    
+    B -->|L1 Operator| C{Pre-approved\npattern match?}
+    B -->|L2 Engineer| D{Within\ndeclared scope?}
+    B -->|L3 Admin| E[Full MODIFY\npermitted]
+    
+    C -->|Yes| F[✅ Permitted\nauto-execute]
+    C -->|No| G[❌ Denied\nexceed role]
+    D -->|Yes| H[✅ Permitted\ngate if novel]
+    D -->|No| I[❌ Denied\nout of scope]
+    E --> J[✅ Permitted\naudit record]
+```
+
+### Primitive 3: Human Gate Protocol
+
+When an action requires human approval, the protocol specifies what information must be presented, what decisions are available, and what happens at timeout.
+
+```mermaid
+sequenceDiagram
+    participant Engine as EGA Engine
+    participant Gateway as Approval Gateway
+    participant Human as Authorized Approver
+
+    Engine->>Gateway: gate_request {
+    Note over Engine,Gateway: action: destroy_snapshot\ntarget: snap-0a3f\nrisk: HIGH — irreversible\nreason: free storage for scaling\nalternatives: [compress, archive]\nexpiry: 300s\nescalate_to: on-call-lead}
+
+    Gateway->>Human: Push notification + email
+    Note over Gateway,Human: Shows action, risk, reason, alternatives
+    
+    Human->>Gateway: APPROVE / REJECT / DEFER / MODIFY
+    
+    alt Approved
+        Gateway->>Engine: gate_response {decision: APPROVED, approver: engineer@bank.com, duration_ms: 47000}
+    else Rejected
+        Gateway->>Engine: gate_response {decision: REJECTED, reason: "DR asset protection"}
+    else Timeout
+        Gateway->>Engine: gate_response {decision: TIMEOUT, escalated_to: on-call-lead}
+    end
+```
+
+### Primitive 4: Audit Record Schema
+
+Every governance decision — permission validation, human gate, budget check — produces an audit record. EGAProtocol specifies the schema for these records.
+
+```
+AuditEvent {
+  // Identity
+  event_id:          UUID (unique, non-sequential)
+  session_id:        string
+  agent_version:     semver
+  actor_identity:    CryptoIdentity
+  
+  // Decision
+  action_type:       Enum(READ, MODIFY, DESTROY, ADMIN)
+  action_target:     ResourceIdentifier
+  intent_context:    string (original user query)
+  reasoning_summary: string (LLM's stated reason)
+  policy_applied:    PolicyReference
+  decision:          Enum(PERMITTED, DENIED, GATED, TIMEOUT)
+  
+  // Human Gate (if applicable)
+  gate_request_id:   UUID
+  approver_identity: CryptoIdentity (if approved)
+  approval_duration: milliseconds
+  information_shown: string (what approver saw)
+  
+  // Execution (if permitted)
+  pre_state:         StateSnapshot
+  post_state:        StateSnapshot
+  reversible:        boolean
+  
+  // Integrity
+  timestamp:         RFC3339 with nanoseconds
+  prev_event_hash:   SHA-256
+  event_hash:        SHA-256
+  signature:         Ed25519
+}
+```
+
+### Primitive 5: Budget Contract
+
+Every agent session operates within a declared budget. The budget contract specifies the limits and what happens when they are reached.
+
+```mermaid
+flowchart LR
+    subgraph "Session Budget Contract"
+        A[Max Iterations: 50]
+        B[Max Tool Calls: 100]
+        C[Max Wall Time: 600s]
+        D[Max Token Spend: 50000]
+        E[Max MODIFY Actions: 10]
+        F[Max DESTROY Actions: 3]
+    end
+
+    subgraph "Budget Enforcement"
+        G{Budget\nchecked before\neach action}
+        H[Within budget:\nProceed]
+        I[Approaching limit:\nWarn + continue]
+        J[Budget exhausted:\nCheckpoint + stop]
+        K[Hard limit hit:\nImmediate stop]
+    end
+
+    A --> G
+    B --> G
+    C --> G
+    G --> H
+    G --> I
+    G --> J
+    G --> K
+```
+
+---
+
+## Why Open Specification Matters
+
+We could have built EGAProtocol as a proprietary interface — and locked all governance to the MIRASTACK engine. We deliberately chose not to.
+
+The precedent from every successful infrastructure protocol is clear: protocols that are open get adopted. Protocols that are proprietary get forked or replaced.
+
+More practically: the goal of EGAProtocol is not to create a competitive moat for MIRASTACK. The goal is to give regulated enterprises a standard they can specify in vendor contracts, audit against in compliance reviews, and use to evaluate whether any agentic AI platform — ours or a competitor's — provides genuine governance rather than checkbox governance.
+
+A world where every agentic AI vendor claims "human in the loop" but means something different is a world where enterprise buyers cannot make informed decisions. A world where EGAProtocol compliance is a defined, auditable standard is a world where governance claims can be verified.
+
+We want the second world. So we publish the specification openly.
+
+---

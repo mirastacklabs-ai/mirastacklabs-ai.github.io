@@ -1,0 +1,340 @@
+{% if site.waitlist and site.waitlist.enabled %}
+<style>
+  .wl-form__wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .wl-form__status {
+    display: none;
+    padding: 0.95rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .wl-form__status--success {
+    background: var(--accent-glow);
+    border: 1px solid var(--border-accent);
+    color: var(--text);
+  }
+  .wl-form__status--error {
+    background: rgba(232, 69, 106, 0.12);
+    border: 1px solid rgba(232, 69, 106, 0.30);
+    color: var(--accent-red);
+  }
+  .wl-form__status.is-visible {
+    display: block;
+  }
+  .wl-form__success {
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .wl-form__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .wl-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 640px) {
+    .wl-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+  .wl-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .wl-form__label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .wl-form__required {
+    color: var(--accent);
+  }
+  .wl-form__input,
+  .wl-form__select,
+  .wl-form__textarea {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 4px;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .wl-form__input:focus,
+  .wl-form__select:focus,
+  .wl-form__textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .wl-form__actions {
+    margin-top: 1.5rem;
+  }
+  .wl-form__footer {
+    margin-top: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .wl-form__footer p {
+    margin: 0 0 0.5rem;
+  }
+  .wl-form__hidden {
+    position: absolute;
+    left: -9999px;
+  }
+</style>
+
+<div class="wl-form__wrapper">
+  <form id="wlForm" class="wl-form" autocomplete="off" novalidate action="javascript:void(0);">
+
+    <div id="wlStatusError" class="wl-form__status wl-form__status--error">
+      <span id="wlErrorText" class="wl-form__status-text"></span>
+    </div>
+
+    <div id="wlStatusSuccess" class="wl-form__status wl-form__status--success">
+      <span class="wl-form__status-text">
+        <p class="wl-form__success">You’re on the list. We’ll be in touch shortly.</p>
+      </span>
+    </div>
+
+    <div id="wlFormFields" class="wl-form__grid">
+
+      <div class="wl-form__field">
+        <label class="wl-form__label" for="wlEmail">Work email <span class="wl-form__required">*</span></label>
+        <input id="wlEmail" class="wl-form__input" type="email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="wl-form__row">
+        <div class="wl-form__field">
+          <label class="wl-form__label" for="wlCompany">Company <span class="wl-form__required">*</span></label>
+          <input id="wlCompany" class="wl-form__input" type="text" name="company" required>
+        </div>
+        <div class="wl-form__field">
+          <label class="wl-form__label" for="wlRole">Role <span class="wl-form__required">*</span></label>
+          <select id="wlRole" class="wl-form__select" name="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="Engineering / Platform">Engineering / Platform</option>
+            <option value="Security / Risk">Security / Risk</option>
+            <option value="Data &amp; AI">Data &amp; AI</option>
+            <option value="Architecture">Architecture</option>
+            <option value="Executive">Executive</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="wl-form__field">
+        <label class="wl-form__label" for="wlDeploymentIntent">Deployment intent <span class="wl-form__required">*</span></label>
+        <select id="wlDeploymentIntent" class="wl-form__select" name="deployment_intent" required>
+          <option value="" disabled selected>Select a deployment model</option>
+          <option value="Air-gapped — no internet route">Air-gapped — no internet route</option>
+          <option value="On-premise — controlled egress">On-premise — controlled egress</option>
+          <option value="Hybrid — on-prem plus frontier APIs">Hybrid — on-prem plus frontier APIs</option>
+          <option value="Private cloud / VPC">Private cloud / VPC</option>
+          <option value="Still deciding">Still deciding</option>
+        </select>
+      </div>
+
+      <div class="wl-form__field">
+        <label class="wl-form__label" for="wlModelStack">Model stack</label>
+        <input id="wlModelStack" class="wl-form__input" type="text" name="model_stack" placeholder="e.g. Llama 3.3, Qwen, GPT-5, Claude, none yet">
+      </div>
+
+      <div class="wl-form__field">
+        <label class="wl-form__label" for="wlNotes">What are you trying to govern?</label>
+        <textarea id="wlNotes" class="wl-form__textarea" name="notes" maxlength="400" rows="4"></textarea>
+      </div>
+
+      <div class="wl-form__hidden" aria-hidden="true">
+        <label for="wlWebsite">Leave this field blank</label>
+        <input id="wlWebsite" class="wl-form__input" type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <input type="hidden" name="nonce" id="wlNonce">
+      <input type="hidden" name="ts" id="wlTs">
+      <input type="hidden" name="sig" id="wlSig">
+    </div>
+
+    <div class="wl-form__actions">
+      <button id="wlSubmit" type="submit" class="btn btn--primary">Join the waitlist</button>
+    </div>
+
+    <div class="wl-form__footer">
+      <p>This form is protected by reCAPTCHA. Google’s Privacy Policy and Terms apply.<br>It loads only when you begin filling the form.</p>
+      <p>Waitlist data is stored on infrastructure MIRASTACK Labs controls.<br>No third-party form processor.</p>
+    </div>
+  </form>
+</div>
+
+<script>
+  (function () {
+    var ENDPOINT = "{{ site.waitlist.endpoint | escape }}";
+    var CONFIG_SITEKEY = "{{ site.waitlist.recaptcha_sitekey | escape }}";
+    var RECAPTCHA_SITEKEY = "";
+
+    var form       = document.getElementById('wlForm');
+    var grid       = document.getElementById('wlFormFields');
+    var errorBox   = document.getElementById('wlStatusError');
+    var successBox = document.getElementById('wlStatusSuccess');
+    var errorText  = document.getElementById('wlErrorText');
+    var submitBtn  = document.getElementById('wlSubmit');
+    var primed     = false;
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorBox.classList.add('is-visible');
+      successBox.classList.remove('is-visible');
+      submitBtn.disabled = false;
+    }
+
+    function showSuccess() {
+      if (grid) grid.style.display = 'none';
+      if (submitBtn) submitBtn.disabled = false;
+      var actions = submitBtn && submitBtn.closest('.wl-form__actions');
+      if (actions) actions.style.display = 'none';
+      errorBox.classList.remove('is-visible');
+      successBox.classList.add('is-visible');
+    }
+
+    function ready(cb) {
+      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+        cb();
+      } else {
+        setTimeout(function () { ready(cb); }, 150);
+      }
+    }
+
+    function prime() {
+      if (primed) return;
+      primed = true;
+
+      var url = ENDPOINT.replace(/\/+$/, '') + '/waitlist/challenge';
+      fetch(url, { method: 'GET', credentials: 'omit' })
+        .then(function (r) {
+          return r.ok ? r.json() : Promise.reject(new Error('challenge unavailable'));
+        })
+        .then(function (d) {
+          if (d.nonce != null) document.getElementById('wlNonce').value = d.nonce;
+          if (d.ts != null)    document.getElementById('wlTs').value    = d.ts;
+          if (d.sig != null)   document.getElementById('wlSig').value   = d.sig;
+          RECAPTCHA_SITEKEY = (d.provider === 'recaptcha' && d.sitekey) ? d.sitekey : CONFIG_SITEKEY;
+          if (RECAPTCHA_SITEKEY) {
+            var sc = document.createElement('script');
+            sc.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(RECAPTCHA_SITEKEY);
+            sc.async = true;
+            sc.defer = true;
+            document.head.appendChild(sc);
+          }
+        })
+        .catch(function () { /* non-fatal; server will reject if nonce/sig missing */ });
+    }
+
+    function collect() {
+      var site = (window.location.pathname || '');
+      var utm  = (window.location.search || '');
+      return {
+        email:             document.getElementById('wlEmail').value.trim(),
+        company:           document.getElementById('wlCompany').value.trim(),
+        role:              document.getElementById('wlRole').value.trim(),
+        deployment_intent: document.getElementById('wlDeploymentIntent').value.trim(),
+        model_stack:       (document.getElementById('wlModelStack').value || '').trim(),
+        notes:             (document.getElementById('wlNotes').value || ''),
+        website:           (document.getElementById('wlWebsite').value || ''),
+        nonce:             (document.getElementById('wlNonce').value || ''),
+        ts:                (document.getElementById('wlTs').value || ''),
+        sig:               (document.getElementById('wlSig').value || ''),
+        captcha_token:     '',
+        source:            site,
+        utm:               utm
+      };
+    }
+
+    function post() {
+      var payload = collect();
+      ready(function () {
+        grecaptcha.execute(RECAPTCHA_SITEKEY, { action: 'waitlist' })
+          .then(function (token) {
+            payload.captcha_token = token;
+            submitBtn.disabled = true;
+            fetch(ENDPOINT.replace(/\/+$/, '') + '/waitlist', {
+              method: 'POST',
+              credentials: 'omit',
+              headers: { 'Content-Type': 'application/json', 'Origin': window.location.origin },
+              body: JSON.stringify(payload)
+            })
+              .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, data: d }; }); })
+              .then(function (res) {
+                if (res.ok) {
+                  showSuccess();
+                } else {
+                  showError((res.data && res.data.error) || 'Submission failed. Please try again.');
+                }
+              })
+              .catch(function () {
+                showError('Submission failed. Please try again.');
+              });
+          })
+          .catch(function () {
+            submitBtn.disabled = false;
+            showError('Verification could not be completed. Please try again.');
+          });
+      });
+    }
+
+    form.addEventListener('focusin', prime);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      errorBox.classList.remove('is-visible');
+
+      var required = ['wlEmail', 'wlCompany', 'wlRole', 'wlDeploymentIntent'];
+      for (var i = 0; i < required.length; i++) {
+        if (document.getElementById(required[i]).value.trim() === '') {
+          showError('Please complete the required fields marked with *.');
+          return;
+        }
+      }
+
+      post();
+    });
+  })();
+</script>
+
+{% else %}
+<style>
+  .wl-form__disabled {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .wl-form__disabled p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0 0 0.4rem;
+  }
+  .wl-form__disabled .wl-form__email {
+    color: var(--accent);
+  }
+</style>
+<div class="wl-form__disabled">
+  <p>Private preview registration opens shortly.</p>
+  <p>In the meantime, reach us at <span class="wl-form__email">hello@mirastacklabs.ai</span></p>
+</div>
+{% endif %}

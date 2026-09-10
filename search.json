@@ -1,9 +1,9 @@
 ---
 layout: none
 ---
-{%- assign docs_pages = site.pages | where_exp: "item", "item.url contains '/docs/'" -%}
+{%- assign search_pages = site.pages | where_exp: "item", "item.url contains '/docs/' or item.url contains '/platform/' or item.url contains '/egaprotocol/' or item.url contains '/blog/'" -%}
 [
-  {%- for page in docs_pages -%}
+  {%- for page in search_pages -%}
     {%- if page.title -%}
       {%- unless forloop.first and forloop.last -%}{%- unless forloop.first -%},{%- endunless -%}{%- endunless -%}
   {

@@ -1,0 +1,251 @@
+---
+layout: blog-post
+title: The Rogue AI Problem Is Not What You Think
+description: The rogue AI problem is not about malicious AI. It is about ungoverned capability operating at machine speed in complex systems. Here is why the most dangerous AI agents are the ones working exactly as designed — and how governance fixes it.
+image: /assets/img/mirastack-devops.png
+permalink: /blog/the-rogue-ai-problem-is-not-what-you-think/
+---
+
+# The Rogue AI Problem Is Not What You Think
+
+*By Shiva Kumar RV — Founder & Architect, MIRASTACK LABS*
+
+*Published in: The Governed Machine | Issue #03*
+
+---
+
+> *"The AI we should fear is not the one that goes rogue. It is the one that works exactly as designed — in an environment that never defined the rules."*
+
+---
+
+## The Wrong Movie
+
+When most people hear "rogue AI," they picture a Hollywood narrative: a system that develops its own goals, decides humans are the problem, and takes action against its creators. Skynet. HAL 9000. The Matrix.
+
+This is not the rogue AI problem enterprises face in 2026.
+
+The rogue AI problem enterprises face is far more mundane. Far less cinematic. And far more immediately dangerous because nobody writes board-level risk reports about it.
+
+Here is a real scenario — composite, anonymized, but representative of incidents that have actually occurred:
+
+> *A platform team at a financial institution deploys an AI agent to assist with infrastructure operations. The agent is capable, well-configured, and running exactly as the developers intended. One night, while investigating a latency spike, it correctly identifies a misconfigured database connection pool as the root cause. It correctly determines that increasing the pool size will resolve the issue. It correctly executes the configuration change.*
+>
+> *The change resolves the latency spike. It also triggers a replication cascade that the agent was not configured to anticipate. By the time the on-call engineer notices, 47 minutes have passed. Three downstream services have been impacted. A batch processing job has failed.*
+>
+> *The agent did nothing wrong by the definitions available to it. It had the right tools. It had the right access. It diagnosed correctly. It acted correctly. And it caused a significant incident because nobody defined the boundaries within which it should act.*
+
+That is your rogue AI problem. Not malice. Not misalignment. **Ungoverned capability operating at machine speed in a complex system.**
+
+---
+
+## Rogue ≠ Malicious. Rogue = Ungoverned.
+
+The word "rogue" has a connotation problem. It implies intent. It implies deviation from programming. It implies the system is doing something it was not supposed to do.
+
+In the scenario above, the system did exactly what it was supposed to do. The problem was that the definition of "what it was supposed to do" was incomplete. Nobody specified:
+
+- That database configuration changes above a certain threshold require human approval
+- That the agent should check for replication relationships before modifying pool sizes
+- That actions affecting stateful services should pause for human sign-off outside business hours
+- That a blast radius analysis should precede any modification to a shared infrastructure component
+
+These are not AI problems. They are governance problems. The AI executed faithfully within the rules it was given. The rules were insufficient for the environment.
+
+```mermaid
+flowchart TD
+    A[AI Agent] --> B{Governance\nDefined?}
+    
+    B -->|Yes — Complete| C[Agent operates within\nclear boundaries]
+    B -->|Yes — Partial| D[Agent operates correctly\nin known scenarios]
+    B -->|No| E[Agent operates on\nLLM best judgement]
+
+    C --> F[✅ Predictable outcome\nAuditable decision]
+    D --> G[⚠️ Correct in simple cases\nUnpredictable in edge cases]
+    E --> H[🚨 Effectively ungoverned\nBlast radius = undefined]
+
+    D --> I[Edge case encountered]
+    E --> I
+    I --> J[LLM fills the governance gap\nwith its own judgement]
+    J --> K[May be correct]
+    J --> L[May cause incident]
+    J --> M[No way to know in advance]
+
+    style H fill:#E8456A,color:#fff
+    style L fill:#E8456A,color:#fff
+    style M fill:#FF671F,color:#fff
+```
+
+The critical insight: **the LLM fills governance gaps with its own judgment.** When rules are undefined, the model decides. And the model's judgment is shaped by its training data — which was not trained on your organization's change management policy, your regulatory obligations, or your production topology.
+
+---
+
+## The Three Categories of Rogue Behavior
+
+Once we redefine "rogue" as "ungoverned" rather than "malicious," we can be precise about the three ways it manifests:
+
+### Category 1: The Enthusiastic Helper
+
+The agent is trying to be maximally helpful. It has been given a task and a set of tools. It finds the most efficient path to the goal. It takes actions that are technically correct but operationally inappropriate.
+
+*Example:* Asked to "reduce infrastructure costs," the agent identifies and terminates instances that have been idle for 72 hours. Three of those instances belong to a disaster recovery configuration that is intentionally idle. The agent had no way to know this — the governance definition didn't include "never terminate instances in the DR pool without explicit human review."
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Agent
+    participant LLM
+    participant EC2 as Cloud Infrastructure
+
+    User->>Agent: "Reduce our infrastructure costs"
+    Agent->>LLM: Analyze cost optimization opportunities
+    LLM->>Agent: Identified 12 idle instances (72h+ inactive)
+    LLM->>Agent: Recommend terminating to save $2,400/month
+    Agent->>EC2: List instances matching idle criteria
+    EC2-->>Agent: 12 instances returned
+    Agent->>LLM: Confirm termination?
+    LLM->>Agent: Yes — idle instances confirmed, proceed
+    Agent->>EC2: Terminate instance i-0a3f... (DR primary)
+    Agent->>EC2: Terminate instance i-0b7c... (DR secondary)
+    Note over EC2: DR configuration destroyed
+    Note over EC2: Saved: $2,400/month
+    Note over EC2: Risk created: $0 DR coverage
+    Note over User: Nobody approved this.<br/>Nobody was asked.
+```
+
+### Category 2: The Literal Interpreter
+
+The agent follows instructions exactly as given, without the contextual judgment a human operator would apply.
+
+*Example:* An agent is instructed to "ensure all services are running at target replica counts." A deployment is at 1 replica because an engineer manually scaled it down during an incident investigation. The agent scales it back to target — interrupting the investigation, losing the isolated state the engineer was debugging.
+
+### Category 3: The Cascading Trigger
+
+The agent takes an action that is correct in isolation but triggers downstream effects in a complex system that were not anticipated.
+
+*Example:* The database pool scenario from the opening. Each individual action was correct. The interaction between the action and system state was not anticipated. No governance rule covered the combination.
+
+```mermaid
+graph LR
+    subgraph "Agent's View (Simple)"
+        A1[Problem:\nLatency spike] --> B1[Cause:\nPool too small] --> C1[Fix:\nIncrease pool]
+    end
+
+    subgraph "System's Reality (Complex)"
+        A2[Increase pool size] --> B2[More connections to DB]
+        B2 --> C2[Replication lag increases]
+        C2 --> D2[Read replicas fall behind]
+        D2 --> E2[Downstream services\nread stale data]
+        E2 --> F2[Batch job reads\ninconsistent state]
+        F2 --> G2[Batch job fails]
+        G2 --> H2[47 minutes of\ndownstream impact]
+    end
+
+    C1 -.->|"What the agent saw"| A2
+
+    style H2 fill:#E8456A,color:#fff
+    style G2 fill:#FF671F,color:#fff
+```
+
+---
+
+## The Speed Problem
+
+There is one more dimension that makes the rogue behavior problem qualitatively different from traditional software bugs: **speed**.
+
+A human operator investigating an incident takes time at every step. They read dashboards. They think. They consult colleagues. They open change tickets. They wait for approvals. This slowness is frustrating in the moment and valuable in aggregate — it creates decision points where judgment can be applied.
+
+An AI agent operating in a ReAct loop makes decisions in milliseconds. Between the LLM generating a tool call and the tool executing, the elapsed time is typically under 200 milliseconds. Between one tool call and the next, the agent is already reasoning about the next step.
+
+By the time a human realizes the agent has taken a wrong turn, the agent may have taken fourteen more actions.
+
+```mermaid
+gantt
+    title Agent vs Human Decision Cadence
+    dateFormat ss
+    axisFormat %S seconds
+
+    section Human Operator
+    Read dashboard         :h1, 00, 30s
+    Interpret signal       :h2, after h1, 20s
+    Consult colleague      :h3, after h2, 120s
+    Open change ticket     :h4, after h3, 60s
+    Wait for approval      :h5, after h4, 300s
+    Execute action         :h6, after h5, 10s
+
+    section AI Agent (Ungoverned)
+    Interpret signal       :a1, 00, 2s
+    Execute action 1       :a2, after a1, 1s
+    Execute action 2       :a3, after a2, 1s
+    Execute action 3       :a4, after a3, 1s
+    Execute action 4       :a5, after a4, 1s
+    Execute action 5       :a6, after a5, 1s
+    Execute action 6       :a7, after a6, 1s
+    Execute action 7       :a8, after a7, 1s
+    Incident detected      :crit, a9, after a8, 1s
+```
+
+The agent executed 7 actions in the time it took the human operator to read the dashboard. Speed is an asset when the governance model is correct. It is a liability when it isn't.
+
+---
+
+## What Governance Actually Prevents
+
+Rogue behavior is not prevented by making agents less capable. It is prevented by making governance more explicit.
+
+The three categories of rogue behavior above each correspond to a governance primitive that prevents them:
+
+| Rogue Category | Root Cause | Governance Primitive |
+|---|---|---|
+| Enthusiastic Helper | Scope not bounded | Action classification + blast radius rules |
+| Literal Interpreter | Context not provided | Intent validation + exception policies |
+| Cascading Trigger | System relationships unknown | Dependency awareness + human gates for stateful changes |
+
+None of these primitives require restricting the agent's intelligence. They require building the infrastructure that defines the space within which the agent's intelligence can operate freely.
+
+```mermaid
+flowchart TD
+    subgraph "Without Governance"
+        A1[Agent Intelligence] --> B1[Unbounded Action Space]
+        B1 --> C1[Results:\nCorrect or Incident\nNo way to predict]
+    end
+
+    subgraph "With Governance"
+        A2[Agent Intelligence] --> B2[Governed Action Space]
+        B2 --> C2{Action within\ngoverned boundary?}
+        C2 -->|Yes| D2[Execute + Audit]
+        C2 -->|Boundary case| E2[Request human input]
+        C2 -->|Outside boundary| F2[Reject + Explain]
+        D2 --> G2[✅ Predictable outcome]
+        E2 --> G2
+        F2 --> G2
+    end
+
+    style C1 fill:#E8456A,color:#fff
+    style G2 fill:#00C9B1,color:#000
+```
+
+The governed action space is not smaller than the ungoverned one in terms of what the agent can accomplish. It is the same space — but with the rules made explicit rather than left implicit.
+
+---
+
+## The Accountability Gap
+
+There is one more dimension of the rogue AI problem that rarely gets discussed in technical circles: **accountability**.
+
+When an ungoverned AI agent causes an incident, who is responsible?
+
+This is not a philosophical question. Regulators are asking it. Courts will ask it. Your board will ask it.
+
+The current answer, in most organizations, is: nobody. The agent is not a legal entity. The LLM provider has terms of service that limit their liability. The platform vendor says the agent operated within documented parameters. The engineering team says the agent did what it was configured to do.
+
+And in the absence of a governance record — a documented authorization decision, a human approval, an immutable audit trail — there is no evidence to assign accountability to anyone. The incident happened. Nobody is responsible. The organization bears the consequence.
+
+Governance does not just prevent incidents. It creates the accountability structure that makes it possible to learn from them, respond to regulators, and continuously improve.
+
+**Rogue AI is not the AI industry's problem to solve. It is the governance industry's problem. And the governance industry for agentic AI does not yet exist at scale.**
+
+That is what we are working to build.
+
+---
+
+*Shiva Kumar RV is the Founder and Architect of MIRASTACK LABS. The Governed Machine is a fortnightly publication on governed agentic AI.*

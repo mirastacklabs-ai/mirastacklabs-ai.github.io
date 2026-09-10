@@ -1,13 +1,14 @@
 title: MIRASTACK LABS
-tagline: Agentic AI Control Plane for Sovereign Infrastructure
-description: MIRASTACK LABS builds the Agentic AI Control Plane for sovereign infrastructure across regulated, air-gapped, and sovereignty-critical environments.
-keywords: sovereign infrastructure, agentic ai, air-gapped ai, ai governance, explainable ai, devsecops, observability, root cause analysis
+tagline: Launch your own AI Factory
+description: MIRASTACK is the platform that lets any enterprise run its own AI Factory — self-hosted and frontier models, governed MCP tools, and autonomous agents behind a governance plane that cannot be bypassed.
+keywords: ai factory, enterprise ai platform, ai governance, EGAProtocol, sovereign ai, air-gapped ai, MCP server governance, self-hosted llm, human in the loop ai, ai audit trail
 baseurl: ""
 url: "https://mirastacklabs.ai"
 locale: en_US
 logo: /favicon.svg
 markdown: kramdown
 permalink: pretty
+exclude: ["_archive/"]
 
 contact:
   email: hello@MIRASTACKLABS.ai
@@ -34,3 +35,8 @@ defaults:
 
 plugins:
   - jekyll-seo-tag
+
+waitlist:
+  enabled: false
+  endpoint: "https://api.mirastacklabs.ai"
+  recaptcha_sitekey: "REPLACE_WITH_SITE_KEY"

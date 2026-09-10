@@ -1,0 +1,121 @@
+---
+layout: default
+title: Identity, RBAC and Attribution — The MIRASTACK Platform
+description: Every action an agent takes is attributable to a named human principal. Unattributed dispatch is refused, not logged. MIRASTACK provides SSO, SCIM, tenant isolation, and enforced identity propagation.
+keywords: identity and access management, RBAC, role based access control, SSO, SCIM, tenant isolation, attribution, air-gapped ai, sovereign ai, ai governance
+image: /assets/img/mirastack-devops.png
+permalink: /platform/identity/
+---
+
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Platform / Identity &amp; RBAC</div>
+
+    <h1 class="product-hero__title reveal reveal--delay-1">Identity, RBAC and Attribution</h1>
+
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      Every action an agent takes is attributable to a named human principal.
+      Unattributed dispatch is refused, not logged. The identity plane propagates
+      through every layer of the platform, from the API gateway to the audit ledger.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+      <a class="btn btn--outline" href="{{ '/platform/' | relative_url }}">Back to Platform Overview →</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="Identity key tags">
+      <span class="product-badge product-badge--accent">SSO / SCIM</span>
+      <span class="product-badge">RBAC</span>
+      <span class="product-badge">Tenant Isolation</span>
+      <span class="product-badge">Attribution</span>
+      <span class="product-badge">Refused Dispatch</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">the.role.model</span>
+    <h2 class="reveal reveal--delay-1">The role model</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      MIRASTACK uses a hierarchical role model with tenant-level isolation. Roles are
+      assigned to human principals, not to agents. Agents inherit capabilities through
+      their persona definition, which is approved and governed by an operator.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      The platform does not create a parallel identity system. It integrates with your
+      existing identity provider via SSO and SCIM. Users, groups, and roles sync from
+      the source of truth. When a user is deprovisioned, their access is revoked across
+      every tenant and every runtime immediately.
+    </p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">sso.and.scim</span>
+    <h2 class="reveal reveal--delay-1">SSO and SCIM</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Single sign-on via SAML 2.0 or OIDC. User provisioning and deprovisioning via
+      SCIM 2.0. The platform acts as a service provider — it does not store passwords
+      or create a separate credential store.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      SSO is enforced at the API gateway. Every request — from the UI, the CLI, or an
+      agent SDK — must present a valid token. The token maps to a principal, the principal
+      maps to a role, and the role maps to permissions. If any link in that chain is
+      missing, the request is refused at the gateway. It never reaches the runtime.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">tenant.isolation</span>
+    <h2 class="reveal reveal--delay-1">Tenant isolation</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Every tenant runs in its own namespace with isolated state, secrets, and telemetry.
+      A tenant cannot see or influence another tenant's models, agents, or audit trail.
+      Isolation is enforced at the network, storage, and runtime layers.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      Multi-tenancy is not a shared database with row-level security. It is a separate
+      control plane per tenant, with separate provider processes, separate approval queues,
+      and separate ledgers. The only shared infrastructure is the physical hardware and
+      the Kubernetes scheduler.
+    </p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">attribution</span>
+    <h2 class="reveal reveal--delay-1">Attribution and refusal of unattributed dispatch</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Every action an agent takes is attributable to a named human principal. If the
+      principal is missing — because the token expired, the user was deprovisioned, or
+      the agent tried to spoof identity — the dispatch is refused, not logged.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      Attribution is not a log field that can be stripped. It is a cryptographic binding
+      between the action hash, the signer's key, and the approval token. The ledger entry
+      cannot be constructed without all three. An unattributed dispatch is refused at the
+      gate before it consumes any compute or touches any state.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">private.preview</span>
+    <h2 class="reveal reveal--delay-1">Run your first governed agent</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
+      MIRASTACK is in private preview with enterprises running governed AI inside
+      regulated and air-gapped environments. Tell us where you plan to run it.
+    </p>
+    <div class="reveal reveal--delay-3" style="margin-top: 2rem;">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+    </div>
+  </div>
+</section>

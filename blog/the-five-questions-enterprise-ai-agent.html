@@ -1,0 +1,347 @@
+---
+layout: blog-post
+title: The Five Questions Every Enterprise Should Ask Before Deploying an AI Agent
+description: Before deploying AI agents in production, every CTO, CIO, CISO, and platform engineering lead needs answers to five hard questions about blast radius, audit trails, data residency, ambiguous situations, and real-time revocation.
+image: /assets/img/mirastack-devops.png
+permalink: /blog/the-five-questions-enterprise-ai-agent/
+---
+
+# The Five Questions Every Enterprise Should Ask Before Deploying an AI Agent
+
+*By Shiva Kumar RV — Founder & Architect, MIRASTACK LABS*
+
+*Published in: The Governed Machine | Issue #02*
+
+---
+
+> *"A vendor who can answer all five of these questions has done the work. Most can answer two. Some will change the subject. Pay attention to which."*
+
+---
+
+If you read the first article in this series, you know where we stand: agentic AI has a governance problem baked into its architecture, and we are at the moment in the adoption curve where the decisions made by engineering and platform leaders will determine how painful the next decade is.
+
+This article is practical. Not philosophical.
+
+If you are a CTO, CIO, CISO, or platform engineering lead currently evaluating, piloting, or already deploying AI agents in your organization, these are the five questions you need answered — in writing, from your vendor or your internal team — before any agent touches a production system.
+
+I will give you the honest answer for each one, the red flags to watch for, and what a genuinely good answer looks like.
+
+---
+
+## Question 1: If this agent makes a destructive change, what is the blast radius — and who authorized it?
+
+This is the foundational question and the one most frequently ducked.
+
+"Destructive change" does not mean catastrophic. It means any action that modifies, deletes, scales, restarts, or reconfigures a production resource. Scaling a deployment from 3 to 10 replicas is a destructive change. Restarting a pod is a destructive change. Updating a ConfigMap is a destructive change.
+
+```mermaid
+flowchart TD
+    A[AI Agent Proposes Action] --> B{Action Classification}
+    
+    B -->|READ| C[Query Metrics\nRead Logs\nList Resources]
+    B -->|MODIFY| D[Update Config\nScale Service\nRestart Pod]
+    B -->|DESTROY| E[Delete Resource\nRollback Deploy\nPurge Data]
+    B -->|ADMIN| F[Modify Permissions\nCreate Users\nChange Policy]
+
+    C --> G[Auto-execute\nLog only]
+    D --> H{Who authorized?}
+    E --> I{Who authorized?}
+    F --> J{Who authorized?}
+
+    H -->|Nobody| K[🚨 This is your problem]
+    H -->|L2 Engineer approved| L[✅ Execute + Audit]
+    I -->|L3 Admin approved| M[✅ Execute + Audit]
+    J -->|L3 Admin approved| N[✅ Execute + Audit]
+    I -->|Nobody| K
+    J -->|Nobody| K
+
+    style K fill:#E8456A,color:#fff
+    style L fill:#00C9B1,color:#000
+    style M fill:#00C9B1,color:#000
+    style N fill:#00C9B1,color:#000
+```
+
+**What a bad answer looks like:**
+*"Our agents operate within the permissions of the service account. IAM controls the blast radius."*
+
+This is a non-answer. It conflates infrastructure permissions with agent governance. Ask a follow-up: "Can you show me the audit record for the specific authorization decision that allowed the agent to take that action?" If they cannot, you do not have authorization — you have access.
+
+**What a good answer looks like:**
+Every action the agent takes should be classifiable into a tier (READ / MODIFY / DESTROY / ADMIN). Every tier above READ should have a defined authorization requirement — either a pre-approved policy (for routine automated actions) or an explicit human approval for the specific action at the specific time. The blast radius should be bounded by configuration, not by luck.
+
+**The red flag:**
+When a vendor says "our agents are designed to be careful." Careful is not a governance model. Careful is a disposition. Dispositions don't survive edge cases, adversarial prompts, or ambiguous situations.
+
+---
+
+## Question 2: Can you show an auditor the complete reasoning chain from user query to production action?
+
+This question has two parts. Most vendors answer part one and miss part two entirely.
+
+**Part one:** Do you log agent actions?
+
+Almost every platform does this. Tool calls, API invocations, execution timestamps. This is table stakes. It is also not what a regulator or auditor is asking for.
+
+**Part two:** Do you log the reasoning — the LLM's interpretation of the user's intent, the chain of thought that led to each tool call, the validation decisions made between LLM output and tool execution?
+
+```mermaid
+sequenceDiagram
+    actor Auditor
+    participant System as Audit System
+    participant Engine as Agentic Engine
+    
+    Auditor->>System: Show me what happened at 14:32 UTC on April 9th
+    System->>Engine: Retrieve session audit trace
+    
+    Engine-->>System: 
+    Note over Engine,System: COMPLETE AUDIT RECORD SHOULD CONTAIN:
+    Engine-->>System: 1. User intent: "investigate payment latency"
+    Engine-->>System: 2. LLM interpretation: classified as OBSERVE intent
+    Engine-->>System: 3. Tool calls proposed: [query_metrics, query_logs, correlate]
+    Engine-->>System: 4. Engine validation: all READ tier, auto-approved
+    Engine-->>System: 5. Tool calls executed: with parameters, timestamps
+    Engine-->>System: 6. LLM reasoning: "latency spike correlates with ConfigMap update"
+    Engine-->>System: 7. Action proposed: rollback ConfigMap (MODIFY tier)
+    Engine-->>System: 8. Approval requested: engineer@bank.com at 14:34
+    Engine-->>System: 9. Approval granted: engineer@bank.com at 14:36
+    Engine-->>System: 10. Action executed: ConfigMap reverted, latency normalized
+    
+    System-->>Auditor: Complete chain. Every decision attributable.
+    
+    Note over Auditor: This is what RBI, SOC2, DORA require.<br/>Most platforms can provide steps 5 and 10 only.
+```
+
+**What a bad answer looks like:**
+*"We use OpenTelemetry traces so you can see every tool call."*
+
+OpenTelemetry traces are spans. They show what happened. They do not show why the LLM decided to propose a particular action, what alternatives it considered, or how the engine validated that the action was within policy before executing it. The reasoning chain is what distinguishes an explainable AI system from a black box with logs.
+
+**What a good answer looks like:**
+An audit record that contains: the user's original query, the LLM's intent classification, the tool calls proposed by the LLM, the engine's validation decision for each call, the authorization record for any non-READ actions, the execution record, and the result. Every field immutable. Exportable as a structured document for compliance submission.
+
+**The red flag:**
+"We're working on better observability." Observability is not audit. You would not accept "we're working on better observability" as a satisfactory answer for your database change management process. Do not accept it for your AI agents.
+
+---
+
+## Question 3: Where does your agent's data go when it calls a tool — and who can see it?
+
+This question matters most for regulated industries, but it should matter to every enterprise. When your agent queries your metrics database, that query — including the data returned — passes through the agent runtime, the LLM provider, and potentially the tool execution layer. Each of these is a potential data exposure point.
+
+```mermaid
+flowchart LR
+    subgraph "Your Perimeter"
+        A[User Query\nIncludes Context] 
+        B[Enterprise Data\nMetrics, Logs, Code]
+    end
+
+    subgraph "Agent Runtime"
+        C[Agent Process]
+    end
+
+    subgraph "LLM Provider"
+        D[Cloud LLM API\nOpenAI / Anthropic / etc.]
+        E[Training Pipeline?\nLogging?\nData retention?]
+    end
+
+    subgraph "Tool Execution"
+        F[Tool API]
+        G[Third-party\nMCP Server?]
+    end
+
+    A --> C
+    B --> C
+    C -->|"❓ Is this encrypted in transit?"| D
+    D --> E
+    C -->|"❓ Who operates this?"| F
+    F -->|"❓ What leaves your network?"| G
+
+    style E fill:#E8456A,color:#fff
+    style G fill:#FF671F,color:#fff
+```
+
+**The questions within this question:**
+
+1. Is the prompt sent to the LLM API encrypted in transit? (Almost certainly yes — but verify.)
+2. Does the LLM provider use your prompts for model training? (This varies dramatically by provider, tier, and contract. Enterprise tiers from OpenAI, Anthropic, and Google typically exclude training use. Verify your specific contract.)
+3. Where is the LLM API endpoint? (If your data sovereignty requirements prohibit data leaving your country, a US-hosted API endpoint is a compliance violation regardless of encryption.)
+4. If you are using MCP servers provided by third parties, who operates them, and what data do they log?
+5. If the agent runs on-premises but calls a cloud-hosted LLM, which data fields pass through the cloud boundary?
+
+**What a bad answer looks like:**
+*"We use enterprise-tier APIs so your data is protected."*
+
+Enterprise API tiers reduce training risk. They do not address data residency, cross-border transmission, or third-party tool data handling.
+
+**What a good answer looks like:**
+A data flow diagram specific to your deployment configuration, showing every point at which data crosses a trust boundary, who operates that boundary, what data protection applies, and what contractual obligations govern the handling. For regulated environments: a deployment option that keeps data entirely within your perimeter with local inference.
+
+**The red flag:**
+Any answer that doesn't include the phrase "data residency" or that conflates encryption with sovereignty.
+
+---
+
+## Question 4: What happens when the agent hits an ambiguous situation — does it guess, or does it stop?
+
+This is the question that separates platforms that have thought about production from those that have only thought about demos.
+
+In a demo, the agent always has clear intent, complete context, and the right tools available. In production, it will encounter:
+
+- A user query that could reasonably be interpreted in three different ways
+- A situation where the most appropriate action is not available as a tool
+- A tool call that succeeds technically but produces an unexpected result
+- A conflict between what the user asked for and what the system's state allows
+- An iteration budget that runs out before the task is complete
+
+```mermaid
+stateDiagram-v2
+    [*] --> Processing: User Query Received
+
+    Processing --> Clear: Intent unambiguous\nTools available\nWithin budget
+    Processing --> Ambiguous: Multiple valid\ninterpretations
+    Processing --> Missing: Required tool\nnot available
+    Processing --> Conflict: Action conflicts\nwith system state
+    Processing --> Budget: Iteration limit\napproaching
+
+    Clear --> Execution: Proceed with\ngoverned execution
+    
+    Ambiguous --> Guess: ❌ Bad platform\nGuesses and proceeds
+    Ambiguous --> Clarify: ✅ Good platform\nRequests clarification
+    Ambiguous --> Partial: ✅ Good platform\nExecutes safe subset, reports
+    
+    Missing --> Fail: ❌ Bad platform\nHallucinates a tool
+    Missing --> Report: ✅ Good platform\nReturns structured gap report
+    
+    Conflict --> Override: ❌ Bad platform\nForces action anyway
+    Conflict --> Escalate: ✅ Good platform\nEscalates to human
+    
+    Budget --> Truncate: ❌ Bad platform\nSilently stops mid-task
+    Budget --> Checkpoint: ✅ Good platform\nSaves state, reports progress
+
+    Guess --> Production_Incident: 🚨
+    Fail --> Production_Incident
+    Override --> Production_Incident
+    Truncate --> Silent_Data_Loss: 🚨
+
+    style Guess fill:#E8456A,color:#fff
+    style Fail fill:#E8456A,color:#fff
+    style Override fill:#E8456A,color:#fff
+    style Truncate fill:#E8456A,color:#fff
+    style Production_Incident fill:#E8456A,color:#fff
+    style Silent_Data_Loss fill:#E8456A,color:#fff
+    style Clarify fill:#00C9B1,color:#000
+    style Partial fill:#00C9B1,color:#000
+    style Report fill:#00C9B1,color:#000
+    style Escalate fill:#00C9B1,color:#000
+    style Checkpoint fill:#00C9B1,color:#000
+```
+
+**What a bad answer looks like:**
+*"Our agents are built on state-of-the-art LLMs that handle ambiguous situations gracefully."*
+
+LLM capability and platform behavior in ambiguous situations are different properties. The platform — not the model — determines what happens when things don't go as planned. If the platform doesn't have explicit policies for each of the failure modes above, ambiguous situations will be resolved by the LLM's best guess. In production, that is not acceptable.
+
+**What a good answer looks like:**
+A defined behavior matrix for each failure mode. Ambiguity: request clarification or execute safe-only actions and report. Missing tools: return a structured gap report, never hallucinate. Conflicts: escalate to a human, never force. Budget exhaustion: checkpoint state, report progress, never silently truncate.
+
+**The red flag:**
+*"We have retry logic."* Retries address transient failures. They do not address any of the failure modes above. Retry logic is infrastructure. What you're asking about is behavioral policy.
+
+---
+
+## Question 5: How do you revoke an agent's permissions in real time if something goes wrong?
+
+This is the question almost nobody asks until after the incident.
+
+Your agent is mid-session. It has been running for 4 minutes. It has made 23 tool calls. And you have just realized it is operating on the wrong environment — or a rogue session has been opened by a compromised credential — or the LLM is producing output that looks like prompt injection.
+
+How do you stop it?
+
+```mermaid
+sequenceDiagram
+    actor Admin
+    participant Console as Admin Console
+    participant Engine as Agentic Engine
+    participant Agent as Active Agent Session
+    participant Tool as Tool in Execution
+
+    Note over Agent,Tool: Agent is mid-execution, tool call 23 of 40
+
+    Admin->>Console: REVOKE session #a7f3c2 immediately
+    Console->>Engine: POST /sessions/a7f3c2/revoke {reason: "suspected_compromise"}
+    
+    Engine->>Agent: SIGTERM — session revoked
+    Agent->>Tool: ABORT in-flight tool call
+    Tool-->>Agent: Abort acknowledged / rollback initiated
+    
+    Engine->>Engine: Persist revocation event to audit log
+    Engine->>Engine: Mark all subsequent tool calls as unauthorized
+    
+    Engine-->>Console: Session terminated. 23 tool calls logged. Revocation recorded.
+    Console-->>Admin: ✅ Revoked. Audit trail preserved. In-flight call aborted.
+
+    Note over Admin,Console: Time from revocation command to full stop: < 2 seconds
+    Note over Admin,Console: All actions before revocation: preserved in immutable audit log
+    Note over Admin,Console: All actions after revocation: impossible — engine-enforced
+```
+
+**What a bad answer looks like:**
+*"You can terminate the agent process."*
+
+Terminating a process is not the same as revoking authorization. After termination: is there an audit record of what the agent did up to that point? Are in-flight tool calls aborted cleanly? Are any side effects rolled back? Is the compromised credential revoked, or will it spawn a new session?
+
+**What a good answer looks like:**
+A session revocation API that terminates the agent session within seconds, aborts in-flight tool calls gracefully, preserves the complete audit trail up to the point of revocation, records the revocation itself as an audit event (who revoked, when, why), and propagates the revocation to any spawned sub-agents or dependent sessions.
+
+**The red flag:**
+Confusion between process termination, credential rotation, and session revocation. These are three different operations. A platform that conflates them has not thought about incident response in agentic contexts.
+
+---
+
+## Scoring Your Current Deployment
+
+Run your current deployment or shortlisted vendor against these five questions. Here is how to interpret the results:
+
+```mermaid
+quadrantChart
+    title Agent Platform Readiness Assessment
+    x-axis Low Governance Depth --> High Governance Depth
+    y-axis Low Production Readiness --> High Production Readiness
+    
+    quadrant-1 Deploy Carefully
+    quadrant-2 Production Ready
+    quadrant-3 Demo Only
+    quadrant-4 Technically Capable, Governance Gap
+
+    Most LangGraph deployments: [0.35, 0.45]
+    Most CrewAI deployments: [0.2, 0.35]
+    AWS Bedrock Agents: [0.55, 0.65]
+    Azure AI Foundry: [0.6, 0.65]
+    Google Vertex Agents: [0.5, 0.60]
+    Basic MCP implementations: [0.3, 0.4]
+    What regulated enterprises need: [0.85, 0.85]
+```
+
+**Five good answers:** Deploy to production with confidence. You have done the governance work.
+
+**Three to four good answers:** Pilot carefully. Identify the gaps and have a roadmap to close them before expanding scope.
+
+**One to two good answers:** Do not deploy to production in regulated contexts. The risk profile is not manageable. Treat this as a learning exercise.
+
+**Zero good answers:** You have a demo, not a production system. That is fine — but be honest about it internally.
+
+---
+
+## One More Question — The One You Should Ask Yourself
+
+Before you put these questions to a vendor, put this one to your own team:
+
+*"If our AI agent takes an action tonight that causes a production incident, can we tell our regulator — tomorrow morning — exactly what happened, who authorized it, and what controls were in place?"*
+
+If the answer is not a confident yes, the governance work has not been done yet. That is not a criticism. It is an honest assessment of where most organizations are right now.
+
+The work is doable. The patterns exist. The questions above are a starting point.
+
+---
+
+*Shiva Kumar RV is the Founder and Architect of MIRASTACK LABS. The Governed Machine is a fortnightly publication on the discipline of agentic AI in enterprise production environments.*

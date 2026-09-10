@@ -1,0 +1,213 @@
+---
+layout: default
+title: Governance — EGAProtocol in the Platform | MIRASTACK
+description: EGAProtocol governance in the MIRASTACK platform. Every plugin execution and every MCP tool call passes one approval gate before dispatch. Immutable audit ledgers, four permission classes, and approval primitives built into the wire protocol.
+keywords: ai governance, EGAProtocol, governance plane, approval gate, audit ledger, permission classes, air-gapped ai, sovereign ai, MCP governance
+image: /assets/img/mirastack-devops.png
+permalink: /platform/governance/
+---
+
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">Platform / Governance</div>
+
+    <h1 class="product-hero__title reveal reveal--delay-1">Governance — EGAProtocol in the platform</h1>
+
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      Every plugin execution and every MCP tool call passes one approval gate before dispatch.
+      The governance plane is not a middleware layer — it is the dispatch path itself.
+      Bypassing it is a compile error, not a policy violation.
+    </p>
+
+    <div class="product-hero__cta reveal reveal--delay-3">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+      <a class="btn btn--outline" href="{{ '/egaprotocol/' | relative_url }}">Read the EGAProtocol specification →</a>
+    </div>
+
+    <div class="product-badges reveal reveal--delay-4" aria-label="Governance key tags">
+      <span class="product-badge product-badge--accent">EGAProtocol</span>
+      <span class="product-badge">Single Dispatch Gate</span>
+      <span class="product-badge">Immutable Ledger</span>
+      <span class="product-badge">Approval Primitives</span>
+      <span class="product-badge">Permission Classes</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">the.single.gate</span>
+    <h2 class="reveal reveal--delay-1">The single dispatch gate</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      When an agent issues a tool call, the runtime does not execute the tool — it submits
+      the dispatch to EGAProtocol first. The gate classifies the action, evaluates standing
+      rules, and, if required, requests approval before the tool ever runs.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      This is not a callback or a decorator inside the agent framework. It is a stateless
+      security proxy that sits at the wire boundary. Every message envelope passes through
+      it, regardless of which framework produced the message.
+    </p>
+
+    <div class="gov-flow" style="margin-top: 2rem;">
+      <div class="gov-flow-step reveal reveal--delay-3">1. Agent emits tool_call</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-3">2. EGAProtocol classifies the action</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-4">3. Policy engine evaluates standing rules</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-4">4. Approval gate if required</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step reveal reveal--delay-5">5. Dispatch recorded on the ledger</div>
+      <div class="gov-flow-arrow">↓</div>
+      <div class="gov-flow-step gov-flow-step--secure reveal reveal--delay-5">6. Tool executes inside the runtime</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">permission.classes</span>
+    <h2 class="reveal reveal--delay-1">Four permission classes</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Every action an agent takes is classified before dispatch. The classification is set
+      by the operator, not inferred from the payload. Four classes cover every possible
+      side effect an enterprise agent can produce.
+    </p>
+
+    <div class="gov-grid">
+
+      <div class="gov-card reveal reveal--delay-2">
+        <span class="gov-card__badge gov-card__badge--secure">READ</span>
+        <h3>Observation only</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Queries, searches, metadata lookups, and read-only API calls. No state is modified.
+          Audit log records the query, the target, and the actor.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-3">
+        <span class="gov-card__badge gov-card__badge--secure">WRITE</span>
+        <h3>Create and append</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          New records, messages, tickets, and artifacts. Append-only semantics where possible.
+          Existing state is not altered. Actor and content hash are recorded.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-4">
+        <span class="gov-card__badge gov-card__badge--risk">MODIFY</span>
+        <h3>Update existing state</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Configuration changes, record updates, permission changes. Requires explicit
+          operator approval unless the policy engine has a standing rule for this actor
+          and this target.
+        </p>
+      </div>
+
+      <div class="gov-card reveal reveal--delay-5">
+        <span class="gov-card__badge gov-card__badge--risk">ADMIN</span>
+        <h3>Structural changes</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+          Schema changes, account creation or deletion, access control modifications.
+          Always requires a single-use, signature-verified approval bound to the exact
+          action hash. The requester cannot approve their own request.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">approval.semantics</span>
+    <h2 class="reveal reveal--delay-1">Approval semantics</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Approvals in EGAProtocol are not frontend buttons. They are cryptographic primitives
+      that live in the governance engine. Every approval is single-use, signature-verified,
+      and bound to the exact action hash it authorises.
+    </p>
+
+    <div class="gov-bullet-list" style="margin-top: 2rem; max-width: 72ch;">
+      <div class="reveal reveal--delay-2" style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Single-use tokens.</strong> Once an approval is consumed, it cannot be replayed against a different action hash or a different session.</span>
+      </div>
+      <div class="reveal reveal--delay-3" style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Actor separation.</strong> The requester and the approver must be distinct principals. Self-approval is refused at the engine level, not filtered in a UI.</span>
+      </div>
+      <div class="reveal reveal--delay-4" style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Time-bound validity.</strong> Approvals expire after a configurable window. Expired approvals require a new request and a new approval flow.</span>
+      </div>
+      <div class="reveal reveal--delay-5" style="display: flex; gap: 0.75rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Revocation propagation.</strong> Revoking a principal invalidates all outstanding approvals in flight. The effect is immediate across every tenant and every runtime.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">the.audit.ledger</span>
+    <h2 class="reveal reveal--delay-1">The audit ledger</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      Every dispatch writes a pass object to the audit ledger before execution begins.
+      If execution fails, the ledger still records the attempt, the actor, the target,
+      and the reason. Every token, cost, and latency metric is attached to that same
+      entry.
+    </p>
+    <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
+      The ledger is append-only and tamper-evident. Records follow OpenTelemetry semantic
+      conventions, so they can be ingested by the observability stack without transformation.
+      An auditor receives a single, replayable evidence pack — not a log export.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="label reveal">what.an.auditor.receives</span>
+    <h2 class="reveal reveal--delay-1">What an auditor actually receives</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch;">
+      The evidence pack is generated on demand and contains exactly what the auditor needs,
+      nothing more and nothing less. It maps to the control frameworks the auditor already uses.
+    </p>
+
+    <div class="gov-bullet-list" style="margin-top: 2rem; max-width: 72ch;">
+      <div class="reveal reveal--delay-2" style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Attribution.</strong> Every action linked to a named human principal with timestamp and source IP.</span>
+      </div>
+      <div class="reveal reveal--delay-3" style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Approval chain.</strong> Full approval or decline trail with signer identity, signature, and binding action hash.</span>
+      </div>
+      <div class="reveal reveal--delay-4" style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Routing decision.</strong> Which model or tool was selected, why, and what data classification was applied.</span>
+      </div>
+      <div class="reveal reveal--delay-5" style="display: flex; gap: 0.75rem;">
+        <span style="color: var(--accent);">›</span>
+        <span style="color: var(--text-muted);"><strong style="color: var(--text);">Token accounting.</strong> Prompt and completion tokens, cost, and latency for every turn in the interaction.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="label reveal">private.preview</span>
+    <h2 class="reveal reveal--delay-1">Run your first governed agent</h2>
+    <p class="lead reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
+      MIRASTACK is in private preview with enterprises running governed AI inside
+      regulated and air-gapped environments. Tell us where you plan to run it.
+    </p>
+    <div class="reveal reveal--delay-3" style="margin-top: 2rem;">
+      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+    </div>
+  </div>
+</section>

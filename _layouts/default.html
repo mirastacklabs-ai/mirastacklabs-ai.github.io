@@ -45,21 +45,34 @@
       </a>
 
       <div class="nav__links" aria-label="Primary navigation">
-        <a class="nav__link" href="{{ '/#approach' | relative_url }}">Approach</a>
-        <a class="nav__link" href="{{ '/#mirastack-observe' | relative_url }}">Observe</a>
-        <a class="nav__link{% if page.url contains '/blog/' %} is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
-        <a class="nav__link{% if page.url contains '/docs/' or page.layout == 'docs' %} is-active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a>
 
         <div class="nav__item nav__item--dropdown">
-          <a class="nav__link nav__link--dropdown{% if page.url contains '/products' %} is-active{% endif %}" href="{{ '/products/' | relative_url }}" aria-haspopup="true">Products</a>
-          <div class="nav__dropdown" role="menu" aria-label="Products menu">
-            <a href="{{ '/products/mirastack/' | relative_url }}" role="menuitem">MIRASTACK Platform</a>
-            <a href="{{ '/products/telegen/' | relative_url }}" role="menuitem">Telegen</a>
-            <a href="{{ '/products/mirador-core/' | relative_url }}" role="menuitem">Mirador Core</a>
+          <a class="nav__link nav__link--dropdown{% if page.url contains '/platform' %} is-active{% endif %}" href="{{ '/platform/' | relative_url }}" aria-haspopup="true">Platform</a>
+          <div class="nav__dropdown" role="menu" aria-label="Platform menu">
+            <a href="{{ '/platform/' | relative_url }}" role="menuitem">Overview</a>
+            <a href="{{ '/platform/governance/' | relative_url }}" role="menuitem">Governance</a>
+            <a href="{{ '/platform/mcp/' | relative_url }}" role="menuitem">MCP Harness</a>
+            <a href="{{ '/platform/models/' | relative_url }}" role="menuitem">Models &amp; Routing</a>
+            <a href="{{ '/platform/identity/' | relative_url }}" role="menuitem">Identity &amp; RBAC</a>
+            <a href="{{ '/platform/observability/' | relative_url }}" role="menuitem">Observability</a>
           </div>
         </div>
 
-        <a class="nav__link" href="{{ '/#differentiation' | relative_url }}">Why Us</a>
+        <a class="nav__link{% if page.url contains '/egaprotocol' %} is-active{% endif %}" href="{{ '/egaprotocol/' | relative_url }}">EGAProtocol</a>
+
+        <div class="nav__item nav__item--dropdown">
+          <a class="nav__link nav__link--dropdown{% if page.url contains '/open-source' or page.url contains '/products' %} is-active{% endif %}" href="{{ '/open-source/' | relative_url }}" aria-haspopup="true">Open Source</a>
+          <div class="nav__dropdown" role="menu" aria-label="Open source menu">
+            <a href="{{ '/products/telegen/' | relative_url }}" role="menuitem">Telegen</a>
+            <a href="{{ '/products/mirador-core/' | relative_url }}" role="menuitem">Mirador Core</a>
+            <a href="https://github.com/mirastacklabs-ai" role="menuitem" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <a class="nav__link{% if page.layout == 'docs' or page.url contains '/docs/' %} is-active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a>
+        <a class="nav__link{% if page.url contains '/blog/' %} is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
+        <a class="nav__link{% if page.url contains '/company' %} is-active{% endif %}" href="{{ '/company/' | relative_url }}">Company</a>
+
       </div>
 
       <div class="nav__controls">
@@ -74,7 +87,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </span>
         </button>
-        <a class="nav__cta" href="{{ '/#contact' | relative_url }}">Contact Us</a>
+        <a class="nav__cta" href="{{ '/waitlist/' | relative_url }}">Join the Waitlist</a>
         <button class="nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -84,19 +97,19 @@
 
     <!-- Mobile menu -->
     <div class="nav__mobile" id="navMobile">
-      <a href="{{ '/#approach' | relative_url }}">Approach</a>
-      <a href="{{ '/#mirastack-observe' | relative_url }}">Observe</a>
-      <a href="{{ '/docs/' | relative_url }}">Docs</a>
-      <a href="{{ '/blog/' | relative_url }}">Blog</a>
-      <a href="{{ '/products/' | relative_url }}">Products</a>
-      <a href="{{ '/products/mirastack/' | relative_url }}">MIRASTACK Platform</a>
+      <a href="{{ '/platform/' | relative_url }}">Platform Overview</a>
+      <a href="{{ '/platform/governance/' | relative_url }}">Governance</a>
+      <a href="{{ '/platform/mcp/' | relative_url }}">MCP Harness</a>
+      <a href="{{ '/platform/models/' | relative_url }}">Models &amp; Routing</a>
+      <a href="{{ '/platform/identity/' | relative_url }}">Identity &amp; RBAC</a>
+      <a href="{{ '/platform/observability/' | relative_url }}">Observability</a>
+      <a href="{{ '/egaprotocol/' | relative_url }}">EGAProtocol</a>
       <a href="{{ '/products/telegen/' | relative_url }}">Telegen</a>
       <a href="{{ '/products/mirador-core/' | relative_url }}">Mirador Core</a>
-      <a href="{{ '/#differentiation' | relative_url }}">Why Us</a>
-      <a href="{{ '/#foundation' | relative_url }}">Open Foundation</a>
-      <a href="{{ '/#who' | relative_url }}">Who We Build For</a>
-      <a href="{{ '/#principles' | relative_url }}">Principles</a>
-      <a href="{{ '/#contact' | relative_url }}">Contact Us</a>
+      <a href="{{ '/docs/' | relative_url }}">Docs</a>
+      <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      <a href="{{ '/company/' | relative_url }}">Company</a>
+      <a href="{{ '/waitlist/' | relative_url }}">Join the Waitlist</a>
     </div>
   </nav>
 
@@ -116,7 +129,7 @@
         </svg>
         <span>MIRASTACK LABS PRIVATE LIMITED</span>
       </div>
-      <div class="footer__tagline">Building the Agentic AI Control Plane for Sovereign Infrastructure.</div>
+      <div class="footer__tagline">Any enterprise can now run its own AI Factory.</div>
       <div class="footer__legal">
         All content on this site is for informational purposes only and does not constitute an offer or solicitation of securities.
       </div>

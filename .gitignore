@@ -24,3 +24,7 @@ Thumbs.db
 # References
 references
 references/*
+
+# AI Instructions and Files
+.kilo
+.kilo/*
