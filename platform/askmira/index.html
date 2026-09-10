@@ -1,0 +1,218 @@
+---
+layout: default
+title: AskMira — Ask your infrastructure a question
+description: AskMira is a governed agentic analyst. Ask in plain language, get inline diagrams, span tables, and a root-cause verdict — running on your own models, inside your network.
+keywords: agentic observability, ai root cause analysis, self-hosted llm analyst, governed ai assistant, trace analysis ai, mcp tool governance
+image: /assets/img/product/health-verdict.png
+permalink: /platform/askmira/
+---
+
+<section class="product-hero" id="askmira-hero">
+  <div class="container">
+    <div class="product-hero__meta reveal">ASKMIRA · GOVERNED AGENTIC AI</div>
+    <h1 class="product-hero__title reveal reveal--delay-1">Ask your infrastructure a question.</h1>
+    <p class="product-hero__subtitle reveal reveal--delay-2">
+      Get an answer with its work shown.
+    </p>
+    <p class="reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
+      Self-hosted model. Governed tool call. Every token accounted.
+    </p>
+
+    <div class="reveal reveal--delay-3" style="margin-top: 2rem;">
+      {% include product-shot.html
+         src="turn-metadata-strip"
+         alt="A MIRASTACK turn showing model prism-ml/bonsai-27b, a governed MCP capability call, token counts in and out, and cost of zero dollars"
+         caption="One self-hosted model. One governed tool call. Every token accounted."
+         wide="true"
+         eager="true" %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="band">
+      <div class="band__copy">
+        <span class="label">one.question</span>
+        <h2>No query language. No dashboard hunting.</h2>
+        <p class="lead">
+          "Pull the latest 50 traces of upi-switch service and explain me the topology"
+        </p>
+        <p>
+          Plain language in. Diagrams, tables, and a verdict out.
+        </p>
+      </div>
+      <div class="band__media">
+        {% include product-shot.html
+           src="topology-tiers"
+           alt="Service tiers table plus dependency graph showing the opening move of the investigation" %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="band band--reverse">
+      <div class="band__media">
+        {% include product-shot.html
+           src="sequence-diagram-503"
+           alt="Sequence diagram showing the 503 in the flow, rendered inline in the answer" %}
+      </div>
+      <div class="band__copy">
+        <span class="label">inline.diagrams</span>
+        <h2>It draws what it found.</h2>
+        <p class="lead">
+          Sequence diagrams. Dependency graphs. Span timelines.
+        </p>
+        <p>
+          Rendered in the answer. Not a link to another tool.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="band">
+      <div class="band__copy">
+        <span class="label">the.verdict</span>
+        <h2>It commits to an answer.</h2>
+        <p class="lead">
+          Health verdict: Degraded.
+        </p>
+        <p>
+          The downstream bank returns 503. That's the root of the failed
+          transactions. Chaos injection is active on dispatch operations.
+        </p>
+        <p>
+          MIRA doesn't hand you a dashboard and wish you luck.
+        </p>
+      </div>
+      <div class="band__media">
+        {% include product-shot.html
+           src="health-verdict"
+           alt="MIRA returning a health verdict of Degraded, identifying a downstream bank returning 503 as the root cause" %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="band band--reverse">
+      <div class="band__media">
+        {% include product-shot.html
+           src="scope-honesty"
+           alt="Topology note explaining what data was missing — anti-hallucination proof" %}
+      </div>
+      <div class="band__copy">
+        <span class="label">no.hallucination</span>
+        <h2>It knows what it doesn't know.</h2>
+        <p class="lead">
+          An analyst that tells you when the data runs out.
+        </p>
+        <p>
+          "The result provides span names only — no parent-child relationships.
+          To render a full topology graph we'd need traceId, parentSpanId, and
+          service names per span."
+        </p>
+        <p>
+          Ask about something with no signals and MIRA says so, explains why the
+          query failed to scope, and tells you what input would fix it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="band">
+      <div class="band__copy">
+        <span class="label">three.levels</span>
+        <h2>It goes as deep as you need.</h2>
+        <p class="lead">
+          Span names. Then what each one means. Then the layers.
+        </p>
+        <p>
+          Same trace, three depths, because you asked three times.
+        </p>
+      </div>
+      <div class="band__media">
+        {% include product-shot.html
+           src="span-layers"
+           alt="Layered span decomposition table showing span names, meanings, and layers" %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="band band--reverse">
+      <div class="band__media">
+        {% include product-shot.html
+           src="conversations-drilldown"
+           alt="Observability conversations drilldown showing sessions, turns, provider, latency, cost, outcome"
+           wide="true" %}
+      </div>
+      <div class="band__copy">
+        <span class="label">replayable</span>
+        <h2>Every conversation is on the record.</h2>
+        <p class="lead">
+          Sessions. Turns. Provider. Latency. Cost. Outcome.
+        </p>
+        <p>
+          Months later, an auditor reconstructs exactly what was asked, which
+          model answered, which tool was called, and what it cost.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__header reveal">
+      <span class="label">related</span>
+      <h2 class="reveal reveal--delay-1">Related</h2>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card reveal reveal--delay-2">
+        <h3>Governance</h3>
+        <p>How the gate works, what it classifies, and why bypassing it is a compile error.</p>
+        <a class="product-card__link" href="{{ '/platform/governance/' | relative_url }}">→</a>
+      </div>
+      <div class="product-card reveal reveal--delay-3">
+        <h3>Models &amp; Routing</h3>
+        <p>Self-hosted and frontier models through one router, one RBAC, one audit trail.</p>
+        <a class="product-card__link" href="{{ '/platform/models/' | relative_url }}">→</a>
+      </div>
+      <div class="product-card reveal reveal--delay-4">
+        <h3>Observability</h3>
+        <p>The telemetry substrate the governance layer stands on. Ships with the platform.</p>
+        <a class="product-card__link" href="{{ '/platform/observability/' | relative_url }}">→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__header reveal">
+      <span class="label">private.preview</span>
+      <h2 class="reveal reveal--delay-1">Run your first governed agent</h2>
+      <p class="lead reveal reveal--delay-2" style="margin-top: 1rem; max-width: 72ch; color: var(--text-muted);">
+        MIRASTACK is in private preview with enterprises running governed AI inside
+        regulated and air-gapped environments. Tell us where you plan to run it.
+      </p>
+    </div>
+
+    <div class="reveal reveal--delay-3">
+      {% include waitlist-form.html %}
+    </div>
+  </div>
+</section>

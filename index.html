@@ -1,42 +1,108 @@
 ---
 layout: default
-title: MIRASTACK — Any enterprise can now run its own AI Factory
-description: MIRASTACK lets any enterprise run its own AI Factory. Self-hosted models, frontier models, governed MCP tools, and autonomous agents behind a governance plane that cannot be bypassed.
+title: MIRASTACK — Run your own AI Factory
+description: MIRASTACK is the platform that lets any enterprise run its own AI Factory — self-hosted and frontier models, governed MCP tools, and autonomous agents behind a governance plane that cannot be bypassed.
 keywords: ai factory, enterprise ai platform, EGAProtocol, ai governance, air-gapped mcp, self-hosted llm, ai audit trail
 image: /assets/img/mirastack-devops.png
 ---
 
-<section class="hero" id="hero">
+<style>
+  :root { --accent-signal: #FF671F; }
+  [data-theme="light"] { --accent-signal: #E85A15; }
+</style>
+
+<section class="hero hero--split" id="hero">
+  <style>
+    .hero--split .hero__inner {
+      display: grid;
+      grid-template-columns: 52% 48%;
+      gap: 3rem;
+      align-items: center;
+      min-height: calc(100vh - 72px);
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+    .hero--split .hero__copy { max-width: 620px; }
+    .hero--split .hero__title {
+      font-size: clamp(2rem, 3.6vw, 3.4rem);
+      line-height: 1.12;
+      margin: 1rem 0 1.75rem;
+    }
+    .hero--split .hero__eyebrow {
+      color: var(--accent-signal);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+    }
+    .hero--split .hero__sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      max-width: 56ch;
+    }
+    .hero--split .hero__chain {
+      margin: 2rem 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .hero--split .hero__chain-sep { color: var(--accent); }
+    .hero--split .hero__media { position: relative; }
+    .hero--split .hero__media::before {
+      content: "";
+      position: absolute;
+      inset: -12% -8%;
+      background: radial-gradient(closest-side, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+    }
+    @media (max-width: 900px) {
+      .hero--split .hero__inner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 3rem;
+      }
+      .hero--split .hero__media { order: -1; }
+    }
+  </style>
+
   <div class="hero__inner">
 
-    <div class="hero__eyebrow reveal">
-      MIRASTACK PLATFORM · PRIVATE PREVIEW
+    <div class="hero__copy">
+      <div class="hero__eyebrow reveal">MIRASTACK PLATFORM · PRIVATE PREVIEW</div>
+
+      <h1 class="hero__title reveal reveal--delay-1">Run your own AI Factory.</h1>
+
+      <p class="hero__sub reveal reveal--delay-2">
+        Self-hosted models. Frontier models. MCP tools. Agents.<br />
+        All behind one governance gate.
+      </p>
+      <p class="hero__sub reveal reveal--delay-2">
+        Bypassing it isn't a policy violation. It's a compile error.
+      </p>
+
+      <div class="hero__chain reveal reveal--delay-3" aria-label="Platform properties">
+        <span class="hero__chain-item">Sovereign</span>
+        <span class="hero__chain-sep">→</span>
+        <span class="hero__chain-item">Air-gapped</span>
+        <span class="hero__chain-sep">→</span>
+        <span class="hero__chain-item">Governed</span>
+        <span class="hero__chain-sep">→</span>
+        <span class="hero__chain-item">Auditable</span>
+      </div>
+
+      <div class="hero__actions reveal reveal--delay-4">
+        <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
+        <a class="btn btn--outline" href="{{ '/egaprotocol/' | relative_url }}">How EGAProtocol works →</a>
+      </div>
     </div>
 
-    <h1 class="hero__title reveal reveal--delay-1">
-      Any enterprise can now run its own AI Factory.
-    </h1>
-
-    <p class="hero__subtitle reveal reveal--delay-2">
-      Self-hosted models. Frontier models. MCP tools. Autonomous agents.
-      <br /><br />
-      One governance plane that cannot be bypassed — because bypassing it
-      is a compile error, not a policy violation.
-    </p>
-
-    <div class="hero__chain reveal reveal--delay-3" aria-label="Platform properties">
-      <span class="hero__chain-item">Sovereign</span>
-      <span class="hero__chain-sep">→</span>
-      <span class="hero__chain-item">Air-gapped</span>
-      <span class="hero__chain-sep">→</span>
-      <span class="hero__chain-item">Governed</span>
-      <span class="hero__chain-sep">→</span>
-      <span class="hero__chain-item">Auditable</span>
-    </div>
-
-    <div class="hero__actions reveal reveal--delay-4">
-      <a class="btn btn--primary" href="{{ '/waitlist/' | relative_url }}">Join the waitlist</a>
-      <a class="btn btn--outline" href="{{ '/egaprotocol/' | relative_url }}">How EGAProtocol works →</a>
+    <div class="hero__media reveal reveal--delay-3">
+      {% include product-shot.html
+         src="turn-metadata-strip"
+         alt="A MIRASTACK turn showing model prism-ml/bonsai-27b, a governed MCP capability call, token counts in and out, and cost of zero dollars"
+         caption="One self-hosted model. One governed tool call. Every token accounted." %}
     </div>
 
   </div>
@@ -45,15 +111,12 @@ image: /assets/img/mirastack-devops.png
 <section class="section">
   <div class="container">
     <span class="label reveal">the.gap</span>
-    <h2 class="reveal reveal--delay-1">Your agents are already running. Nobody can prove what they did.</h2>
+    <h2 class="reveal reveal--delay-1">Your agents run. Nobody can prove what they did.</h2>
     <p class="reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
-      Enterprises are deploying agents that call tools, modify systems, and spend
-      money. The frameworks that run them log what happened. None of them enforce
-      what is allowed.
+      Agent frameworks log what happened. None enforce what's allowed.
     </p>
     <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
-      When the auditor asks who authorised a production change, "the model decided"
-      is not an answer.
+      "The model decided" is not an audit answer.
     </p>
   </div>
 </section>
@@ -98,29 +161,72 @@ image: /assets/img/mirastack-devops.png
     <div class="ai-factory__layers">
       <div class="ai-factory__layer reveal reveal--delay-1">
         <div class="ai-factory__layer-title">Models</div>
-        <p class="ai-factory__layer-desc">Open-weight models on your GPUs. Frontier models by policy. One router, one ledger.</p>
+        <p class="ai-factory__layer-desc">Open weights on your GPUs. Frontier by policy.</p>
       </div>
       <div class="ai-factory__layer reveal reveal--delay-2">
         <div class="ai-factory__layer-title">Tools</div>
-        <p class="ai-factory__layer-desc">MCP servers as governed runtimes, not laptop processes. Classified, approved, scoped.</p>
+        <p class="ai-factory__layer-desc">MCP servers as governed runtimes. Not laptop processes.</p>
       </div>
       <div class="ai-factory__layer reveal reveal--delay-3">
         <div class="ai-factory__layer-title">Agents</div>
-        <p class="ai-factory__layer-desc">Personas with explicit tool mappings. Only approved capabilities reach the planner.</p>
+        <p class="ai-factory__layer-desc">Personas with scoped tools. Nothing else reaches the planner.</p>
       </div>
       <div class="ai-factory__layer reveal reveal--delay-4">
         <div class="ai-factory__layer-title">Governance</div>
-        <p class="ai-factory__layer-desc">EGAProtocol. One dispatch gate for every plugin call and every tool call.</p>
+        <p class="ai-factory__layer-desc">One gate. Every plugin call. Every tool call.</p>
       </div>
       <div class="ai-factory__layer reveal reveal--delay-5">
         <div class="ai-factory__layer-title">Evidence</div>
-        <p class="ai-factory__layer-desc">Every token, cost, decision, approval, and actor — attributable and replayable.</p>
+        <p class="ai-factory__layer-desc">Every token, cost, actor — attributable and replayable.</p>
       </div>
     </div>
 
     <p class="reveal reveal--delay-5" style="max-width: 72ch; color: var(--text-muted);">
-      The factory is what turns raw capability into governed, accountable work.
+      The factory turns capability into accountable work.
     </p>
+  </div>
+</section>
+
+<section class="section section--alt" id="askmira">
+  <div class="container">
+    <style>
+      .band {
+        display: grid;
+        grid-template-columns: 48% 52%;
+        gap: 3.5rem;
+        align-items: center;
+      }
+      .band--reverse .band__media { order: 2; }
+      .band__copy h2 { margin: 0.75rem 0 1rem; }
+      @media (max-width: 900px) {
+        .band { grid-template-columns: 1fr; gap: 2rem; }
+        .band--reverse .band__media { order: 0; }
+      }
+    </style>
+
+    <div class="band">
+
+      <div class="band__media">
+        {% include product-shot.html
+           src="health-verdict"
+           alt="MIRA returning a health verdict of Degraded, identifying a downstream bank returning 503 as the root cause"
+           caption="One question. One governed investigation. Every token accounted." %}
+      </div>
+
+      <div class="band__copy">
+        <span class="label">everyone.gets.an.analyst</span>
+        <h2>Ask your infrastructure a question.</h2>
+        <p class="lead">
+          Plain language in. Diagrams, tables, and a verdict out.
+        </p>
+        <p>
+          Running on your models, inside your network. Every tool call
+          governed. Every token accounted.
+        </p>
+        <a class="btn btn--outline" href="{{ '/platform/askmira/' | relative_url }}">See AskMira →</a>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -137,11 +243,11 @@ image: /assets/img/mirastack-devops.png
         <div>
           <h3>MCP on the endpoint</h3>
           <ul class="gov-bullet-list gov-bullet-list--risk">
-            <li>MCP servers run as processes on developer workstations.</li>
-            <li>Credentials sit in local config files.</li>
-            <li>No classification — tool annotations are trusted as written.</li>
-            <li>No audit trail beyond the developer's shell history.</li>
-            <li>Requires internet egress from an endpoint machine.</li>
+            <li>Runs on developer laptops</li>
+            <li>Creds in local config files</li>
+            <li>Annotations trusted as-is</li>
+            <li>Audit trail is shell history</li>
+            <li>Needs endpoint egress</li>
           </ul>
         </div>
       </div>
@@ -151,20 +257,18 @@ image: /assets/img/mirastack-devops.png
         <div>
           <h3>MCP inside the perimeter</h3>
           <ul class="gov-bullet-list gov-bullet-list--secure">
-            <li>MCP servers run as governed runtimes inside your network.</li>
-            <li>Credentials never leave the platform's secret store.</li>
-            <li>Every tool classified READ / WRITE / MODIFY / ADMIN by an operator.</li>
-            <li>Every dispatch ledgered with the human actor who authorised it.</li>
-            <li>Runs in networks with no internet route at all.</li>
+            <li>Runs inside your network</li>
+            <li>Creds never leave the platform</li>
+            <li>Every tool classified by an operator</li>
+            <li>Every dispatch ledgered with an actor</li>
+            <li>Needs no internet route at all</li>
           </ul>
         </div>
       </div>
     </div>
 
     <p class="reveal reveal--delay-4" style="max-width: 72ch; color: var(--text-muted); margin-top: 3rem;">
-      The containment invariant is enforced, not documented: the child MCP process
-      must bind loopback. Never 0.0.0.0. There is no configuration that turns
-      that off.
+      The containment invariant is enforced, not documented. Binds loopback. Never 0.0.0.0.
     </p>
 
     <div class="reveal reveal--delay-5" style="margin-top: 2rem;">
@@ -220,9 +324,9 @@ image: /assets/img/mirastack-devops.png
         border: 1px solid var(--border);
       }
       .gov-card__badge--risk {
-        color: var(--accent-red);
-        border-color: rgba(232, 69, 106, 0.3);
-        background: rgba(232, 69, 106, 0.05);
+        color: var(--accent-signal);
+        border-color: rgba(255, 103, 31, 0.3);
+        background: rgba(255, 103, 31, 0.05);
       }
       .gov-card__badge--secure {
         color: var(--accent);
@@ -343,7 +447,7 @@ image: /assets/img/mirastack-devops.png
           <li>No wire-level identity propagation or authentication.</li>
           <li>Bypassable, application-level approval checks.</li>
           <li>No immutable audit trails for regulatory compliance.</li>
-          <li>High risk of runaway, destructive loops on databases, Kafka, and servers.</li>
+          <li>Destructive loops on databases, Kafka, and servers.</li>
         </ul>
       </div>
 
@@ -374,14 +478,57 @@ image: /assets/img/mirastack-devops.png
 
         <ul class="gov-bullet-list gov-bullet-list--secure">
           <li>Cryptographically verifiable identity on every message envelope.</li>
-          <li>Mandatory human-in-the-loop approval primitives built into the wire protocol.</li>
+          <li>Mandatory human-in-the-loop approval built into the wire protocol.</li>
           <li>Immutable audit trails following OpenTelemetry semantic conventions.</li>
-          <li>Strict permission scopes (READ, WRITE, MODIFY, ADMIN) enforced on every action.</li>
+          <li>Strict permission scopes enforced on every action.</li>
         </ul>
       </div>
     </div>
 
-    <div style="margin-top: 3rem; text-align: center;" class="reveal reveal--delay-3">
+    <div class="reveal reveal--delay-4" style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+      <div>
+        <p style="max-width: 72ch; color: var(--text-muted);">
+          Bypassing the gate isn't a policy violation. It's a compile error.
+        </p>
+      </div>
+
+      <div class="termblock">
+        <style>
+          .termblock {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent-signal);
+            border-radius: 6px;
+            padding: 1.5rem 1.75rem;
+            font-size: 0.82rem;
+            line-height: 1.75;
+            overflow-x: auto;
+          }
+          .termblock .t-prompt { color: var(--text-dim); }
+          .termblock .t-err    { color: var(--accent-signal); }
+          .termblock .t-path   { color: var(--text-muted); }
+          .termblock__cap {
+            margin-top: 1rem;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+          }
+        </style>
+
+        <pre><code><span class="t-prompt">$ go build ./...</span>
+
+<span class="t-path">internal/agentic/dispatch.go:142:24:</span> cannot use egap.Pass{}
+    implicit assignment to unexported field 'granted' in struct literal
+
+<span class="t-err">FAIL</span>  mirastack/engine/internal/agentic</code></pre>
+
+        <div class="termblock__cap">
+          The gate's pass object cannot be constructed outside its own package.
+          A bypass doesn't get logged. It doesn't compile.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center;" class="reveal reveal--delay-5">
       <a class="btn btn--outline" href="{{ '/egaprotocol/' | relative_url }}">Read the EGAProtocol specification →</a>
     </div>
   </div>
@@ -396,53 +543,53 @@ image: /assets/img/mirastack-devops.png
 
     <div class="products-grid">
       <div class="product-card reveal reveal--delay-2">
-        <h3>Sovereignty by construction</h3>
-        <p>Runs where your data must stay. No outbound call is required for the platform to function.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Provable at the network layer, not promised in a contract.</em></p>
+        <h3>Sovereign by construction</h3>
+        <p>No outbound call is required for the platform to run.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Provable at the network layer.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-3">
-        <h3>Governance at the gate</h3>
-        <p>Every plugin execution and every MCP tool call passes one approval gate before dispatch.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">The gate's pass object cannot be constructed outside its own package. A bypass fails the build.</em></p>
+        <h3>One gate. No exceptions.</h3>
+        <p>Every plugin call and tool call passes it before dispatch.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">A bypass fails the build.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-4">
         <h3>MCP inside the perimeter</h3>
-        <p>MCP servers become governed runtimes in networks with no internet route.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">The child process must bind loopback. Never 0.0.0.0.</em></p>
+        <p>MCP servers become governed runtimes in closed networks.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Binds loopback. Never 0.0.0.0.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-5">
-        <h3>Your models and the frontier</h3>
-        <p>Self-host open-weight models. Reach frontier APIs through the same router, RBAC, and audit trail.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">One provider process, one tenant, for its entire lifetime.</em></p>
+        <h3>Your models. And the frontier.</h3>
+        <p>Same router, same RBAC, same audit trail.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">One process. One tenant. Always.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-2">
-        <h3>Complete token accounting</h3>
-        <p>Prompt and completion tokens, cost, and latency recorded per turn — whether the response streamed or buffered.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Both paths report through a single accounting chokepoint, so they can never diverge.</em></p>
+        <h3>Every token, both directions</h3>
+        <p>Tokens, cost, and latency per turn. Streamed or buffered.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">The two can't diverge.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-3">
-        <h3>Policy routing</h3>
-        <p>Route to self-hosted models by default. Escalate to frontier by explicit policy, including data classification.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Regulated payloads never leave the perimeter, by rule rather than by convention.</em></p>
+        <h3>Routing by policy</h3>
+        <p>OSS by default. Frontier by rule. Classification-aware.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Regulated payloads never leave.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-4">
-        <h3>Identity and attribution</h3>
-        <p>Every action an agent takes is attributable to a named human principal.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Unattributed dispatch is refused, not logged.</em></p>
+        <h3>Every action has a name</h3>
+        <p>Agent actions trace to a named human principal.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Unattributed dispatch is refused.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-5">
-        <h3>Enforced human-in-the-loop</h3>
-        <p>Approvals are single-use, signature-verified, and bound to the exact action hash.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">The requester cannot approve their own request. Enforced in the engine, not the frontend.</em></p>
+        <h3>HITL that's enforced</h3>
+        <p>Single-use, signature-verified, bound to the action hash.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">You can't approve your own request.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-2">
         <h3>Agents with scoped tools</h3>
-        <p>Personas with explicit tool mappings. Only classified, approved tools reach the planner.</p>
-        <p><em style="font-size: 0.8rem; color: var(--text-dim);">A tool's own annotations are evidence, never authority.</em></p>
+        <p>Only classified, approved tools reach the planner.</p>
+        <p><em style="font-size: 0.8rem; color: var(--text-dim);">Annotations are evidence, not authority.</em></p>
       </div>
       <div class="product-card reveal reveal--delay-3">
-        <h3>Compliance evidence</h3>
-        <p>Governance events map to the control frameworks your auditor already uses.</p>
+        <h3>Evidence, not logs</h3>
+        <p>Governance events map to your auditor's control framework.</p>
         <p><em style="font-size: 0.8rem; color: var(--text-dim);">An evidence pack, not a log export.</em></p>
       </div>
     </div>
@@ -453,26 +600,19 @@ image: /assets/img/mirastack-devops.png
   <div class="container">
     <div class="section__header reveal">
       <span class="label">included.with.the.factory</span>
-      <h2 class="reveal reveal--delay-1">You cannot govern what you cannot see</h2>
+      <h2 class="reveal reveal--delay-1">You can't govern what you can't see</h2>
     </div>
 
     <p class="reveal reveal--delay-2" style="max-width: 72ch; color: var(--text-muted);">
-      Every accountability claim MIRASTACK makes — every token accounted, every
-      action attributed, every approval evidenced, every routing decision replayable
-      — needs a telemetry substrate underneath it.
+      Every token accounted. Every action attributed. Every decision replayable.
+      All of it needs telemetry underneath.
     </p>
 
     <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted);">
-      So we built one. Metrics, logs, traces, profiles, and network and security
-      telemetry, collected by a single agent, stored in open formats you already know.
+      So we built it. It ships with the platform.
     </p>
 
-    <p class="reveal reveal--delay-4" style="max-width: 72ch; color: var(--text-muted);">
-      It is not a module we sell you. It is what the governance layer stands on.
-      Every MIRASTACK deployment ships with it.
-    </p>
-
-    <div class="foundation__tags reveal reveal--delay-5" style="margin-top: 2rem;">
+    <div class="foundation__tags reveal reveal--delay-4" style="margin-top: 2rem;">
       <span class="tag tag--accent">Metrics</span>
       <span class="tag tag--accent">Logs</span>
       <span class="tag tag--accent">Traces</span>
@@ -495,7 +635,7 @@ image: /assets/img/mirastack-devops.png
   <div class="container">
     <div class="section__header reveal">
       <span class="label">what.it.replaces</span>
-      <h2 class="reveal reveal--delay-1">The stack you are already paying for</h2>
+      <h2 class="reveal reveal--delay-1">The stack you're already paying for</h2>
     </div>
 
     <div class="reveal reveal--delay-2" style="margin-top: 2rem;">
@@ -512,11 +652,11 @@ image: /assets/img/mirastack-devops.png
             <td>Included</td>
           </tr>
           <tr>
-            <td>Log management vendor</td>
+            <td>Log management</td>
             <td>Included</td>
           </tr>
           <tr>
-            <td>APM / distributed tracing</td>
+            <td>APM and tracing</td>
             <td>Included</td>
           </tr>
           <tr>
@@ -524,7 +664,7 @@ image: /assets/img/mirastack-devops.png
             <td>Included</td>
           </tr>
           <tr>
-            <td>Dashboarding and alerting</td>
+            <td>Dashboards and alerting</td>
             <td>Included</td>
           </tr>
           <tr>
@@ -536,8 +676,7 @@ image: /assets/img/mirastack-devops.png
     </div>
 
     <p class="reveal reveal--delay-3" style="max-width: 72ch; color: var(--text-muted); margin-top: 2rem;">
-      We are not going to quote you a savings percentage. Open your current invoices
-      and do the arithmetic against your own numbers.
+      We won't quote you a savings percentage. Open your invoices.
     </p>
   </div>
 </section>

@@ -603,7 +603,6 @@ def info(self) -> PluginInfo:
     return PluginInfo(
         name="mirastack-plugin-my-agent",
         version="1.0.0",
-        # ... other fields ...
         prompt_templates=load_prompt_templates(),
     )
 ```
