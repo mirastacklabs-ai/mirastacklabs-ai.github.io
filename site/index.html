@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MIRASTACK LABS</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.mirastacklabs.ai/">
+<script>
+// This site moved to https://www.mirastacklabs.ai. Every address of the old site lands on its new home (same file as 404.html,
+// which GitHub Pages serves for every path that no longer exists). Old sections map to their successors; anything else keeps its path.
+(function () {
+  var p = location.pathname;
+  var map = [
+    [/^\/products\/mirastack(\/|$)/, "/ai-factory/operations/"],
+    [/^\/products\/(telegen|mirador-core)(\/|$)/, "/open-source/"],
+    [/^\/products\/?$/, "/ai-factory/"],
+    [/^\/docs(\/|$)/, "/open-source/"],
+    [/^\/blog(\/|$)/, "/blog/"],
+    [/^\/(index\.html)?$/, "/"]
+  ];
+  for (var i = 0; i < map.length; i++) { if (map[i][0].test(p)) { p = map[i][1]; break; } }
+  location.replace("https://www.mirastacklabs.ai" + p + location.search + location.hash);
+})();
+</script>
+<meta http-equiv="refresh" content="0; url=https://www.mirastacklabs.ai/">
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0a0a;color:#e6e6e6;font:16px/1.5 system-ui,sans-serif}a{color:#2bd4bf}</style>
+</head>
+<body>
+<p>MIRASTACK LABS has moved to <a href="https://www.mirastacklabs.ai/">www.mirastacklabs.ai</a>.</p>
+</body>
+</html>
